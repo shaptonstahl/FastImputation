@@ -1,0 +1,23 @@
+Setting Haptonstahl options.
+- CRAN mirror set: Berkeley
+- papersize="letter"
+- stringsAsFactors=FALSE
+Haptonstahl options set.
+
+* installing *source* package 'FastImputation' ...
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+Setting Haptonstahl options.
+- CRAN mirror set: Berkeley
+- papersize="letter"
+- stringsAsFactors=FALSE
+Haptonstahl options set.
+
+
+* DONE (FastImputation)
