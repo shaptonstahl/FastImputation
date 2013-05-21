@@ -1,21 +1,23 @@
-* using log directory 'C:/Documents and Settings/Steve/My Documents/Dropbox/FastImputation/dev/FastImputation.Rcheck'
-* using R version 2.15.0 (2012-03-30)
-* using platform: i386-pc-mingw32 (32-bit)
+* using log directory 'C:/Users/Steve/Documents/GitHub/FastImputation/dev/FastImputation.Rcheck'
+* using R version 3.0.1 (2013-05-16)
+* using platform: x86_64-w64-mingw32 (64-bit)
 * using session charset: ISO8859-1
 * checking for file 'FastImputation/DESCRIPTION' ... OK
 * checking extension type ... Package
-* this is package 'FastImputation' version '1.0'
+* this is package 'FastImputation' version '1.1'
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
 * checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
 * checking whether package 'FastImputation' can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking for portable file names ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
+* checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... OK
 * checking R files for non-ASCII characters ... OK

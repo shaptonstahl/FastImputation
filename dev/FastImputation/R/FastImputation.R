@@ -60,13 +60,16 @@ function(
     # Use formula for mean here: http://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     cols.to.impute <- which(is.na(constrained.row))    # indices of "1" in Wikipedia formula for mean of conditional multivariate normal distribution
     if( length(cols.to.impute) > 0 ) {
-      known.cols <- setdiff(1:n.cols, cols.to.impute)  # incides of "2" in Wikipedia formula for mean of conditional multivariate normal distribution
-      
-      replacement.values <- t(t(patterns$FI.means[cols.to.impute])) + 
-        patterns$FI.covariance[cols.to.impute,known.cols, drop=FALSE] %*% 
-        solve(a=patterns$FI.covariance[known.cols,known.cols], 
-          b=t(constrained.row[known.cols]) - t(t(patterns$FI.means[known.cols])))
-    
+      if( length(cols.to.impute) == constrained.row ) {
+        replacement.values <- patterns$FI.means
+      } else {
+        known.cols <- setdiff(1:n.cols, cols.to.impute)  # incides of "2" in Wikipedia formula for mean of conditional multivariate normal distribution
+        
+        replacement.values <- t(t(patterns$FI.means[cols.to.impute])) + 
+          patterns$FI.covariance[cols.to.impute,known.cols, drop=FALSE] %*% 
+          solve(a=patterns$FI.covariance[known.cols,known.cols], 
+                b=t(constrained.row[known.cols]) - t(t(patterns$FI.means[known.cols])))
+      }
       # Store replacement values (note that constraints are not yet applied)
       x[i.row,cols.to.impute] <- replacement.values ### PERHAPS ADD as.vector to RHS
     

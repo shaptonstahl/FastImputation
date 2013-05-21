@@ -1,9 +1,3 @@
-Setting Haptonstahl options.
-- CRAN mirror set: Berkeley
-- papersize="letter"
-- stringsAsFactors=FALSE
-Haptonstahl options set.
-
 * installing *source* package 'FastImputation' ...
 ** R
 ** data
@@ -13,11 +7,6 @@ Haptonstahl options set.
 *** installing help indices
 ** building package indices
 ** testing if installed package can be loaded
-Setting Haptonstahl options.
-- CRAN mirror set: Berkeley
-- papersize="letter"
-- stringsAsFactors=FALSE
-Haptonstahl options set.
-
-
+*** arch - i386
+*** arch - x64
 * DONE (FastImputation)

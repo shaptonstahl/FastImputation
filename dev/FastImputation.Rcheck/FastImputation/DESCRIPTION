@@ -1,8 +1,8 @@
 Package: FastImputation
 Type: Package
 Title: Learn from training data then quickly fill in missing data.
-Version: 1.0
-Date: 2012-04-08
+Version: 1.1
+Date: 2013-05-20
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
 Suggests: testthat
@@ -19,4 +19,5 @@ License: GPL (>= 2)
 Collate: 'FastImputation.R' 'TrainFastImputation.R' 'UnfactorColumns.R'
         'BoundNormalizedVariable.R' 'NormalizeBoundedVariable.R'
         'LimitToSet.R'
-Built: R 2.15.0; ; 2012-04-18 15:36:38 UTC; windows
+Packaged: 2013-05-21 01:42:51 UTC; Steve
+Built: R 3.0.1; ; 2013-05-21 01:48:30 UTC; windows

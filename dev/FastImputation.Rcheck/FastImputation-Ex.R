@@ -4,7 +4,7 @@ options(warn = 1)
 options(pager = "console")
 library('FastImputation')
 
-assign(".oldSearch", search(), pos = 'CheckExEnv')
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 cleanEx()
 nameEx("BoundNormalizedVariable")
 ### * BoundNormalizedVariable
@@ -119,7 +119,8 @@ patterns.with.constraints <- TrainFastImputation(
 
 ### * <FOOTER>
 ###
-cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
 grDevices::dev.off()
 ###
 ### Local variables: ***

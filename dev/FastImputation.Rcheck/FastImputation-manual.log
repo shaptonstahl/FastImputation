@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.4.9)  18 APR 2012 08:37
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2013.5.20)  20 MAY 2013 21:48
 entering extended mode
-**C:/DOCUME?1/Steve/LOCALS?1/Temp/RtmpEpbymk/Rd2pdf84428d96794/Rd2.tex
-(C:/DOCUME~1/Steve/LOCALS~1/Temp/RtmpEpbymk/Rd2pdf84428d96794/Rd2.tex
+**C:/Users/Steve/AppData/Local/Temp/Rtmpqe2l3U/Rd2pdf7b83eda18d9/Rd2.tex
+(C:/Users/Steve/AppData/Local/Temp/Rtmpqe2l3U/Rd2pdf7b83eda18d9/Rd2.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -14,9 +14,9 @@ romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
 sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
 senglishmax, welsh, loaded.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls"
+(c:\miktex\tex\latex\base\book.cls
 Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\bk10.clo"
+(c:\miktex\tex\latex\base\bk10.clo
 File: bk10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -32,13 +32,12 @@ File: bk10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(C:/R/R-215~1.0/share/texmf/tex/latex\Rd.sty
+(C:/R/R-30~1.1/share/texmf/tex/latex\Rd.sty
 Package: Rd 
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+(c:\miktex\tex\latex\base\ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+) (c:\miktex\tex\latex\tools\longtable.sty
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip43
 \LTright=\skip44
@@ -55,44 +54,40 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \c@LT@tables=\count91
 \c@LT@chunks=\count92
 \LT@p@ftn=\toks14
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\bm.sty"
+) (c:\miktex\tex\latex\tools\bm.sty
 Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup4
 \symboldletters=\mathgroup5
 \symboldsymbols=\mathgroup6
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
 LaTeX Info: Redefining \bm on input line 204.
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\alltt.sty"
+) (c:\miktex\tex\latex\base\alltt.sty
 Package: alltt 1997/06/16 v2.0g defines alltt environment
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
+(c:\miktex\tex\latex\tools\verbatim.sty
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks15
 \verbatim@line=\toks16
 \verbatim@in@stream=\read1
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+) (c:\miktex\tex\latex\ltxmisc\url.sty
 \Urlmuskip=\muskip10
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
 \ldescriptionwidth=\skip47
- NOT loading ae
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+
+NOT loading ae (c:\miktex\tex\latex\base\fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
+(c:\miktex\tex\latex\base\t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
-))
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\times.sty"
+)) (c:\miktex\tex\latex\psnfss\times.sty
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
-) NOT loading lmodern
-("C:\Program Files\MiKTeX 2.9\tex\latex\inconsolata\inconsolata.sty"
+)
+NOT loading lmodern (c:\miktex\tex\latex\inconsolata\inconsolata.sty
 Package: inconsolata 2009/11/28 Inconsolata
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+(c:\miktex\tex\latex\base\textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -106,8 +101,7 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+ (c:\miktex\tex\latex\base\ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
 LaTeX Info: Redefining \oldstylenums on input line 266.
@@ -173,36 +167,34 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+(c:\miktex\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks17
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+(c:\miktex\tex\latex\graphics\color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+ (c:\miktex\tex\latex\00miktex\color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+ (c:\miktex\tex\latex\pdftex-def\pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+(c:\miktex\tex\generic\oberdiek\infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
 )
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+(c:\miktex\tex\generic\oberdiek\ltxcmds.sty
 Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count93
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+(c:\miktex\tex\latex\hyperref\hyperref.sty
 Package: hyperref 2011/12/04 v6.82m Hypertext links for LaTeX
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+(c:\miktex\tex\generic\oberdiek\hobsub-hyperref.sty
 Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+(c:\miktex\tex\generic\oberdiek\hobsub-generic.sty
 Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -240,22 +232,22 @@ Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
 Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
 )
-("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+(c:\miktex\tex\generic\ifxetex\ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+(c:\miktex\tex\latex\oberdiek\kvoptions.sty
 Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
 )
 \@linkdim=\dimen104
 \Hy@linkcounter=\count94
 \Hy@pagecounter=\count95
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+(c:\miktex\tex\latex\hyperref\pd1enc.def
 File: pd1enc.def 2011/12/04 v6.82m Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count96
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+(c:\miktex\tex\latex\00miktex\hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4046.
@@ -287,12 +279,12 @@ LaTeX Info: Redefining \pageref on input line 5831.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+(c:\miktex\tex\latex\hyperref\hpdftex.def
 File: hpdftex.def 2011/12/04 v6.82m Hyperref driver for pdfTeX
 \Fld@listcount=\count102
 \c@bookmark@seq@number=\count103
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+(c:\miktex\tex\latex\oberdiek\rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
@@ -310,22 +302,19 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 
 Package hyperref Info: Option `linktocpage' set `true' on input line 356.
 Package hyperref Info: Option `plainpages' set `false' on input line 356.
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\makeidx.sty"
+) (c:\miktex\tex\latex\base\makeidx.sty
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+) (c:\miktex\tex\latex\base\inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+ (c:\miktex\tex\latex\base\t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -475,7 +464,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+(c:\miktex\tex\latex\base\ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -505,8 +494,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 )
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+ (c:\miktex\tex\latex\base\omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -522,7 +510,7 @@ Now handling font encoding U ...
 Now handling font encoding TS1 ...
 ... processing UTF-8 mapping file for font encoding TS1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1enc.dfu"
+(c:\miktex\tex\latex\base\ts1enc.dfu
 File: ts1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A2 (decimal 162)
    defining Unicode char U+00A3 (decimal 163)
@@ -606,14 +594,13 @@ Now handling font encoding PD1 ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\latin1.def"
+) (c:\miktex\tex\latex\base\latin1.def
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 ))
 \@indexfile=\write3
 
 Writing index file Rd2.idx
-(C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.aux)
+(C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
@@ -629,18 +616,17 @@ LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 8.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+(c:\miktex\tex\latex\base\ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 8.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
+ (c:\miktex\tex\latex\psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+(c:\miktex\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count104
 \scratchdimen=\dimen107
@@ -656,10 +642,10 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 \AtBeginShipoutBox=\box31
 Package hyperref Info: Link coloring ON on input line 8.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+ (c:\miktex\tex\latex\hyperref\nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+(c:\miktex\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count110
@@ -668,8 +654,8 @@ LaTeX Info: Redefining \ref on input line 8.
 LaTeX Info: Redefining \pageref on input line 8.
 LaTeX Info: Redefining \nameref on input line 8.
 
-(C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.out)
-(C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.out)
+(C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.out)
+(C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.out)
 \@outlinefile=\write4
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 9.
@@ -679,7 +665,7 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20.74> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 11.
 LaTeX Font Info:    Try loading font information for T1+fi4 on input line 21.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\inconsolata\t1fi4.fd"
+(c:\miktex\tex\latex\inconsolata\t1fi4.fd
 File: t1fi4.fd 2009/05/28 T1/Inconsolata
 )
 Overfull \hbox (190.23708pt too wide) in paragraph at lines 35--36
@@ -690,10 +676,10 @@ oundNormalizedVariable.R' 'NormalizeBoundedVariable.R''LimitToSet.R'
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 37.
 LaTeX Font Info:    Try loading font information for T1+phv on input line 37.
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
+(c:\miktex\tex\latex\psnfss\t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-(C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.toc
+(C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 1.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -701,19 +687,18 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 )
 \tf@toc=\write5
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ) [1
 
 
-{C:/Documents and Settings/All Users/Application Data/MiKTeX/2.9/pdftex/config/
-pdftex.map}]
+{C:/Users/Steve/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Overfull \hbox (26.38893pt too wide) in paragraph at lines 42--51
 \T1/fi4/m/n/10 NormalizeBoundedVariable\T1/ptm/m/n/10 ; this does not com-plete
 ly re-verse the ef-fect of \T1/fi4/m/n/10 NormalizeBoundedVariable
  []
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ) [2]
 Overfull \hbox (5.2885pt too wide) in paragraph at lines 106--109
@@ -721,19 +706,16 @@ Overfull \hbox (5.2885pt too wide) in paragraph at lines 106--109
 by \T1/fi4/m/n/10 TrainFastImputation\T1/ptm/m/n/10 . 
  []
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [3]
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
-File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [4]
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
-File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [5]
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+) [3] (c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+[4] (c:\miktex\tex\latex\base\utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [5] (c:\miktex\tex\latex\base\utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) (c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ) [6]
 Overfull \hbox (92.9486pt too wide) in paragraph at lines 354--357
@@ -743,23 +725,23 @@ T1/ptm/m/n/10 is trans-formed to \T1/fi4/m/n/10 qnorm((x-lower)/(upper - lower)
 )\T1/ptm/m/n/10 . 
  []
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [7]
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+) [7] (c:\miktex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [8]
-(C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.ind [9]
+)
+[8] (C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.ind
+[9]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 3.
-
-[10
+ [10
 
 
 ])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 459.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 459.
- (C:\DOCUME~1\Steve\LOCALS~1\Temp\RtmpEpbymk\Rd2pdf84428d96794\Rd2.aux)
+
+(C:\Users\Steve\AppData\Local\Temp\Rtmpqe2l3U\Rd2pdf7b83eda18d9\Rd2.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 459.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 459.
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
@@ -767,21 +749,19 @@ Package rerunfilecheck Info: File `Rd2.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  6253 strings out of 494045
- 89347 string characters out of 3148334
+ 87268 string characters out of 3155641
  167118 words of memory out of 3000000
  9322 multiletter control sequences out of 15000+200000
  40684 words of font info for 49 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 38i,5n,34p,279b,554s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Program File
-s/MiKTeX 2.9/fonts/enc/dvips/inconsolata/fi4-ec.enc}<C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/inconsolata/Inconsolata.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
-e1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/u
-tmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (10 pages, 115295 bytes).
+ 38i,5n,34p,281b,554s stack positions out of 5000i,500n,10000p,200000b,50000s
+{c:/miktex/fonts/enc/dvips/fontname/8r.enc}{c:/miktex/fonts/enc/dvips/inconso
+lata/fi4-ec.enc}<c:/miktex/fonts/type1/public/inconsolata/Inconsolata.pfb><c:/m
+iktex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/miktex/fonts/type1/urw/helv
+etic/uhvr8a.pfb><c:/miktex/fonts/type1/urw/times/utmb8a.pfb><c:/miktex/fonts/ty
+pe1/urw/times/utmr8a.pfb><c:/miktex/fonts/type1/urw/times/utmr8a.pfb><c:/miktex
+/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (10 pages, 115546 bytes).
 PDF statistics:
  267 PDF objects out of 1000 (max. 8388607)
  116 named destinations out of 1000 (max. 500000)

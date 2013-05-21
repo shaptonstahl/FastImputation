@@ -3,7 +3,7 @@ BoundNormalizedVariable
                         back to a bounded variable.
 FItest                  Fraud Imputation Test Data
 FItrain                 Fraud Training Data
-FItrue                  Fraud Training Data
+FItrue                  Fraud "True" Data
 FastImputation          Use the pattern learned from the training data
                         to impute (fill in good guesses for) missing
                         values.

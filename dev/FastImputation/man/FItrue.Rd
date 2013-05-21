@@ -2,7 +2,7 @@
 \docType{data}
 \alias{FItrue}
 
-\title{Fraud Training Data}
+\title{Fraud "True" Data}
 
 \description{Complete observations of Web financial transactions.  
 Used to gauge the accuracy of imputation of FItest.}
