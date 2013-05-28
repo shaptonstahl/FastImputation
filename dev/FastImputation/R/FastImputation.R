@@ -49,18 +49,20 @@ function(
   for(i.row in 1:n.rows) {
     # Transform present data if constrained to an interval
     constrained.row <- x[i.row,]
-    for(i in patterns$FI.cols.bound.to.intervals) {
-      if( !is.na(constrained.row[i]) ) {
-        constrained.row[i] <- NormalizeBoundedVariable(
-          x=constrained.row[i],
-          constraints=patterns$FI.constraints[[i]])
-      } 
+    if( sum(!is.na(constrained.row)) != 0 ) {
+      for(i in patterns$FI.cols.bound.to.intervals) {
+        if( !is.na(constrained.row[i]) ) {
+          constrained.row[i] <- NormalizeBoundedVariable(
+            x=constrained.row[i],
+            constraints=patterns$FI.constraints[[i]])
+        } 
+      }
     }
   
     # Use formula for mean here: http://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     cols.to.impute <- which(is.na(constrained.row))    # indices of "1" in Wikipedia formula for mean of conditional multivariate normal distribution
     if( length(cols.to.impute) > 0 ) {
-      if( length(cols.to.impute) == constrained.row ) {
+      if( length(cols.to.impute) == length(constrained.row) ) {
         replacement.values <- patterns$FI.means
       } else {
         known.cols <- setdiff(1:n.cols, cols.to.impute)  # incides of "2" in Wikipedia formula for mean of conditional multivariate normal distribution

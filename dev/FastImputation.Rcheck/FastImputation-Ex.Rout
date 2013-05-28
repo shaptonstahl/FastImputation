@@ -95,23 +95,7 @@ Type 'q()' to quit R.
 10009                     13
 10010                      9
 > imputed.data <- FastImputation(FItest, patterns)
-  |                                                                              |                                                                      |   0%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |=====================                                                 |  30%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |==========================================                            |  60%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |=================================================                     |  70%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |========================================================              |  80%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |===============================================================       |  90%Warning in if (length(cols.to.impute) == constrained.row) { :
-  the condition has length > 1 and only the first element will be used
-  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
 
 > imputed.data    # good guesses for missing values are filled in
       cust.id order.id is.fraud customer.age.yrs spent.days.0to2
@@ -225,7 +209,7 @@ Type 'q()' to quit R.
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.4 0.03 0.44 NA NA 
+Time elapsed:  0.26 0.02 0.28 NA NA 
 > grDevices::dev.off()
 null device 
           1 

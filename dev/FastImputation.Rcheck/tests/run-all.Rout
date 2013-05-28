@@ -25,4 +25,4 @@ NormalizeBoundedVariable : ...................
 > 
 > proc.time()
    user  system elapsed 
-   0.43    0.03    0.45 
+   0.28    0.01    0.28 
