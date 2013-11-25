@@ -1,0 +1,16 @@
+{
+    "contents" : "library(clusterGeneration)\nlibrary(mvtnorm)\nlibrary(plyr)\n\nn.vars <- 5\nn.obs <- 1e3\nfrac.missing <- .5\n\ncov.true <- genPositiveDefMat(n.vars)$Sigma\nx <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)\ncov.full <- var(x)\n\nx.w.missing <- x\nx.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))] <- NA\nmean(is.na(x.w.missing))  # should be frac.missing\n\ncov.default <- var(x.w.missing, na.rm=TRUE)\ncov.new <- CovarianceWithMissing(x.w.missing)\n\ncov.full\ncov.default\ncov.new\n\nMeanRelativeError <- function(est, base) mean(abs((est-base)/base))\nMedianRelativeError <- function(est, base) median(abs((est-base)/base))\n\nMeanRelativeError(cov.default, cov.full)\nMeanRelativeError(cov.new, cov.full)\n\n##  Plot performance as missingness increases\nfrac.missing <- seq(.05, .95, .05)\nn.vars <- 5\nn.obs <- 1e3\nn.trials <- 1e2\n\nDoTrial <- function(frac.missing, n.obs, n.vars) {\n  cov.true <- genPositiveDefMat(n.vars)$Sigma\n  x <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)\n  cov.full <- var(x)\n  x.w.missing <- x\n  x.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * fm))] <- NA\n  mre.default <- MedianRelativeError(var(x.w.missing, na.rm=TRUE), cov.full)\n  mre.new <- MedianRelativeError(CovarianceWithMissing(x.w.missing), cov.full)\n  out <- c(mre.default, mre.new)\n  names(out) <- c(\"mre.default\", \"mre.new\")\n  return(out)\n}\n\nmres <- laply(frac.missing, function(fm) {\n  cat(\"Calculating for fraction missing:\", fm, \"\\n\")\n  colMeans(laply(1:n.trials, function(i) DoTrial(fm, n.obs, n.vars)))\n})\n\nplot(frac.missing, mres[,1],\n     xlim=c(0,1), ylim=c(0, 5),\n     lty=2, type=\"l\",\n     main=\"Relative error for covariance estimates\")\nlines(frac.missing, mres[,2])\n",
+    "created" : 1385147491337.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2891939067",
+    "id" : "A460466B",
+    "lastKnownWriteTime" : 1385255261,
+    "path" : "~/GitHub/FastImputation/Test CovWithMissing.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

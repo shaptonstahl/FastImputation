@@ -1,0 +1,15 @@
+{
+    "contents" : "Package: FastImputation\nType: Package\nTitle: Learn from training data then quickly fill in missing data.\nVersion: 1.2\nDate: 2013-11-22\nAuthor: Stephen R. Haptonstahl\nMaintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>\nSuggests:\n    testthat\nDescription: TrainFastImputation uses training data to describe a\n    multivariate normal distribution that the data approximates or\n    can be transformed into approximating and stores this information\n    as an object of class FastImputationPatterns. The FastImputation\n    function uses this FastImputationPatterns object to impute (make\n    a good guess at) missing data in a single line or a whole dataframe\n    of data.  This approximates the process used by Amelia\n    [http://gking.harvard.edu/amelia/] but is much faster when\n    filling in values for a single line of data.\nLicense: GPL (>= 2)\nCollate:\n    'FastImputation.R'\n    'TrainFastImputation.R'\n    'UnfactorColumns.R'\n    'BoundNormalizedVariable.R'\n    'NormalizeBoundedVariable.R'\n    'LimitToSet.R'\n    'CovarianceWithMissing.R'\n",
+    "created" : 1385142269197.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1632577869",
+    "id" : "75B091F4",
+    "lastKnownWriteTime" : 1385343862,
+    "path" : "~/GitHub/FastImputation/dev/FastImputation/DESCRIPTION",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "dcf"
+}

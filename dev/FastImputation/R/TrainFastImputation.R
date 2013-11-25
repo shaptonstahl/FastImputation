@@ -74,7 +74,7 @@ function(
   }
   
   FastImputationMeans <- colMeans(x, na.rm=TRUE)
-  FastImputationCovariance <- cov(x, use="complete.obs")
+  FastImputationCovariance <- CovarianceWithMissing(x)
   
   patterns <- list(FI.means=FastImputationMeans, 
     FI.covariance=FastImputationCovariance, 
