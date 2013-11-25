@@ -38,9 +38,9 @@ DoTrial <- function(frac.missing, n.obs, n.vars) {
   x <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)
   cov.full <- var(x)
   x.w.missing <- x
-  x.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * fm))] <- NA
-  mre.default <- MedianRelativeError(var(x.w.missing, na.rm=TRUE), cov.full)
-  mre.new <- MedianRelativeError(CovarianceWithMissing(x.w.missing), cov.full)
+  x.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))] <- NA
+  mre.default <- MeanRelativeError(var(x.w.missing, na.rm=TRUE), cov.full)
+  mre.new <- MeanRelativeError(CovarianceWithMissing(x.w.missing), cov.full)
   out <- c(mre.default, mre.new)
   names(out) <- c("mre.default", "mre.new")
   return(out)
@@ -56,6 +56,18 @@ plot(frac.missing, mres[,1],
      lty=2, type="l",
      main="Relative error for covariance estimates")
 lines(frac.missing, mres[,2])
+
+##############################################
+###  Plot distribution of relative errors  ###
+##############################################
+
+rel.errors <- raply(1e3, DoTrial(.5, n.obs, n.vars))
+plot(density(rel.errors[,1]), xlim=c(0,5), ylim=c(0,3))
+lines(density(rel.errors[,2]))
+
+new.beats.old <- rel.errors[,1] - rel.errors[,2]
+plot(density(new.beats.old))
+mean(new.beats.old > 0)
 
 ###################################################
 ###  Generate test data for testing in package  ###
