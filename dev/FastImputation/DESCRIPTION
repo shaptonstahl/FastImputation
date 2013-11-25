@@ -2,7 +2,7 @@ Package: FastImputation
 Type: Package
 Title: Learn from training data then quickly fill in missing data.
 Version: 1.2
-Date: 2013-11-22
+Date: 2013-11-25
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
 Suggests:

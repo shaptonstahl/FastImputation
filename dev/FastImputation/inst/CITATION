@@ -18,3 +18,16 @@ citEntry(entry = "Article",
         "Journal of Statistical Software, 45(7), 1-47.",
         "URL http://www.jstatsoft.org/v45/i07/.")
 )
+
+citEntry(entry = "Misc",
+  title        = "High-dimensional covariance matrix estimation with missing observations",
+  author       = personList(as.person("Karim Lounici")),
+  year         = "2012",
+  pages        = "1--23",
+  url          = "http://arxiv.org/abs/1201.2577",
+
+  textVersion  =
+  paste("Karim Lounici (2012).",
+        "High-dimensional covariance matrix estimation with missing observations.",
+        "URL http://arxiv.org/abs/1201.2577")
+)

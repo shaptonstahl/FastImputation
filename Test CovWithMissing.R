@@ -56,3 +56,16 @@ plot(frac.missing, mres[,1],
      lty=2, type="l",
      main="Relative error for covariance estimates")
 lines(frac.missing, mres[,2])
+
+###################################################
+###  Generate test data for testing in package  ###
+###################################################
+
+n.vars <- 5
+n.obs <- 1e3
+frac.missing <- .5
+miss <- sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))
+
+cov.true <- genPositiveDefMat(n.vars)$Sigma
+x.full <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)
+dump(c("miss", "x.full"))

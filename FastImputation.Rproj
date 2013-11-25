@@ -15,4 +15,4 @@ LaTeX: pdfLaTeX
 BuildType: Package
 PackagePath: dev/FastImputation
 PackageInstallArgs: --no-multiarch
-PackageRoxygenize: rd,collate
+PackageRoxygenize: rd,collate,namespace
