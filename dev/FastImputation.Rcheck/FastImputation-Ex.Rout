@@ -1,0 +1,221 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "FastImputation"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> library('FastImputation')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BoundNormalizedVariable")
+> ### * BoundNormalizedVariable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BoundNormalizedVariable
+> ### Title: Take a normalized variable and transform it back to a bounded
+> ###   variable.
+> ### Aliases: BoundNormalizedVariable
+> 
+> ### ** Examples
+> 
+> constraints=list(lower=5)           # lower bound when constrining to an interval
+>   constraints=list(upper=10)          # upper bound when constraining to an interval
+>   constraints=list(lower=5, upper=10) # both lower and upper bounds
+> 
+> 
+> 
+> cleanEx()
+> nameEx("FastImputation")
+> ### * FastImputation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: FastImputation
+> ### Title: Use the pattern learned from the training data to impute (fill
+> ###   in good guesses for) missing values.
+> ### Aliases: FastImputation
+> 
+> ### ** Examples
+> 
+> data(FItrain)   # provides FItrain dataset
+> patterns <- TrainFastImputation(FItrain)
+> 
+> data(FItest)
+> FItest          # note there is missing data
+      cust.id order.id is.fraud customer.age.yrs spent.days.0to2
+10001    2376    10001        1         13.27703              NA
+10002    2376    10002        1         26.86879            7.95
+10003    2376    10003        0         13.29263            0.08
+10004    2376    10004        1               NA            0.00
+10005    2376    10005        1         20.76693            0.45
+10006    2376    10006        0         20.83466            0.00
+10007    2377    10007        1         17.84906            1.32
+10008    2198    10008        0         16.92020            1.33
+10009    2378    10009        0         17.38457          205.00
+10010    2378    10010        0         17.70023              NA
+      spent.days.3to10 spent.days.11to30 geo.ip.fraud.rate account.age.days
+10001             0.00              0.00         0.7535829              305
+10002             0.24              1.71         0.4094864              193
+10003               NA              0.01                NA              249
+10004             0.00              5.30                NA              112
+10005             0.99              0.09         0.6869650              184
+10006             0.01                NA         0.7327991              379
+10007             0.00                NA         0.5197101               99
+10008             6.21                NA         0.5414169              119
+10009               NA              4.79         0.8924136               NA
+10010             1.83              2.24                NA               NA
+      days.to.first.purchase
+10001                    332
+10002                      8
+10003                     48
+10004                     45
+10005                     64
+10006                      5
+10007                      1
+10008                     NA
+10009                     13
+10010                      9
+> imputed.data <- FastImputation(FItest, patterns)
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
+
+> imputed.data    # good guesses for missing values are filled in
+      cust.id order.id is.fraud customer.age.yrs spent.days.0to2
+10001    2376    10001        1         13.27703             NaN
+10002    2376    10002        1         26.86879            7.95
+10003    2376    10003        0         13.29263            0.08
+10004    2376    10004        1              NaN            0.00
+10005    2376    10005        1         20.76693            0.45
+10006    2376    10006        0         20.83466            0.00
+10007    2377    10007        1         17.84906            1.32
+10008    2198    10008        0         16.92020            1.33
+10009    2378    10009        0         17.38457          205.00
+10010    2378    10010        0         17.70023             NaN
+      spent.days.3to10 spent.days.11to30 geo.ip.fraud.rate account.age.days
+10001             0.00              0.00         0.7535829              305
+10002             0.24              1.71         0.4094864              193
+10003              NaN              0.01               NaN              249
+10004             0.00              5.30               NaN              112
+10005             0.99              0.09         0.6869650              184
+10006             0.01               NaN         0.7327991              379
+10007             0.00               NaN         0.5197101               99
+10008             6.21               NaN         0.5414169              119
+10009              NaN              4.79         0.8924136              NaN
+10010             1.83              2.24               NaN              NaN
+      days.to.first.purchase
+10001                    332
+10002                      8
+10003                     48
+10004                     45
+10005                     64
+10006                      5
+10007                      1
+10008                    NaN
+10009                     13
+10010                      9
+> 
+> data(FItrue)
+> imputation.rmse <- sqrt(sum( (imputed.data - FItrue)^2 )/sum(is.na(FItest)))
+> imputation.rmse
+[1] NaN
+> 
+> 
+> 
+> cleanEx()
+> nameEx("LimitToSet")
+> ### * LimitToSet
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LimitToSet
+> ### Title: Coerce numeric values into a given set.
+> ### Aliases: LimitToSet
+> 
+> ### ** Examples
+> 
+> x <- runif(100, min=0, max=10)
+> y <- LimitToSet(x, set=c(1:10))
+> plot(x, y)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("NormalizeBoundedVariable")
+> ### * NormalizeBoundedVariable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: NormalizeBoundedVariable
+> ### Title: Take a variable bounded above/below/both and return an unbounded
+> ###   (normalized) variable.
+> ### Aliases: NormalizeBoundedVariable
+> 
+> ### ** Examples
+> 
+> constraints=list(lower=5)           # lower bound when constrining to an interval
+>   constraints=list(upper=10)          # upper bound when constraining to an interval
+>   constraints=list(lower=5, upper=10) # both lower and upper bounds
+> 
+> 
+> 
+> cleanEx()
+> nameEx("TrainFastImputation")
+> ### * TrainFastImputation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: TrainFastImputation
+> ### Title: Learn from the training data so that later you can fill in
+> ###   missing data
+> ### Aliases: TrainFastImputation
+> 
+> ### ** Examples
+> 
+> data(FItrain)   # provides FItrain dataset
+> patterns <- TrainFastImputation(FItrain)
+> 
+> patterns.with.constraints <- TrainFastImputation(
++   FItrain,
++   constraints=list(list(1, list(set=0:1)),
++                    list(2, list(lower=0)),
++                    list(3, list(lower=0)),
++                    list(4, list(lower=0)),
++                    list(5, list(lower=0)),
++                    list(6, list(lower=0, upper=1)),
++                    list(7, list(lower=0)),
++                    list(8, list(lower=0))))
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.09 0 1.09 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
