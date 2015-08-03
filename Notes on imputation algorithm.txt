@@ -1,0 +1,37 @@
+Notes on imputation algorithm
+
+
+One approach:
+1. Make numeric by using dummies for binary/categorical/ordinal variables (save values for each dummy)
+2. Make normally distributed via transformations (save inverse transformation parameters)
+3. Center (save means) (necessary?)
+4. Calculate covariance using Lounici (already includes centering)
+5. Impute using covariance and conditional
+
+To do here: check to see how #1 and #2 work.
+
+To test: Can we get a better estimate of the covariance this way?
+1. Estimate covariance using Lounici
+2. Impute data
+3. Calculate covariance on filled matrix
+4. Repeat #2-#3
+
+This works on a stream in batches.  Can we adapt to running on a stream only looking at one new value?  How about
+
+  New cov = (old cov * (n-1) + outer product centered new observation * 1) / n
+
+or batching with k new observations
+
+  New cov = (old cov * (n - k) + outer product centered new observations * k) / n
+
+Note n can be set arbitrarily to give weight to previous observations.
+
+To test: streaming covariance calculation (with no missing data)
+
+Now can we stream imputation and covariance calculation?
+
+1. Let n observations accumulate
+2. Calculate cov using Lounici
+3. Impute next k observations
+4. Generate new covariance using streaming process detailed above
+5. Repeat #3-#4
