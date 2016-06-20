@@ -1,7 +1,7 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-w64-mingw32/x64 (64-bit)
+R version 3.2.4 (2016-03-10) -- "Very Secure Dishes"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -20,7 +20,6 @@ Type 'q()' to quit R.
 > pkgname <- "FastImputation"
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
-> options(pager = "console")
 > library('FastImputation')
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -37,7 +36,7 @@ Type 'q()' to quit R.
 > 
 > ### ** Examples
 > 
-> constraints=list(lower=5)           # lower bound when constrining to an interval
+>   constraints=list(lower=5)           # lower bound when constrining to an interval
 >   constraints=list(upper=10)          # upper bound when constraining to an interval
 >   constraints=list(lower=5, upper=10) # both lower and upper bounds
 > 
@@ -99,43 +98,43 @@ Type 'q()' to quit R.
 
 > imputed.data    # good guesses for missing values are filled in
       cust.id order.id is.fraud customer.age.yrs spent.days.0to2
-10001    2376    10001        1         13.27703             NaN
-10002    2376    10002        1         26.86879            7.95
-10003    2376    10003        0         13.29263            0.08
-10004    2376    10004        1              NaN            0.00
-10005    2376    10005        1         20.76693            0.45
-10006    2376    10006        0         20.83466            0.00
-10007    2377    10007        1         17.84906            1.32
-10008    2198    10008        0         16.92020            1.33
-10009    2378    10009        0         17.38457          205.00
-10010    2378    10010        0         17.70023             NaN
+10001    2376    10001        1         13.27703        330.1262
+10002    2376    10002        1         26.86879          7.9500
+10003    2376    10003        0         13.29263          0.0800
+10004    2376    10004        1         21.16372          0.0000
+10005    2376    10005        1         20.76693          0.4500
+10006    2376    10006        0         20.83466          0.0000
+10007    2377    10007        1         17.84906          1.3200
+10008    2198    10008        0         16.92020          1.3300
+10009    2378    10009        0         17.38457        205.0000
+10010    2378    10010        0         17.70023        425.1617
       spent.days.3to10 spent.days.11to30 geo.ip.fraud.rate account.age.days
-10001             0.00              0.00         0.7535829              305
-10002             0.24              1.71         0.4094864              193
-10003              NaN              0.01               NaN              249
-10004             0.00              5.30               NaN              112
-10005             0.99              0.09         0.6869650              184
-10006             0.01               NaN         0.7327991              379
-10007             0.00               NaN         0.5197101               99
-10008             6.21               NaN         0.5414169              119
-10009              NaN              4.79         0.8924136              NaN
-10010             1.83              2.24               NaN              NaN
+10001            0.000             0.000         0.7535829         305.0000
+10002            0.240             1.710         0.4094864         193.0000
+10003         1161.050             0.010         0.6019283         249.0000
+10004            0.000             5.300         0.5979637         112.0000
+10005            0.990             0.090         0.6869650         184.0000
+10006            0.010          1936.107         0.7327991         379.0000
+10007            0.000          4063.162         0.5197101          99.0000
+10008            6.210          1660.261         0.5414169         119.0000
+10009         1580.995             4.790         0.8924136         251.5110
+10010            1.830             2.240         0.5921393         294.5867
       days.to.first.purchase
-10001                    332
-10002                      8
-10003                     48
-10004                     45
-10005                     64
-10006                      5
-10007                      1
-10008                    NaN
-10009                     13
-10010                      9
+10001              332.00000
+10002                8.00000
+10003               48.00000
+10004               45.00000
+10005               64.00000
+10006                5.00000
+10007                1.00000
+10008               66.00904
+10009               13.00000
+10010                9.00000
 > 
 > data(FItrue)
 > imputation.rmse <- sqrt(sum( (imputed.data - FItrue)^2 )/sum(is.na(FItest)))
 > imputation.rmse
-[1] NaN
+[1] 1771.127
 > 
 > 
 > 
@@ -157,6 +156,7 @@ Type 'q()' to quit R.
 > 
 > 
 > 
+> 
 > cleanEx()
 > nameEx("NormalizeBoundedVariable")
 > ### * NormalizeBoundedVariable
@@ -170,7 +170,7 @@ Type 'q()' to quit R.
 > 
 > ### ** Examples
 > 
-> constraints=list(lower=5)           # lower bound when constrining to an interval
+>   constraints=list(lower=5)           # lower bound when constrining to an interval
 >   constraints=list(upper=10)          # upper bound when constraining to an interval
 >   constraints=list(lower=5, upper=10) # both lower and upper bounds
 > 
@@ -188,6 +188,7 @@ Type 'q()' to quit R.
 > ### Aliases: TrainFastImputation
 > 
 > ### ** Examples
+> 
 > 
 > data(FItrain)   # provides FItrain dataset
 > patterns <- TrainFastImputation(FItrain)
@@ -209,7 +210,7 @@ Type 'q()' to quit R.
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.09 0 1.09 NA NA 
+Time elapsed:  0.554 0.026 0.598 0 0 
 > grDevices::dev.off()
 null device 
           1 

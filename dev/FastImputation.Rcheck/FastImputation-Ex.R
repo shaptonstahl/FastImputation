@@ -1,7 +1,6 @@
 pkgname <- "FastImputation"
 source(file.path(R.home("share"), "R", "examples-header.R"))
 options(warn = 1)
-options(pager = "console")
 library('FastImputation')
 
 base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -18,7 +17,7 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-constraints=list(lower=5)           # lower bound when constrining to an interval
+  constraints=list(lower=5)           # lower bound when constrining to an interval
   constraints=list(upper=10)          # upper bound when constraining to an interval
   constraints=list(lower=5, upper=10) # both lower and upper bounds
 
@@ -69,6 +68,7 @@ plot(x, y)
 
 
 
+
 cleanEx()
 nameEx("NormalizeBoundedVariable")
 ### * NormalizeBoundedVariable
@@ -82,7 +82,7 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-constraints=list(lower=5)           # lower bound when constrining to an interval
+  constraints=list(lower=5)           # lower bound when constrining to an interval
   constraints=list(upper=10)          # upper bound when constraining to an interval
   constraints=list(lower=5, upper=10) # both lower and upper bounds
 
@@ -100,6 +100,7 @@ flush(stderr()); flush(stdout())
 ### Aliases: TrainFastImputation
 
 ### ** Examples
+
 
 data(FItrain)   # provides FItrain dataset
 patterns <- TrainFastImputation(FItrain)

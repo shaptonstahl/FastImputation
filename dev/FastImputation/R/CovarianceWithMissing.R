@@ -20,7 +20,7 @@ CovarianceWithMissing <- function(x) {
   p <- nrow(x)  # number of variables
   
   # perform the function
-  delta <- mean(is.na(x))
+  delta <- mean(!is.na(x))
   y <- sweep(x, 1, rowMeans(x, na.rm=TRUE))
   y[is.na(y)] <- 0
   

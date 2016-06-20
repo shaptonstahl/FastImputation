@@ -1,7 +1,7 @@
 #' Estimate covariance when data is missing
 #'
 #' Ignoring missing values can lead to biased estimates of the covariance.
-#' Lounici (2012) gives an unbiases estimator when the data has missing values.
+#' Lounici (2012) gives an unbiased estimator when the data has missing values.
 #' 
 #' @param x matrix or data.frame, data with each row an observation and each column a variable.
 #' @return matrix, unbiased estimate of the covariance.
@@ -20,7 +20,7 @@ CovarianceWithMissing <- function(x) {
   p <- nrow(x)  # number of variables
   
   # perform the function
-  delta <- mean(is.na(x))
+  delta <- mean(!is.na(x))
   y <- sweep(x, 1, rowMeans(x, na.rm=TRUE))
   y[is.na(y)] <- 0
   

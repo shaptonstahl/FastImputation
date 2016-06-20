@@ -1,8 +1,8 @@
 Package: FastImputation
 Type: Package
 Title: Learn from training data then quickly fill in missing data.
-Version: 1.2
-Date: 2013-11-25
+Version: 1.2.1
+Date: 2016-06-20
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
 Suggests:
@@ -25,3 +25,4 @@ Collate:
     'NormalizeBoundedVariable.R'
     'LimitToSet.R'
     'CovarianceWithMissing.R'
+RoxygenNote: 5.0.1
