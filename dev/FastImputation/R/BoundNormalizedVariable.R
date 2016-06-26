@@ -44,7 +44,7 @@ function(x,
     out <- exp(x) + constraints$lower
   } else {
     # bounded above and below
-    out <- pnorm(x) * (constraints$upper-constraints$lower) + constraints$lower
+    out <- stats::pnorm(x) * (constraints$upper-constraints$lower) + constraints$lower
   }
   if( was.data.frame ) {
     out <- as.data.frame(out)

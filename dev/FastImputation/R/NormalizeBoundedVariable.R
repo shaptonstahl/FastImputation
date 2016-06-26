@@ -36,7 +36,7 @@
 NormalizeBoundedVariable <- 
 function(x, 
   constraints,
-  tol=pnorm(-5),
+  tol=stats::pnorm(-5),
   trim=TRUE
 ) {
   if( is.null(constraints$lower) ) constraints$lower <- -Inf
@@ -65,6 +65,6 @@ function(x,
     return( log(x - constraints$lower) )
   } else {
     # bounded above and below
-    return( qnorm((x-constraints$lower)/(constraints$upper-constraints$lower)) )
+    return( stats::qnorm((x-constraints$lower)/(constraints$upper-constraints$lower)) )
   }
 }

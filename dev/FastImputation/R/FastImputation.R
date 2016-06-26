@@ -44,7 +44,7 @@ function(
   n.cols <- length(patterns$FI.means)
   n.rows <- nrow(x)
   
-  if(verbose) pb <- txtProgressBar(style=3)
+  if(verbose) pb <- utils::txtProgressBar(style=3)
   
   for(i.row in 1:n.rows) {
     # Transform present data if constrained to an interval
@@ -87,7 +87,7 @@ function(
         x[i.row, i] <- LimitToSet(x[i.row, i], set=patterns$FI.constraints[[i]]$set)
       }
     }
-    if(verbose) setTxtProgressBar(pb, i.row/n.rows)
+    if(verbose) utils::setTxtProgressBar(pb, i.row/n.rows)
   }
   if(verbose) { 
     close(pb)
