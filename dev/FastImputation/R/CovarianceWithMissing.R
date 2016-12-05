@@ -14,7 +14,7 @@ CovarianceWithMissing <- function(x) {
   # Guardians
   stopifnot(methods::is(x, "matrix") | (methods::is(x, "data.frame") && is.numeric(as.matrix(x))))
   
-  delta <- mean(is.na(x))
+  delta <- mean(!is.na(x))
   if( 0 == delta ) {
     out <- stats::cov(x)
   } else {
