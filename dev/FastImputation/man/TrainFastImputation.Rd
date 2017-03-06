@@ -36,13 +36,12 @@ patterns.with.constraints <- TrainFastImputation(
                    list(7, list(lower=0)),
                    list(8, list(lower=0))))
 }
-\author{
-Stephen R. Haptonstahl \email{srh@haptonstahl.org}
-}
 \references{
 \url{http://gking.harvard.edu/amelia/}
 }
 \seealso{
 \code{\link{FastImputation}}
 }
-
+\author{
+Stephen R. Haptonstahl \email{srh@haptonstahl.org}
+}

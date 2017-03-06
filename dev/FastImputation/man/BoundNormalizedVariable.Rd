@@ -30,4 +30,3 @@ first forces values away from the bounds, and this information is lost.
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
-

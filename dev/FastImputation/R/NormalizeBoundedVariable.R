@@ -47,7 +47,10 @@ function(x,
     x <- pmin(x, constraints$upper)
   } else {
     if( min(x) < constraints$lower ) stop("All values in x must be greater than or equal to the lower bound.")
-    if( max(x) < constraints$upper ) stop("All values in x must be less than or equal to the upper bound.")
+    if( max(x) > constraints$upper ) stop("All values in x must be less than or equal to the upper bound.")
+  }
+  if( is.finite(constraints$lower) & is.finite(constraints$upper) & tol > (constraints$upper - constraints$lower)/2) {
+    stop("'tol' must be less than half the distance between upper and lower bounds.")
   }
   
   # force values away from boundaries

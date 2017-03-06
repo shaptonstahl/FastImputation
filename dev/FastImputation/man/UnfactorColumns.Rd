@@ -18,4 +18,3 @@ Convert columns of a dataframe from factors to character or numeric.
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
-

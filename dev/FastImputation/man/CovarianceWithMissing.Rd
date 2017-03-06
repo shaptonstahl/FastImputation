@@ -16,11 +16,10 @@ matrix, unbiased estimate of the covariance.
 Ignoring missing values can lead to biased estimates of the covariance.
 Lounici (2012) gives an unbiased estimator when the data has missing values.
 }
-\author{
-Stephen R. Haptonstahl \email{srh@haptonstahl.org}
-}
 \references{
 High-dimensional covariance matrix estimation with missing observations.
 Karim Lounici. 2012.
 }
-
+\author{
+Stephen R. Haptonstahl \email{srh@haptonstahl.org}
+}

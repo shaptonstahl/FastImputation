@@ -28,4 +28,3 @@ plot(x, y)
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
-

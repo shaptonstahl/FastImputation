@@ -50,4 +50,3 @@ The inverse of the standard normal cumulative distribution function
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
-

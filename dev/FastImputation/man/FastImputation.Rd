@@ -14,8 +14,7 @@ FastImputation(x, patterns, verbose = TRUE)
 \item{verbose}{If TRUE then the progress in imputing the data will be shown.}
 }
 \value{
-An object of class 'FastImputationPatterns' that contains
-  information needed later to impute on a single row.
+x, but with missing values filled in (imputed)
 }
 \description{
 Like Amelia, FastImputation assumes that the columns of the data are
@@ -35,13 +34,12 @@ data(FItrue)
 imputation.rmse <- sqrt(sum( (imputed.data - FItrue)^2 )/sum(is.na(FItest)))
 imputation.rmse
 }
-\author{
-Stephen R. Haptonstahl \email{srh@haptonstahl.org}
-}
 \references{
 \url{http://gking.harvard.edu/amelia/}
 }
 \seealso{
 \code{\link{TrainFastImputation}}
 }
-
+\author{
+Stephen R. Haptonstahl \email{srh@haptonstahl.org}
+}
