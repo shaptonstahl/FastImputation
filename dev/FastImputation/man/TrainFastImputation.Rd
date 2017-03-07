@@ -22,19 +22,16 @@ multivariate normal.
 }
 \examples{
 
-data(FItrain)   # provides FItrain dataset
-patterns <- TrainFastImputation(FItrain)
+data(FI_train)   # provides FI_train dataset
 
-patterns.with.constraints <- TrainFastImputation(
-  FItrain,
-  constraints=list(list(1, list(set=0:1)),
-                   list(2, list(lower=0)),
-                   list(3, list(lower=0)),
-                   list(4, list(lower=0)),
-                   list(5, list(lower=0)),
-                   list(6, list(lower=0, upper=1)),
-                   list(7, list(lower=0)),
-                   list(8, list(lower=0))))
+patterns_with_constraints <- TrainFastImputation(
+  FI_train,
+  constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
+                   list(2, list(lower=0)),           # continuous var with lower bound
+                   list(5, list(upper=0)),           # continuous var with only upper bound
+                   list(6, list(lower=0, upper=1)),  # bounded to a finite interval
+                   list(9, list(categorical=TRUE))   # finite number of values
+                   ))                                # vars 3, 4, 7, 8 continuous with no bounds
 }
 \references{
 \url{http://gking.harvard.edu/amelia/}

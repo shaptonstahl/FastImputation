@@ -14,17 +14,24 @@
 #' \url{http://gking.harvard.edu/amelia/}
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 #' @examples
-#' data(FItrain)   # provides FItrain dataset
-#' patterns <- TrainFastImputation(FItrain)
+#' data(FI_train)   # provides FItrain dataset
+#' patterns <- TrainFastImputation(
+#'   FI_train,
+#'   constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
+#'                    list(2, list(lower=0)),           # continuous var with lower bound
+#'                    list(5, list(upper=0)),           # continuous var with only upper bound
+#'                    list(6, list(lower=0, upper=1)),  # bounded to a finite interval
+#'                    list(9, list(categorical=TRUE))   # finite number of values
+#'                    ))                                # vars 3, 4, 7, 8 continuous with no bounds
 #' 
-#' data(FItest)
-#' FItest          # note there is missing data
-#' imputed.data <- FastImputation(FItest, patterns)
-#' imputed.data    # good guesses for missing values are filled in
+#' data(FI_test)
+#' FI_test          # note there is missing data
+#' \dontrun{imputed.data <- FastImputation(FI_test, patterns)}
+#' \dontrun{imputed.data    # good guesses for missing values are filled in}
 #'
-#' data(FItrue)
-#' imputation.rmse <- sqrt(sum( (imputed.data - FItrue)^2 )/sum(is.na(FItest)))
-#' imputation.rmse
+#' data(FI_true)
+#' \dontrun{imputation.rmse <- sqrt(sum( (imputed.data - FI_true)^2 )/sum(is.na(FI_test)))}
+#' \dontrun{imputation.rmse}
 FastImputation <-
 function(
   x,
