@@ -17,12 +17,12 @@
 #' data(FI_train)   # provides FItrain dataset
 #' patterns <- TrainFastImputation(
 #'   FI_train,
-#'   constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
-#'                    list(2, list(lower=0)),           # continuous var with lower bound
+#'   constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
 #'                    list(5, list(upper=0)),           # continuous var with only upper bound
-#'                    list(6, list(lower=0, upper=1)),  # bounded to a finite interval
-#'                    list(9, list(categorical=TRUE))   # finite number of values
-#'                    ))                                # vars 3, 4, 7, 8 continuous with no bounds
+#'                    list(6, list(lower=0, upper=1))   # bounded to a finite interval
+#'                    ),
+#'   idvars=1,  # user ids; also used for any variable not to be imputed
+#'   categorical=9)
 #' 
 #' data(FI_test)
 #' FI_test          # note there is missing data
@@ -32,6 +32,10 @@
 #' data(FI_true)
 #' \dontrun{imputation.rmse <- sqrt(sum( (imputed.data - FI_true)^2 )/sum(is.na(FI_test)))}
 #' \dontrun{imputation.rmse}
+#' 
+#' \dontrun{library("caret")}
+#' \dontrun{confusionMatrix(data=imputed.data$V9, reference=FI_true$V9)}
+#' 
 FastImputation <-
 function(
   x,

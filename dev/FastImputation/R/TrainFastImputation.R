@@ -6,6 +6,8 @@
 #' 
 #' @param x Dataframe containing training data. Can have incomplete rows.
 #' @param constraints A list of constraints.  See the examples below for formatting details.
+#' @param idvars A vector of column numbers or column names to be ignored in the imputation process.
+#' @param categorical A vector of column numbers or column names of varaibles with a (small) set of possible values.
 #' @return An object of class 'FastImputationPatterns' that contains
 #'   information needed later to impute on a single row.
 #' @export
@@ -19,26 +21,46 @@
 #'
 #' patterns_with_constraints <- TrainFastImputation(
 #'   FI_train,
-#'   constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
-#'                    list(2, list(lower=0)),           # continuous var with lower bound
+#'   constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
 #'                    list(5, list(upper=0)),           # continuous var with only upper bound
-#'                    list(6, list(lower=0, upper=1)),  # bounded to a finite interval
-#'                    list(9, list(categorical=TRUE))   # finite number of values
-#'                    ))                                # vars 3, 4, 7, 8 continuous with no bounds
+#'                    list(6, list(lower=0, upper=1))   # bounded to a finite interval
+#'                    ),
+#'   idvars=1,  # user ids; also used for any variable not to be imputed
+#'   categorical=9)
+#'   
 TrainFastImputation <-
 function(
   x,
-  constraints=list()
+  constraints=list(),
+  idvars,
+  categorical
 ) {
   # TODO:
   # - add idvars parameter such that: a vector of column numbers or 
   #   column names that indicates identification variables.  These 
   #   will be dropped from the analysis but copied into the imputed 
   #   datasets.
+  # - add transformations of the data other than for boundaries (?)
 
   if( "data.frame" != class(x) ) stop("Training data must be in a data.frame")
   
   x <- UnfactorColumns(x)  # unfactor the columns
+  
+  if(missing(categorical)) {
+    cols_categorical <- numeric(0)
+  } else {
+    # tally categorical columns
+    if(is.numeric(categorical)) {
+      cols_categorical <- categorical
+      if(any(cols_categorical > ncol(x))) stop("Categorical column specified by index that doesn't exist.")
+    } else {
+      cols_categorical <- sapply(categorical, function(col_name) {
+        col_i <- which(names(x) == col_name)
+        if(0 == length(col_i)) stop("Categorical column specified by name that doesn't exist.")
+        return(col_i)
+      })
+    }
+  }
   
   # Fill the constraints so there is a constraint entry for each column
   if( 0==length(constraints) ) {
@@ -54,23 +76,37 @@ function(
       } else if( 1 == sum(is_each_constraint_for_this_col) ) {
         return( constraints[[which(is_each_constraint_for_this_col)]][[2]] )
       } else {
+        warning("More than one constraint specified for variable ", i.col)
         return( constraints[[max(which(is_each_constraint_for_this_col))]][[2]] )
       }
     })
   }
   
   # tally and remove ignored columns
-  cols_to_ignore <- which(sapply(filled_constraints, function(this_cons) 
-    !is.null(this_cons$ignore) ))
-  y <- x[,-cols_to_ignore]
-  y_constraints <- filled_constraints[-cols_to_ignore]
+  if(missing(idvars)) {
+    cols_to_ignore <- numeric(0)
+    y <- x
+    y_constraints <- filled_constraints
+  } else {
+    if(is.numeric(idvars)) {
+      cols_to_ignore <- idvars
+    } else {
+      cols_to_ignore <- sapply(idvars, function(col_name) which(names(x) == col_name))
+    }
+    y <- x[,-cols_to_ignore]
+    y_constraints <- filled_constraints[-cols_to_ignore]
+    # shift the indices of categorical variables down as needed
+    if(length(cols_categorical) > 0) {
+      for(cti in rev(sort(cols_to_ignore))) {
+        cols_categorical[cols_categorical > cti] <- cols_categorical[cols_categorical > cti] - 1
+      }
+    }
+  }
   
-  # Tally the columns with each type of constraint
+  # tally the columns with each type of constraint
   cols_bound_to_intervals <- which(sapply(y_constraints, function(this_cons) 
     !(is.null(this_cons$upper) && is.null(this_cons$lower))))
-  cols_categorical <- which(sapply(y_constraints, function(this_cons) 
-    !is.null(this_cons$categorical) ))
-
+  
   # Normalize variables bounded to an interval
   for(this_col in cols_bound_to_intervals) {
     y[,this_col] <- NormalizeBoundedVariable(y[,this_col], constraints=y_constraints[[this_col]])
@@ -92,7 +128,7 @@ function(
     y_categorical <- y[,cols_categorical, drop=FALSE]
     
     z <- y[,-cols_categorical]
-    z <- data.frame(z, matrix(NA_real_, nrow=nrow(y), ncol=total_one_hot_dummies))
+    z <- data.frame(z, matrix(NA_real_, nrow=nrow(z), ncol=total_one_hot_dummies))
     
     current_col_to_fill <- 1
     while(current_col_to_fill < total_one_hot_dummies) {
@@ -104,21 +140,22 @@ function(
       }
     }
   } else {
-    z <- x
+    categories <- list()
+    z <- y
   }
   
   FastImputationMeans <- colMeans(z, na.rm=TRUE)
   FastImputationCovariance <- CovarianceWithMissing(z)
   
   patterns <- list(
-    FI_var_names=names(x),
-    FI_means=FastImputationMeans, 
-    FI_covariance=FastImputationCovariance, 
-    FI_constraints=filled_constraints,
-    FI_cols_to_ignore=cols_to_ignore,
-    FI_cols_bound_to_intervals=cols_bound_to_intervals,
-    FI_cols_categorical=cols_categorical,
-    FI_categories=categories)
+    FI_var_names=names(x),  # match against cols of data to impute to help ensure that it's in the same format
+    FI_means=FastImputationMeans,           # used for imputation
+    FI_covariance=FastImputationCovariance, # used for imputation
+    FI_constraints=filled_constraints,      # one for each variable in input training data x, with empty constraints
+    FI_cols_to_ignore=cols_to_ignore,       # indices in x of columns to ignore
+    FI_cols_bound_to_intervals=cols_bound_to_intervals,  # indices in x of columns of bounded intervals
+    FI_cols_categorical=cols_categorical,   # indices in x of columns with categorical data (order here used)
+    FI_categories=categories)  # for each index with categorical data, list the values observed (order here used)
   class(patterns) <- "FastImputationPatterns"
   return( patterns )
 }

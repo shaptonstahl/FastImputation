@@ -28,3 +28,6 @@ Collate:
 RoxygenNote: 6.0.1
 Imports:
     methods
+Suggests:
+    caret
+NeedsCompilation: no

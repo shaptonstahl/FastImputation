@@ -1,0 +1,81 @@
+* using log directory 'C:/Users/Steve/Documents/GitHub/FastImputation/dev/FastImputation.Rcheck'
+* using R version 3.3.3 (2017-03-06)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using option '--as-cran'
+* checking for file 'FastImputation/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'FastImputation' version '2.0'
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+Maintainer: 'Stephen R. Haptonstahl <srh@haptonstahl.org>'
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking whether package 'FastImputation' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... ERROR
+Running examples in 'FastImputation-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: FastImputation
+> ### Title: Use the pattern learned from the training data to impute (fill
+> ###   in good guesses for) missing values.
+> ### Aliases: FastImputation
+> 
+> ### ** Examples
+> 
+> data(FI_train)   # provides FItrain dataset
+> patterns <- TrainFastImputation(
++   FI_train,
++   constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
++                    list(5, list(upper=0)),           # continuous var with only upper bound
++                    list(6, list(lower=0, upper=1))   # bounded to a finite interval
++                    ),
++   idvars=1,  # user ids; also used for any variable not to be imputed
++   categorical=9)
+Error in `[.data.frame`(y, , i) : undefined columns selected
+Calls: TrainFastImputation -> lapply -> FUN -> unique -> [ -> [.data.frame
+Execution halted
+* checking for unstated dependencies in 'tests' ... WARNING
+'library' or 'require' call not declared from: 'testthat'
+* checking tests ... OK
+  Running 'testthat.R'
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING

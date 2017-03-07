@@ -4,12 +4,16 @@
 \alias{TrainFastImputation}
 \title{Learn from the training data so that later you can fill in missing data}
 \usage{
-TrainFastImputation(x, constraints = list())
+TrainFastImputation(x, constraints = list(), idvars, categorical)
 }
 \arguments{
 \item{x}{Dataframe containing training data. Can have incomplete rows.}
 
 \item{constraints}{A list of constraints.  See the examples below for formatting details.}
+
+\item{idvars}{A vector of column numbers or column names to be ignored in the imputation process.}
+
+\item{categorical}{A vector of column numbers or column names of varaibles with a (small) set of possible values.}
 }
 \value{
 An object of class 'FastImputationPatterns' that contains
@@ -26,12 +30,13 @@ data(FI_train)   # provides FI_train dataset
 
 patterns_with_constraints <- TrainFastImputation(
   FI_train,
-  constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
-                   list(2, list(lower=0)),           # continuous var with lower bound
+  constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
                    list(5, list(upper=0)),           # continuous var with only upper bound
-                   list(6, list(lower=0, upper=1)),  # bounded to a finite interval
-                   list(9, list(categorical=TRUE))   # finite number of values
-                   ))                                # vars 3, 4, 7, 8 continuous with no bounds
+                   list(6, list(lower=0, upper=1))   # bounded to a finite interval
+                   ),
+  idvars=1,  # user ids; also used for any variable not to be imputed
+  categorical=9)
+  
 }
 \references{
 \url{http://gking.harvard.edu/amelia/}

@@ -47,6 +47,13 @@ FI_train <- latent_data[1:n_obs_train,]
 FI_true <- latent_data[(n_obs_train+1):(n_obs_train+n_obs_test),]
 
 fraction_missing <- .05
+# remove some training data
+for(i in 1:nrow(FI_train)) {
+  for(j in 2:9) {
+    if(runif(1) < fraction_missing) FI_train[i,j] <- NA
+  }
+}
+# remove some test data
 FI_test <- FI_true
 for(i in 1:nrow(FI_test)) {
   for(j in 2:9) {
