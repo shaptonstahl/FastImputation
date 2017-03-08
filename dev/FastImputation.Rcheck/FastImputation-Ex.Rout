@@ -81,6 +81,6 @@ Type 'q()' to quit R.
 +                    ),
 +   idvars=1,  # user ids; also used for any variable not to be imputed
 +   categorical=9)
-Error in `[.data.frame`(y, , i) : undefined columns selected
-Calls: TrainFastImputation -> lapply -> FUN -> unique -> [ -> [.data.frame
+Error in TrainFastImputation(FI_train, constraints = list(list(2, list(lower = 0)),  : 
+  This covariance matrix is ill-conditioned.  Perhaps you don't have enough data or some columns are redundant.
 Execution halted

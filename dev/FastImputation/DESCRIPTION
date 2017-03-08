@@ -2,11 +2,9 @@ Package: FastImputation
 Type: Package
 Title: Learn from Training Data then Quickly Fill in Missing Data
 Version: 2.0
-Date: 2017-03-06
+Date: 2017-03-08
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
-Suggests:
-    testthat
 Description: TrainFastImputation() uses training data to describe a
     multivariate normal distribution that the data approximates or
     can be transformed into approximating and stores this information
@@ -29,5 +27,6 @@ RoxygenNote: 6.0.1
 Imports:
     methods
 Suggests:
+    testthat,
     caret
 NeedsCompilation: no

@@ -1565,5 +1565,6 @@ test_that("CovarianceWithMissing returns correct values", {
   out.missing <- CovarianceWithMissing(x=good.missing)
   out.var <- var(good.missing, na.rm=TRUE)
   
-  expect_true(MeanRelativeError(out.missing, cov.full) < MeanRelativeError(out.var, cov.full))
+  expect_true( MeanRelativeError(out.missing, cov.full) < MeanRelativeError(out.var, cov.full) )
+  expect_true( det(out.missing) > 0 )
 })

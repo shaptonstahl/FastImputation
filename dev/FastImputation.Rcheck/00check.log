@@ -69,13 +69,29 @@ The error most likely occurred in:
 +                    ),
 +   idvars=1,  # user ids; also used for any variable not to be imputed
 +   categorical=9)
-Error in `[.data.frame`(y, , i) : undefined columns selected
-Calls: TrainFastImputation -> lapply -> FUN -> unique -> [ -> [.data.frame
+Error in TrainFastImputation(FI_train, constraints = list(list(2, list(lower = 0)),  : 
+  This covariance matrix is ill-conditioned.  Perhaps you don't have enough data or some columns are redundant.
 Execution halted
-* checking for unstated dependencies in 'tests' ... WARNING
-'library' or 'require' call not declared from: 'testthat'
-* checking tests ... OK
+* checking for unstated dependencies in 'tests' ... OK
+* checking tests ... ERROR
   Running 'testthat.R'
+Running the tests in 'tests/testthat.R' failed.
+Last 13 lines of output:
+  
+  3. Error: TrainFastImputation returns correct values (@test_TrainFastImputation.R#56) 
+  This covariance matrix is ill-conditioned.  Perhaps you don't have enough data or some columns are redundant.
+  1: TrainFastImputation(x = good_df, constraints = good_constraints_upper, idvars = good_ignore_1, 
+         categorical = good_categorical_1) at testthat/test_TrainFastImputation.R:56
+  2: stop("This covariance matrix is ill-conditioned.  Perhaps you don't have enough data or some columns are redundant.")
+  
+  testthat results ================================================================
+  OK: 60 SKIPPED: 0 FAILED: 3
+  1. Failure: TrainFastImputation catches bad input (@test_TrainFastImputation.R#35) 
+  2. Error: TrainFastImputation returns correct types (@test_TrainFastImputation.R#42) 
+  3. Error: TrainFastImputation returns correct values (@test_TrainFastImputation.R#56) 
+  
+  Error: testthat unit tests failed
+  Execution halted
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 ERROR, 1 WARNING
+Status: 2 ERRORs

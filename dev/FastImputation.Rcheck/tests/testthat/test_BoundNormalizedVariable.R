@@ -14,13 +14,13 @@ test_that("BoundNormalizedVariable catches bad input", {
   good.constraints.both <- list(lower=-5, upper=5)  
   
   expect_error(BoundNormalizedVariable(x=good.x.vector, constraints=bad.constraints.order), 
-    "'upper' must be greater than 'lower.'")
+               "'upper' must be greater than 'lower.'")
   expect_error(BoundNormalizedVariable(x=good.x.matrix, constraints=bad.constraints.order), 
-    "'upper' must be greater than 'lower.'")
+               "'upper' must be greater than 'lower.'")
   expect_error(BoundNormalizedVariable(x=good.x.df, constraints=bad.constraints.order), 
-    "'upper' must be greater than 'lower.'")
+               "'upper' must be greater than 'lower.'")
   expect_error(BoundNormalizedVariable(x=good.x.array, constraints=bad.constraints.order), 
-    "'upper' must be greater than 'lower.'")
+               "'upper' must be greater than 'lower.'")
 })
 
 test_that("BoundNormalizedVariable returns correct types", {
@@ -33,47 +33,47 @@ test_that("BoundNormalizedVariable returns correct types", {
   good.constraints.both <- list(lower=-5, upper=5)  
   
   expect_true( is.vector(BoundNormalizedVariable(x=good.x.vector, 
-    constraints=good.constraints.lower)) )
+                                                 constraints=good.constraints.lower)) )
   expect_true( is.vector(BoundNormalizedVariable(x=good.x.vector, 
-    constraints=good.constraints.upper)) )
+                                                 constraints=good.constraints.upper)) )
   expect_true( is.vector(BoundNormalizedVariable(x=good.x.vector, 
-    constraints=good.constraints.both)) )
-
+                                                 constraints=good.constraints.both)) )
+  
   expect_true( is.matrix(BoundNormalizedVariable(x=good.x.matrix, 
-    constraints=good.constraints.lower)) )
+                                                 constraints=good.constraints.lower)) )
   expect_true( is.matrix(BoundNormalizedVariable(x=good.x.matrix, 
-    constraints=good.constraints.upper)) )
+                                                 constraints=good.constraints.upper)) )
   expect_true( is.matrix(BoundNormalizedVariable(x=good.x.matrix, 
-    constraints=good.constraints.both)) )
-
+                                                 constraints=good.constraints.both)) )
+  
   expect_true( is.data.frame(BoundNormalizedVariable(x=good.x.df, 
-    constraints=good.constraints.lower)) )
+                                                     constraints=good.constraints.lower)) )
   expect_true( is.data.frame(BoundNormalizedVariable(x=good.x.df, 
-    constraints=good.constraints.upper)) )
+                                                     constraints=good.constraints.upper)) )
   expect_true( is.data.frame(BoundNormalizedVariable(x=good.x.df, 
-    constraints=good.constraints.both)) )
-
+                                                     constraints=good.constraints.both)) )
+  
   expect_true( is.array(BoundNormalizedVariable(x=good.x.array, 
-    constraints=good.constraints.lower)) )
+                                                constraints=good.constraints.lower)) )
   expect_true( is.array(BoundNormalizedVariable(x=good.x.array, 
-    constraints=good.constraints.upper)) )
+                                                constraints=good.constraints.upper)) )
   expect_true( is.array(BoundNormalizedVariable(x=good.x.array, 
-    constraints=good.constraints.both)) )
+                                                constraints=good.constraints.both)) )
 })
 
 test_that("BoundNormalizedVariable returns correct values", {
-  good.x <- 1
+  good.x <- c(-4:4)
   good.constraints.lower <- list(lower=-5)
   good.constraints.upper <- list(upper=5)
   good.constraints.both <- list(lower=-5, upper=5)  
   
   expect_equal( BoundNormalizedVariable(x=good.x, constraints=good.constraints.lower), 
-    exp(good.x) + good.constraints.lower$lower )
+                exp(good.x) + good.constraints.lower$lower )
   expect_equal( BoundNormalizedVariable(x=good.x, constraints=good.constraints.upper),
-    good.constraints.upper$upper - exp(good.x) )
+                good.constraints.upper$upper - exp(good.x) )
   expect_equal( BoundNormalizedVariable(x=good.x, constraints=good.constraints.both), 
-    pnorm(good.x) * (good.constraints.both$upper - good.constraints.both$lower) + 
-      good.constraints.both$lower )
-      
+                pnorm(good.x) * (good.constraints.both$upper - good.constraints.both$lower) + 
+                  good.constraints.both$lower )
+  
   #expect_true(FALSE)
 })
