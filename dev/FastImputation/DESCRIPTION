@@ -25,8 +25,10 @@ Collate:
     'CovarianceWithMissing.R'
 RoxygenNote: 6.0.1
 Imports:
-    methods
+    methods,
+    Matrix
 Suggests:
     testthat,
-    caret
+    caret,
+    e1071
 NeedsCompilation: no

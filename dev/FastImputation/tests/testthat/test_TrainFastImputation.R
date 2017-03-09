@@ -20,6 +20,7 @@ warning_df <- data.frame(X3=rnorm(5),
 bad_array <- matrix(1:9, nrow=3)
 bad_constraints_upper <- list(list(4, list(upper=0)))
 bad_constraints_lower <- list(list(7, list(lower=4)))
+bad_constraints_order <- list(list(5, list(lower=1, upper=0)))
 bad_ignore_1 <- 10
 bad_ignore_2 <- "X10"
 bad_categorical_1 <- 10
@@ -32,8 +33,8 @@ test_that("TrainFastImputation catches bad input", {
                "Column 4 does not respect the upper bound specified.")
   expect_error(TrainFastImputation(x=good_df, constraints=bad_constraints_lower), 
                "Column 7 does not respect the lower bound specified.")
-  expect_error(TrainFastImputation(x=good_df, constraints=bad.constraints.order), 
-               "'upper' must be greater than 'lower.'")
+  expect_error(TrainFastImputation(x=good_df, constraints=bad_constraints_order), 
+               "Column 5 does not respect the lower bound specified.")
   expect_error(TrainFastImputation(x=warning_df, categorical=good_categorical_2), 
                "Too few continuous variables.")
 })
@@ -48,8 +49,8 @@ test_that("TrainFastImputation returns correct types", {
   expect_true( is.vector(res$FI_means) )
   expect_true( det(res$FI_covariance) > 0 )
   expect_true( is.list(res$FI_constraints) )
-  expect_true( identical(res$cols_bound_to_intervals, 5) )
-  expect_true( is.numeric(res$cols_categorical) )
+  expect_true( identical(res$FI_cols_bound_to_intervals, 3L) )
+  expect_true( is.numeric(res$FI_cols_categorical) )
 })
 
 test_that("TrainFastImputation returns correct values", {
@@ -63,9 +64,9 @@ test_that("TrainFastImputation returns correct values", {
                                categorical=good_categorical_2)
   expect_equal( res_1$FI_var_names, paste("X", 1:7, sep="") )
   expect_equal( res_1$FI_constraints[[1]], list() )
-  expect_equal( res_1$FI_constraints[[6]], list(upper=3) )
-  expect_equal( res_1$FI_cols_to_ignore, 1 )
-  expect_equal( res_2$FI_cols_to_ignore, 1 )
-  expect_equal( res_1$FI_cols_categorical, 5 )
-  expect_equal( res_2$FI_cols_categorical, 5 )
+  expect_equal( res_1$FI_constraints[[5]], list(upper=3) )
+  expect_equal( res_1$FI_cols_to_ignore, c(1,2) )
+  expect_equal( res_2$FI_cols_to_ignore, c(1,2) )
+  expect_equal( res_1$FI_cols_categorical, 4 )
+  expect_equal( res_2$FI_cols_categorical, 4 )
 })

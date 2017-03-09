@@ -157,8 +157,15 @@ function(
   FastImputationMeans <- colMeans(z, na.rm=TRUE)
   FastImputationCovariance <- CovarianceWithMissing(z)
   
-  if(det(FastImputationCovariance) < 1e5) {
-    stop("This covariance matrix is ill-conditioned.  Perhaps you don't have enough data or some columns are redundant.")
+  # Ensure covariance matrix is well-conditioned
+  # One-hot encoding with dummies for all category values makes the covariance matrix
+  # singular or nearly so.  This forces the covariance matrix to the "closest" one
+  # with only eigenvalues < min_size_eigenvalue being affected.
+  min_size_eigenvalue <- .01
+  eg <- eigen(FastImputationCovariance)$values
+  if(min(eg) < min_size_eigenvalue) {
+    eps_ev <- min_size_eigenvalue / abs(eg[1])
+    FastImputationCovariance <- Matrix::nearPD(FastImputationCovariance, do2eigen=TRUE, posd.tol=eps_ev)$mat
   }
   
   patterns <- list(

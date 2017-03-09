@@ -34,15 +34,21 @@ patterns <- TrainFastImputation(
 
 data(FI_test)
 FI_test          # note there is missing data
-\dontrun{imputed.data <- FastImputation(FI_test, patterns)}
-\dontrun{imputed.data    # good guesses for missing values are filled in}
+imputed_data <- FastImputation(FI_test, patterns)
+imputed_data    # good guesses for missing values are filled in
 
 data(FI_true)
-\dontrun{imputation.rmse <- sqrt(sum( (imputed.data - FI_true)^2 )/sum(is.na(FI_test)))}
-\dontrun{imputation.rmse}
+continuous_cells_imputed <- is.na(FI_test[,2:8])
+continuous_imputed_vallues <- imputed_data[,2:8][continuous_cells_imputed]
+continuous_true_values <- FI_true[,2:8][continuous_cells_imputed]
+avg_relative_error <- mean( (continuous_imputed_vallues - continuous_true_values) / 
+  continuous_true_values )
+avg_relative_error
 
-\dontrun{library("caret")}
-\dontrun{confusionMatrix(data=imputed.data$V9, reference=FI_true$V9)}
+library("caret")
+categorical_rows_imputed <- is.na(FI_test$V9)
+confusionMatrix(data=imputed_data$V9[categorical_rows_imputed], 
+                reference=FI_true$V9[categorical_rows_imputed])
 
 }
 \references{
