@@ -11,14 +11,15 @@
 #' total of 11 variables, but one is ignored, so 10 imputed vars
 
 library("clusterGeneration")
-cov_matrix <- genPositiveDefMat(10)
+cov_matrix_obj <- genPositiveDefMat(10)
+cov_matrix <- (cov_matrix_obj$Sigma + t(cov_matrix_obj$Sigma)) / 2
 
-n_obs_train <- 10000
-n_obs_test <- 250
+n_obs_train <- 100000
+n_obs_test <- 2500
 n_obs <- n_obs_train + n_obs_test
 library("mvtnorm")
 latent_data <- data.frame(id=paste("user", 1:n_obs, sep=""),
-                          data.frame(rmvnorm(n_obs, sigma=cov_matrix$Sigma)))
+                          data.frame(rmvnorm(n_obs, sigma=cov_matrix)))
 names(latent_data) <- c(paste("V", 1:8, sep=""), paste("X", 9:11, sep=""))
 
 source("dev/FastImputation/R/BoundNormalizedVariable.R")

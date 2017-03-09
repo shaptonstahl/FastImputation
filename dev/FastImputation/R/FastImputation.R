@@ -31,9 +31,9 @@
 #'
 #' data(FI_true)
 #' continuous_cells_imputed <- is.na(FI_test[,2:8])
-#' continuous_imputed_vallues <- imputed_data[,2:8][continuous_cells_imputed]
+#' continuous_imputed_values <- imputed_data[,2:8][continuous_cells_imputed]
 #' continuous_true_values <- FI_true[,2:8][continuous_cells_imputed]
-#' avg_relative_error <- mean( (continuous_imputed_vallues - continuous_true_values) / 
+#' avg_relative_error <- mean( (continuous_imputed_values - continuous_true_values) / 
 #'   continuous_true_values )
 #' avg_relative_error
 #' 
@@ -109,7 +109,6 @@ function(
   n_cols <- ncol(z)
   
   for(i_row in 1:n_rows) {
-    # Transform present data if constrained to an interval
     constrained_row <- z[i_row,]
     if( sum(!is.na(constrained_row)) != 0 ) {  # do nothing if nothing is missing
       # Use formula for mean here: http://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
