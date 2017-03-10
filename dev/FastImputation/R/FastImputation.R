@@ -33,15 +33,41 @@
 #' continuous_cells_imputed <- is.na(FI_test[,2:8])
 #' continuous_imputed_values <- imputed_data[,2:8][continuous_cells_imputed]
 #' continuous_true_values <- FI_true[,2:8][continuous_cells_imputed]
-#' avg_relative_error <- mean( (continuous_imputed_values - continuous_true_values) / 
-#'   continuous_true_values )
-#' avg_relative_error
+#' rmse <- sqrt(median((continuous_imputed_values-continuous_true_values)^2))
+#' rmse
+#' median_relative_error <- median( abs((continuous_imputed_values - continuous_true_values) / 
+#'   continuous_true_values) )
+#' median_relative_error
 #' 
+#' imputed_data_column_means <- FI_test[,2:8]
+#' for(j in 1:ncol(imputed_data_column_means)) {
+#'   imputed_data_column_means[is.na(imputed_data_column_means[,j]),j] <- 
+#'     mean(imputed_data_column_means[,j], na.rm=TRUE)
+#' }
+#' cont_imputed_vals_col_means <- imputed_data_column_means[continuous_cells_imputed]
+#' rmse_column_means <- sqrt(median((cont_imputed_vals_col_means-continuous_true_values)^2))
+#' rmse_column_means  # much larger error than using FastImputation
+#' median_relative_error_col_means <- median( abs((cont_imputed_vals_col_means - 
+#'   continuous_true_values) / continuous_true_values) )
+#' median_relative_error_col_means  # much larger error than using FastImputation
+#' 
+#' # Let's look at the accuracy of the imputation of the categorical variable
 #' library("caret")
-#' categorical_rows_imputed <- is.na(FI_test$V9)
+#' categorical_rows_imputed <- which(is.na(FI_test$V9))
 #' confusionMatrix(data=imputed_data$V9[categorical_rows_imputed], 
 #'                 reference=FI_true$V9[categorical_rows_imputed])
-#' 
+#' # Compare to imputing with the modal value
+#' stat_mode <- function(x) {
+#'   unique_values <- unique(x)
+#'   unique_values <- unique_values[!is.na(unique_values)]
+#'   unique_values[which.max(tabulate(match(x, unique_values)))]
+#' }
+#' categorical_rows_imputed_col_mode <- rep(stat_mode(FI_test$V9), 
+#'                                          length(categorical_rows_imputed))
+#' confusionMatrix(data=categorical_rows_imputed_col_mode, 
+#'                 reference=FI_true$V9[categorical_rows_imputed])
+#' # less accurate than using FastImputation
+#'
 FastImputation <-
 function(
   x,
@@ -81,6 +107,7 @@ function(
     y[,i_col] <- NormalizeBoundedVariable(y[,i_col], patterns$FI_constraints[[i_col]])
   }
   
+  
   # set aside categorical variables and one-hot encode them
   if(length(patterns$FI_cols_categorical) > 0) {
     # set aside categorical variables
@@ -110,7 +137,7 @@ function(
   
   for(i_row in 1:n_rows) {
     constrained_row <- z[i_row,]
-    if( sum(!is.na(constrained_row)) != 0 ) {  # do nothing if nothing is missing
+    if( sum(is.na(constrained_row)) != 0 ) {  # do nothing if nothing is missing
       # Use formula for mean here: http://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
       cols_to_impute <- which(is.na(constrained_row))    # indices of "1" in Wikipedia formula for mean of conditional multivariate normal distribution
       if( length(cols_to_impute) == length(constrained_row) ) {

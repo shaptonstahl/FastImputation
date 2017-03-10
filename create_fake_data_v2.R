@@ -1,21 +1,21 @@
 #' Test data set
 
-#'   constraints=list(list(1, list(ignore=TRUE)),       # use for ids, other vars not to impute
-#'                    list(2, list(lower=0)),           # continuous var with lower bound
+#'   constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
 #'                    list(5, list(upper=0)),           # continuous var with only upper bound
-#'                    list(6, list(lower=0, upper=1)),  # bounded to a finite interval
-#'                    list(9, list(categorical=TRUE))   # finite number of values
-#'                    ))                                # vars 3, 4, 7, 8 continuous with no bounds
+#'                    list(6, list(lower=0, upper=1))   # bounded to a finite interval
+#'                    ),
+#'   idvars=1,  # user ids; also used for any variable not to be imputed
+#'   categorical=9
 
 #' categorical has three values
 #' total of 11 variables, but one is ignored, so 10 imputed vars
 
 library("clusterGeneration")
-cov_matrix_obj <- genPositiveDefMat(10)
+cov_matrix_obj <- genPositiveDefMat(10, covMethod="unifcorrmat")
 cov_matrix <- (cov_matrix_obj$Sigma + t(cov_matrix_obj$Sigma)) / 2
 
-n_obs_train <- 100000
-n_obs_test <- 2500
+n_obs_train <- 10000
+n_obs_test <- 250
 n_obs <- n_obs_train + n_obs_test
 library("mvtnorm")
 latent_data <- data.frame(id=paste("user", 1:n_obs, sep=""),
