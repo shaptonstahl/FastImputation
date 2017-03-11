@@ -1,4 +1,4 @@
-context("TrainFastImputation")
+context("FastImputation")
 
 good_df <- data.frame(X1=letters, 
                       X2=1:26, 
