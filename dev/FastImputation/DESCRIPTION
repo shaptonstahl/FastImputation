@@ -22,6 +22,9 @@ Collate:
     'BoundNormalizedVariable.R'
     'NormalizeBoundedVariable.R'
     'CovarianceWithMissing.R'
+    'FI_train.R'
+    'FI_test.R'
+    'FI_true.R'
 RoxygenNote: 6.0.1
 Imports:
     methods,
