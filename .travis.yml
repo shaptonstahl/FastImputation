@@ -3,6 +3,6 @@ sudo: false
 cache: packages
 
 before_install:
-	cd dev/FastImputation
+  cd dev/FastImputation
 
 warnings_are_errors
