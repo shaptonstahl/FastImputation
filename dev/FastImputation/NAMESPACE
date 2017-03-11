@@ -3,7 +3,6 @@
 export(BoundNormalizedVariable)
 export(CovarianceWithMissing)
 export(FastImputation)
-export(LimitToSet)
 export(NormalizeBoundedVariable)
 export(TrainFastImputation)
 export(UnfactorColumns)

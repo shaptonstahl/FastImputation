@@ -30,12 +30,12 @@ data(FI_train)   # provides FI_train dataset
 
 patterns_with_constraints <- TrainFastImputation(
   FI_train,
-  constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
-                   list(5, list(upper=0)),           # continuous var with only upper bound
-                   list(6, list(lower=0, upper=1))   # bounded to a finite interval
+  constraints=list(list("bounded_below_2", list(lower=0)),
+                   list("bounded_above_5", list(upper=0)),
+                   list("bounded_above_and_below_6", list(lower=0, upper=1))
                    ),
-  idvars=1,  # user ids; also used for any variable not to be imputed
-  categorical=9)
+  idvars="user_id_1",
+  categorical="categorical_9")
   
 }
 \references{

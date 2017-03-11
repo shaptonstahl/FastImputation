@@ -25,12 +25,12 @@ multivariate normal.
 data(FI_train)   # provides FItrain dataset
 patterns <- TrainFastImputation(
   FI_train,
-  constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
-                   list(5, list(upper=0)),           # continuous var with only upper bound
-                   list(6, list(lower=0, upper=1))   # bounded to a finite interval
+  constraints=list(list("bounded_below_2", list(lower=0)),
+                   list("bounded_above_5", list(upper=0)),
+                   list("bounded_above_and_below_6", list(lower=0, upper=1))
                    ),
-  idvars=1,  # user ids; also used for any variable not to be imputed
-  categorical=9)
+  idvars="user_id_1",
+  categorical="categorical_9")
 
 data(FI_test)
 FI_test          # note there is missing data
@@ -57,23 +57,23 @@ rmse_column_means <- sqrt(median((cont_imputed_vals_col_means-continuous_true_va
 rmse_column_means  # much larger error than using FastImputation
 median_relative_error_col_means <- median( abs((cont_imputed_vals_col_means - 
   continuous_true_values) / continuous_true_values) )
-median_relative_error_col_means  # much larger error than using FastImputation
+median_relative_error_col_means  # larger error than using FastImputation
 
 # Let's look at the accuracy of the imputation of the categorical variable
 library("caret")
-categorical_rows_imputed <- which(is.na(FI_test$V9))
-confusionMatrix(data=imputed_data$V9[categorical_rows_imputed], 
-                reference=FI_true$V9[categorical_rows_imputed])
+categorical_rows_imputed <- which(is.na(FI_test$categorical_9))
+confusionMatrix(data=imputed_data$categorical_9[categorical_rows_imputed], 
+                reference=FI_true$categorical_9[categorical_rows_imputed])
 # Compare to imputing with the modal value
 stat_mode <- function(x) {
   unique_values <- unique(x)
   unique_values <- unique_values[!is.na(unique_values)]
   unique_values[which.max(tabulate(match(x, unique_values)))]
 }
-categorical_rows_imputed_col_mode <- rep(stat_mode(FI_test$V9), 
+categorical_rows_imputed_col_mode <- rep(stat_mode(FI_test$categorical_9), 
                                          length(categorical_rows_imputed))
 confusionMatrix(data=categorical_rows_imputed_col_mode, 
-                reference=FI_true$V9[categorical_rows_imputed])
+                reference=FI_true$categorical_9[categorical_rows_imputed])
 # less accurate than using FastImputation
 
 }

@@ -1,14 +1,15 @@
 #' Test data set
-
-#'   constraints=list(list(2, list(lower=0)),           # continuous var with lower bound
-#'                    list(5, list(upper=0)),           # continuous var with only upper bound
-#'                    list(6, list(lower=0, upper=1))   # bounded to a finite interval
+#'
+#'   constraints=list(list("bounded_below_2", list(lower=0)),
+#'                    list("bounded_above_5", list(upper=0)),
+#'                    list("bounded_above_and_below_6", list(lower=0, upper=1))
 #'                    ),
-#'   idvars=1,  # user ids; also used for any variable not to be imputed
-#'   categorical=9
-
-#' categorical has three values
-#' total of 11 variables, but one is ignored, so 10 imputed vars
+#'   idvars="user_id_1",
+#'   categorical="categorical_9"
+#'
+#' Categorical has three values
+#' Total of 11 latent variables, but one is ignored, so 10 imputed vars.  The last three are for 
+#' one categorical variable, so there are a total of 1 id + 8 data = 9 columns in the dataset.
 
 library("clusterGeneration")
 cov_matrix_obj <- genPositiveDefMat(10, covMethod="unifcorrmat")
@@ -61,6 +62,16 @@ for(i in 1:nrow(FI_test)) {
     if(runif(1) < fraction_missing) FI_test[i,j] <- NA
   }
 }
+
+names(FI_train) <- c("user_id_1", "bounded_below_2", "unbounded_3", "unbounded_4", 
+                     "bounded_above_5", "bounded_above_and_below_6", "unbounded_7", 
+                     "unbounded_8", "categorical_9")
+names(FI_test) <- c("user_id_1", "bounded_below_2", "unbounded_3", "unbounded_4", 
+                    "bounded_above_5", "bounded_above_and_below_6", "unbounded_7", 
+                    "unbounded_8", "categorical_9")
+names(FI_true) <- c("user_id_1", "bounded_below_2", "unbounded_3", "unbounded_4", 
+                    "bounded_above_5", "bounded_above_and_below_6", "unbounded_7", 
+                    "unbounded_8", "categorical_9")
 
 save(FI_train, file="dev/FastImputation/data/FI_train.RData")
 save(FI_test, file="dev/FastImputation/data/FI_test.RData")
