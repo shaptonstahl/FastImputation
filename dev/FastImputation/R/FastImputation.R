@@ -83,7 +83,7 @@ function(
   }
   if( !is.data.frame(x) ) stop("'x' must be a dataframe.")
   if( !identical(names(x), patterns$FI_var_names) ) {
-    warning("The names of the variables you are imputing don't match those of the training data. Check to make sure the data is in the same format with the same columns in the same order.")
+    stop("The names of the variables you are imputing don't match those of the training data. Check to make sure the data is in the same format with the same columns in the same order.")
   }
   names_imputing_set <- names(x)
   

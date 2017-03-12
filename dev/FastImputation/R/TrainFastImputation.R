@@ -62,9 +62,9 @@ function(
   if( 0==length(constraints) ) {
     filled_constraints_in_x <- replicate(ncol(x), list())
   } else {
-    filled_constraints_in_x <- sapply(1:ncol(x), function(i.col) {
+    filled_constraints_in_x <- sapply(1:ncol(x), function(i_col) {
       is_each_constraint_for_this_col <- sapply(constraints, function(this_cons) {
-        return( this_cons[[1]] == i.col )
+        return( this_cons[[1]] == i_col | any((names(x) == this_cons[[1]]) == i_col) )
       })
       
       if( 0 == sum(is_each_constraint_for_this_col) ) {
@@ -72,7 +72,7 @@ function(
       } else if( 1 == sum(is_each_constraint_for_this_col) ) {
         return( constraints[[which(is_each_constraint_for_this_col)]][[2]] )
       } else {
-        warning("More than one constraint specified for variable ", i.col)
+        warning("More than one constraint specified for variable ", i_col)
         return( constraints[[max(which(is_each_constraint_for_this_col))]][[2]] )
       }
     })
@@ -121,6 +121,7 @@ function(
   for(this_col in cols_in_y_bound_to_intervals) {
     y[,this_col] <- NormalizeBoundedVariable(y[,this_col], constraints=filled_constraints_in_y[[this_col]])
   }
+  
   
   if(length(cols_categorical) > 0) {
     # count dummies for one-hot encoding

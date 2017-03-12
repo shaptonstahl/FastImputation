@@ -1,0 +1,36 @@
+Package: FastImputation
+Type: Package
+Title: Learn from Training Data then Quickly Fill in Missing Data
+Version: 2.0
+Date: 2017-03-11
+Author: Stephen R. Haptonstahl
+Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
+Description: TrainFastImputation() uses training data to describe a
+    multivariate normal distribution that the data approximates or
+    can be transformed into approximating and stores this information
+    as an object of class 'FastImputationPatterns'. FastImputation()
+    function uses this 'FastImputationPatterns' object to impute (make
+    a good guess at) missing data in a single line or a whole data frame
+    of data.  This approximates the process used by 'Amelia'
+    <http://gking.harvard.edu/amelia/> but is much faster when
+    filling in values for a single line of data.
+License: GPL (>= 2)
+Collate:
+    'FastImputation.R'
+    'TrainFastImputation.R'
+    'UnfactorColumns.R'
+    'BoundNormalizedVariable.R'
+    'NormalizeBoundedVariable.R'
+    'CovarianceWithMissing.R'
+    'FI_train.R'
+    'FI_test.R'
+    'FI_true.R'
+RoxygenNote: 6.0.1
+Imports:
+    methods,
+    Matrix
+Suggests:
+    testthat,
+    caret,
+    e1071
+NeedsCompilation: no
