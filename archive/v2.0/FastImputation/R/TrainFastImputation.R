@@ -41,7 +41,6 @@ function(
   if( "data.frame" != class(x) ) stop("Training data must be in a data.frame")
   
   x <- UnfactorColumns(x)  # unfactor the columns
-  
   if(missing(categorical)) {
     cols_categorical <- numeric(0)
   } else {
@@ -64,7 +63,7 @@ function(
   } else {
     filled_constraints_in_x <- sapply(1:ncol(x), function(i_col) {
       is_each_constraint_for_this_col <- sapply(constraints, function(this_cons) {
-        return( this_cons[[1]] == i_col | any((names(x) == this_cons[[1]]) == i_col) )
+         return( this_cons[[1]] == names(x)[i_col] | (which((names(x) == this_cons[[1]])) == i_col ))
       })
       
       if( 0 == sum(is_each_constraint_for_this_col) ) {
