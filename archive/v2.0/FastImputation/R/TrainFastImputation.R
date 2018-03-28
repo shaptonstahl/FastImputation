@@ -61,7 +61,8 @@ function(
   if( 0==length(constraints) ) {
     filled_constraints_in_x <- replicate(ncol(x), list())
   } else {
-    filled_constraints_in_x <- sapply(1:ncol(x), function(i_col) {
+    
+    filled_constraints_in_x <- lapply(1:ncol(x), function(i_col) {
       is_each_constraint_for_this_col <- sapply(constraints, function(this_cons) {
          return( this_cons[[1]] == i_col | (which((names(x) == this_cons[[1]])) == i_col ))
       })
@@ -76,7 +77,7 @@ function(
       }
     })
   }
-  
+
   # tally and remove ignored columns
   if(missing(idvars)) {
     cols_to_ignore <- numeric(0)
@@ -97,7 +98,7 @@ function(
       }
     }
   }
-  
+ 
   # tally the columns with each type of constraint
   cols_in_y_bound_to_intervals <- which(sapply(filled_constraints_in_y, function(this_cons) 
     !(is.null(this_cons$upper) && is.null(this_cons$lower))))
