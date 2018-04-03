@@ -100,7 +100,12 @@ function(
   # Return y
 
   # remove cols to ignore
-  y <- x[,-patterns$FI_cols_to_ignore]
+  if (length(patterns$FI_cols_to_ignore)>0) {
+    y <- x[,-patterns$FI_cols_to_ignore]  
+  } else {
+    y <- x
+  }
+  
   
   # transform constrained columns
   for(i_col in patterns$FI_cols_bound_to_intervals) {
