@@ -13,7 +13,7 @@
 CovarianceWithMissing <- function(x) {
   stopifnot(methods::is(x, "matrix") | (methods::is(x, "data.frame") && is.numeric(as.matrix(x))))
   
-  delta <- mean(!is.na(x))  # probabiliity a cell is observed, proportion of observed entries
+  delta <- mean(!is.na(x))  # probability a cell is observed, proportion of observed entries
   if( 1 == delta ) {        # no missing data
     out <- stats::cov(x)
   } else {

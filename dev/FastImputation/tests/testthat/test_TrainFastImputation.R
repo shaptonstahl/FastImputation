@@ -28,7 +28,7 @@ bad_categorical_2 <- "X10"
 
 test_that("TrainFastImputation catches bad input", {
   expect_error(TrainFastImputation(x=bad_array), 
-               "Training data must be in a data.frame")
+               "'x' must be a dataframe.")
   expect_error(TrainFastImputation(x=good_df, constraints=bad_constraints_upper), 
                "Column 4 does not respect the upper bound specified.")
   expect_error(TrainFastImputation(x=good_df, constraints=bad_constraints_lower), 

@@ -4,8 +4,7 @@
 \alias{NormalizeBoundedVariable}
 \title{Take a variable bounded above/below/both and return an unbounded (normalized) variable.}
 \usage{
-NormalizeBoundedVariable(x, constraints, tol = stats::pnorm(-5),
-  trim = TRUE)
+NormalizeBoundedVariable(x, constraints, tol = stats::pnorm(-5), trim = TRUE)
 }
 \arguments{
 \item{x}{A vector, matrix, array, or dataframe with value to be 

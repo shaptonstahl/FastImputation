@@ -78,7 +78,7 @@ confusionMatrix(data=categorical_rows_imputed_col_mode,
 
 }
 \references{
-\url{http://gking.harvard.edu/amelia/}
+\url{https://gking.harvard.edu/amelia}
 }
 \seealso{
 \code{\link{TrainFastImputation}}

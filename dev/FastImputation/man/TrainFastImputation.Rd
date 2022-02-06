@@ -39,7 +39,7 @@ patterns_with_constraints <- TrainFastImputation(
   
 }
 \references{
-\url{http://gking.harvard.edu/amelia/}
+\url{https://gking.harvard.edu/amelia}
 }
 \seealso{
 \code{\link{FastImputation}}

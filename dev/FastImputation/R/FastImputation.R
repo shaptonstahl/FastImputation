@@ -11,7 +11,7 @@
 #' @export
 #' @seealso \code{\link{TrainFastImputation}}
 #' @references
-#' \url{http://gking.harvard.edu/amelia/}
+#' \url{https://gking.harvard.edu/amelia}
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 #' @examples
 #' data(FI_train)   # provides FItrain dataset
@@ -138,7 +138,7 @@ function(
   for(i_row in 1:n_rows) {
     constrained_row <- z[i_row,]
     if( sum(is.na(constrained_row)) != 0 ) {  # do nothing if nothing is missing
-      # Use formula for mean here: http://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
+      # Use formula for mean here: https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
       cols_to_impute <- which(is.na(constrained_row))    # indices of "1" in Wikipedia formula for mean of conditional multivariate normal distribution
       if( length(cols_to_impute) == length(constrained_row) ) {
         # nothing to condition on
@@ -178,6 +178,11 @@ function(
   } else {
     y <- z
   }
+  # Coerce categorical variables to factors with correct levels
+  for(i in 1:length(patterns$FI_cols_categorical)) {
+    y[[patterns$FI_cols_categorical[i]]] <- factor(y[[patterns$FI_cols_categorical[i]]], 
+                                                   levels=patterns$FI_categories[[i]])
+  }
   
   # Bound normalized variables, keep in y
   for(i_col in patterns$FI_cols_bound_to_intervals) {
@@ -192,6 +197,6 @@ function(
   }
   # fix names of y
   names(y) <- names_imputing_set
-  
+    
   return(y)
 }

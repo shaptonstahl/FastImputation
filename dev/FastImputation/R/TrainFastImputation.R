@@ -13,7 +13,7 @@
 #' @export
 #' @seealso \code{\link{FastImputation}}
 #' @references
-#' \url{http://gking.harvard.edu/amelia/}
+#' \url{https://gking.harvard.edu/amelia}
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 #' @examples
 #'
@@ -38,10 +38,9 @@ function(
   # TODO:
   # - add transformations of the data other than for boundaries (?)
 
-  if( "data.frame" != class(x) ) stop("Training data must be in a data.frame")
+  if( !is.data.frame(x) ) stop("'x' must be a dataframe.")
   
-  x <- UnfactorColumns(x)  # unfactor the columns
-  
+  # Coerce categorical to numeric indices of the categorical columns
   if(missing(categorical)) {
     cols_categorical <- numeric(0)
   } else {
@@ -56,7 +55,11 @@ function(
         return(col_i)
       })))
     }
+    # Coerce columns declared to be factors as factors
+    for(i in cols_categorical) x[,i] <- as.factor(x[,i])
   }
+  
+  x <- UnfactorColumns(x)  # unfactor the columns
   
   # Fill the constraints so there is a constraint entry for each column
   if( 0==length(constraints) ) {
