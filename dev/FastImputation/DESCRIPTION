@@ -2,7 +2,7 @@ Package: FastImputation
 Type: Package
 Title: Learn from Training Data then Quickly Fill in Missing Data
 Version: 2.1
-Date: 2022-02-06
+Date: 2022-02-08
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
 Description: TrainFastImputation() uses training data to describe a
