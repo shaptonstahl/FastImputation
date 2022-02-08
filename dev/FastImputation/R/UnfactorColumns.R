@@ -16,10 +16,8 @@ function(x)
       x[,names(x)[ic]] <- levels(x[,names(x)[ic]])[as.numeric(x[,names(x)[ic]])]
       
       # Change to numeric if appropriate
-      old.warn <- getOption("warn")
-      options(warn = -1)
-      if( 0==sum(is.na(as.numeric(x[,names(x)[ic]]))) ) x[,names(x)[ic]] <- as.numeric(x[,names(x)[ic]])
-      options(warn = old.warn)
+      suppressWarnings(res <- (0==sum(is.na(as.numeric(x[,names(x)[ic]])))))
+      if( res ) x[,names(x)[ic]] <- as.numeric(x[,names(x)[ic]])
     }
   }
   return(x)
