@@ -56,7 +56,7 @@ NormalizeBoundedVariable <-
         tol > (constraints$upper - constraints$lower) / 2
     ) {
       stop(
-        "'tol' must be less than half the distance between upper and lower bounds."
+        "`tol` must be less than half the distance between upper and lower bounds."
       )
     }
 
@@ -67,13 +67,13 @@ NormalizeBoundedVariable <-
     if (is.infinite(constraints$lower) && is.infinite(constraints$upper)) {
       # not bounded; degenerate case
       return(x)
-    } else if (is.infinite(constraints$lower)) {
+    } else if (is.infinite(constraints$lower) && is.finite(constraints$upper)) {
       # only bounded above
       return(log(constraints$upper - x))
-    } else if (is.infinite(constraints$upper)) {
+    } else if (is.finite(constraints$lower) && is.infinite(constraints$upper)) {
       # only bounded below
       return(log(x - constraints$lower))
-    } else {
+    } else if (is.finite(constraints$lower) && is.finite(constraints$upper)) {
       # bounded above and below
       return(stats::qnorm(
         (x - constraints$lower) / (constraints$upper - constraints$lower)

@@ -4,25 +4,21 @@
 #' @return A dataframe containing the same data but any \code{factor} columns have been replaced with numeric or character columns.
 #' @export
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
-UnfactorColumns <-
-  function(x) {
-    # test.df <- data.frame(num.factor=as.factor(c(1,1,3,4,6,6)), char.factor=as.factor(c("this", "this", "that", "this", "this", "that")))
-    if (!is.data.frame(x))
-      stop("UnfactorColumns requires a data.frame for input")
+UnfactorColumns <- function(x) {
+  if (!is.data.frame(x)) stop("UnfactorColumns requires a data.frame for input")
 
-    for (ic in 1:ncol(x)) {
-      if (is.factor(x[, names(x)[ic]])) {
-        # Unfactor the column
-        x[, names(x)[ic]] <- levels(x[, names(x)[ic]])[as.numeric(x[, names(x)[
-          ic
-        ]])]
-
-        # Change to numeric if appropriate
-        suppressWarnings(
-          res <- (0 == sum(is.na(as.numeric(x[, names(x)[ic]]))))
-        )
-        if (res) x[, names(x)[ic]] <- as.numeric(x[, names(x)[ic]])
+  for (col_name in names(x)) {
+    if (is.factor(x[[col_name]])) {
+      # Convert factor to character
+      x[[col_name]] <- as.character(x[[col_name]])
+      # Attempt to convert to numeric if possible
+      suppressWarnings(
+        as_num <- as.numeric(x[[col_name]])
+      )
+      if (!any(is.na(as_num)) && length(as_num) == length(x[[col_name]])) {
+        x[[col_name]] <- as_num
       }
     }
-    return(x)
   }
+  return(x)
+}
