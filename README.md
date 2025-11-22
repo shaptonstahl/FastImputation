@@ -33,11 +33,13 @@ To estimate the covariance matrix $\Sigma$, Fast Imputation uses the estimator g
 
 
 The empirical covariance matrix is given by
+
 $$
 \Sigma_n^{(\delta)} = \frac{1}{n} \sum_{i=1}^n Y_i \otimes Y_i
 $$
 
 Then the unbiased estimate of the covariance matrix is given by
+
 $$
 \tilde{\Sigma}_n = (\delta^{-1}-\delta^{-2}) \text{diag}(\Sigma_n^{(\delta)}) + \delta^{-2}\Sigma_n^{(\delta)} \tag{1.4}
 $$
