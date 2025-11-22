@@ -1,5 +1,5 @@
 import unittest
-from fast_imputation.imputation import FastImputer
+from fastimputation.imputation import FastImputer
 
 class TestFastImputer(unittest.TestCase):
     def test_init(self):
