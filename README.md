@@ -31,12 +31,15 @@ np.cov(df) 🚫
 
 To estimate the covariance matrix $\Sigma$, Fast Imputation uses the estimator given in [Lounici (2012), Equation 1.4](https://arxiv.org/abs/1201.2577v5). Let $X$ be the data matrix, and $Y_i$ the $i^\text{th}$ row of $X$. Set $\delta$ to be the fraction of observed _cells_ in the data matrix ($\delta=1$ means no missing data).
 
+
+The empirical covariance matrix is given by
 $$
 \Sigma_n^{(\delta)} = \frac{1}{n} \sum_{i=1}^n Y_i \otimes Y_i
 $$
 
+Then the unbiased estimate of the covariance matrix is given by
 $$
-\text{Estimated covariance matrix } \tilde{\Sigma}_n = (\delta^{-1}-\delta^{-2}) \text{diag}(\Sigma_n^{(\delta)}) + \delta^{-2}\Sigma_n^{(\delta)} \tag{1.4}
+\tilde{\Sigma}_n = (\delta^{-1}-\delta^{-2}) \text{diag}(\Sigma_n^{(\delta)}) + \delta^{-2}\Sigma_n^{(\delta)} \tag{1.4}
 $$
 
 This provides an unbiased estimate of the covariance matrix when the data has missing values. It is a scalable algorithm because $\Sigma_n^{(\delta)}$ is generated one observation at a time, so it can be trained on very large datasets using appropriate parallelization.
