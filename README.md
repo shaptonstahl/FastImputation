@@ -41,7 +41,7 @@ $$
 Then the unbiased estimate of the covariance matrix is given by
 
 $$
-\tilde{\Sigma}_n = (\delta^{-1}-\delta^{-2}) \text{diag}(\Sigma_n^{(\delta)}) + \delta^{-2}\Sigma_n^{(\delta)} \tag{1.4}
+\tilde{\Sigma}_n = (\delta^{-1}-\delta^{-2}) \text{diag}(\Sigma_n^{(\delta)}) + \delta^{-2}\Sigma_n^{(\delta)}
 $$
 
 This provides an unbiased estimate of the covariance matrix when the data has missing values. It is a scalable algorithm because $\Sigma_n^{(\delta)}$ is generated one observation at a time, so it can be trained on very large datasets using appropriate parallelization.
