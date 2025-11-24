@@ -7,7 +7,7 @@ Fast Imputation
 
 ## Assumptions
 
-Fast Imputation assumes that the data is [missing at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mar-missing-at-random) (MAR) or [missing completely at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mcar-missing-completely-at-random) (MCAR). This means that the probability of a value being missing is independent of the value itself. Most imputations methods make this assumption, but you should think hard about the data-generation process to ensure that it is reasonable to make this assumption. If the probability of a value being missing depends on the value itself, then the data is [missing not at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#nmar-not-missing-at-random) (MNAR).
+Fast Imputation assumes that the data is [missing at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mar-missing-at-random) (MAR) or [missing completely at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mcar-missing-completely-at-random) (MCAR). This means that the probability of a value being missing is independent of the value itself. Most imputation methods make this assumption, but you should think hard about the data-generation process to ensure that it is reasonable to make this assumption. If the probability of a value being missing depends on the value itself, then the data is [missing not at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#nmar-not-missing-at-random) (MNAR).
 
 **Caution**: Imputation adds new values that are not actual data, so it will decrease estimated uncertainty and make the predictions appear to be more certain than they are. Methods like *Bayesian data augmentation* or *multiple imputation* can account for this and are therefore more appropriate for making inferences rather than predictions.
 
@@ -15,7 +15,7 @@ Fast Imputation assumes that the data is [missing at random](https://bookdown.or
 Fast Imputation trains on observations with missing values and uses the trained model to impute the missing values, either in the same data frame or in a new data frame. It's fast, so it can be used to impute a single observation, an entire data frame, or in a pipeline.
 
 ### Numeric features
-Suppose you have a data frame of all numeric features. When training, Fast Imputation estiamtes the covariance matrix of the data, ignoring missing values. When imputing, it generates the mean of each missing value conditional on the non-missing values.
+Suppose you have a data frame of all numeric features. When training, Fast Imputation estimates the covariance matrix of the data, ignoring missing values. When imputing, it generates the mean of each missing value conditional on the non-missing values.
 
 ### Bounded numeric features
 These are converted to the entire real line before applying the covariance matrix formula. The imputed value is automatically converted back to the original bounded numeric variable.
@@ -24,7 +24,7 @@ These are converted to the entire real line before applying the covariance matri
 These are converted to dummy variables before applying the covariance matrix formula. The imputed value is automatically converted back to the original categorical variable.
 
 ### But missing values bias the covariance matrix estimate!
-A normal call (below) like would provide a biased estimate of the covariance matrix when there are missing values.
+A normal call like those below would provide a biased estimate of the covariance matrix when there are missing values.
 
 ```R
 # R, biased estimate of covariance matrix when there are missing values
@@ -77,7 +77,7 @@ Suppose `df` only has unbounded numeric features. Then we can impute the missing
 3. Impute the tuning data frame `df_tune`.
 4. Impute the testing data frame `df_test`.
 
-Note that we only look at the training data frame `df_train` to train the Fast Imputation model. We do not look at the tuning data frame `df_tune` or the testing data frame `df_test` to train the Fast Imputation model because that would introduce leakage into the prediction model.
+Note that we only look at the training data frame `df_train` to train the Fast Imputation model. We do not look at the tuning data frame `df_tune` or the testing data frame `df_test` to train the Fast Imputation model because that would introduce [leakage](https://en.wikipedia.org/wiki/Leakage_(machine_learning)) into the prediction model.
 
 ```R
 # R
@@ -99,7 +99,7 @@ df_tune_imputed = fi.transform(df_tune)  # Impute the tuning data frame
 df_test_imputed = fi.transform(df_test)  # Impute the testing data frame
 ```
 
-## Some bounded numeric features
+## Bounded numeric features
 Fast Imputation can handle constrained/bounded numeric features. They can be bounded below, bounded above, or both.
 
 Suppose `df` has some bounded numeric features. Specifically:
@@ -133,7 +133,7 @@ from fastimputation import FastImputer
 ...
 ```
 
-## Some categorical features
+## Categorical features
 
 Suppose `df` has a categorical feature, specifically `feature_d`.
 
