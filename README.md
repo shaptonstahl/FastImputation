@@ -5,7 +5,11 @@ Fast Imputation
 
 `R` and Python packages for filling in missing data. The Fast Imputation algorithm works well for imputing before running a machine learning or statistical prediction algorithm.
 
-**Caution**: Imputation adds new values that are not actual data, so it will increase the variance of the model. It is recommended to use imputation as a preprocessing step, and to use cross-validation to tune the hyperparameters of the model.
+## Assumptions
+
+Fast Imputation assumes that the data is [missing at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mar-missing-at-random) (MAR) or [missing completely at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#mcar-missing-completely-at-random) (MCAR). This means that the probability of a value being missing is independent of the value itself. Most imputations methods make this assumption, but you should think hard about the data-generation process to ensure that it is reasonable to make this assumption. If the probability of a value being missing depends on the value itself, then the data is [missing not at random](https://bookdown.org/marklhc/notes_bookdown/missing-data.html#nmar-not-missing-at-random) (MNAR).
+
+**Caution**: Imputation adds new values that are not actual data, so it will decrease estimated uncertainty and make the predictions appear to be more certain than they are. Methods like *Bayesian data augmentation* or *multiple imputation* can account for this and are therefore more appropriate for making inferences rather than predictions.
 
 ## How does it work?
 Fast Imputation trains on observations with missing values and uses the trained model to impute the missing values, either in the same data frame or in a new data frame. It's fast, so it can be used to impute a single observation, an entire data frame, or in a pipeline.
