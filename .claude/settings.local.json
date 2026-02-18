@@ -48,7 +48,8 @@
       "Bash(git -C \"/c/Users/steve/Documents/GitHub/FastImputation\" mv functions.R R/functions.R)",
       "Bash(test:*)",
       "Bash(git -C \"/c/Users/steve/Documents/GitHub/FastImputation\" add -A)",
-      "Bash(git -C \"/c/Users/steve/Documents/GitHub/FastImputation\" status --short)"
+      "Bash(git -C \"/c/Users/steve/Documents/GitHub/FastImputation\" status --short)",
+      "Bash(gh pr view:*)"
     ]
   }
 }
