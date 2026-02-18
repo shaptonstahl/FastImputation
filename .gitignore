@@ -1,32 +1,17 @@
 # RStudio files
 .Rproj.user/
 .Rhistory
-.RData
 .Ruserdata
 .Rproj
 
-# Compiled documentation
-*.Rd
-
-# Temporary files
-*.csv
-*.tsv
-*.rds
-*.tmp
-*.log
-
 # Package build artifacts
-*.tar.gz
 *.Rcheck/
+*.tar.gz
+*.log
+*.tmp
 
 # Cache and workspace files
-*.RData
-*.Rhistory
 *.Rapp.history
-
-# Test artifacts
-tests/testthat/test-outputs/
-tests/testthat/test-results/
 
 # Dependency management
 renv/library/
@@ -34,17 +19,19 @@ renv/cache/
 packrat/lib/
 packrat/src/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+dist/
+*.egg-info/
+
 # OS-specific files
 .DS_Store
 Thumbs.db
 
-# Archives and backups
-*.zip
-*.tar
-*.gz
-*.bak
+# Misc
 *.swp
+*.bak
 *.~*
-
-# Other ignored files
-
