@@ -38,7 +38,7 @@ test_that("TrainFastImputation returns correct types", {
   res <- TrainFastImputation(
     x = good_df,
     constraints = good_constraints_both,
-    idvars = good_ignore_2
+    ignore_cols = good_ignore_2
   )
   expect_true(is.list(res))
   expect_true(is.numeric(res$FI_means))
@@ -52,13 +52,13 @@ test_that("TrainFastImputation returns correct values", {
   res_1 <- TrainFastImputation(
     x = good_df,
     constraints = good_constraints_upper,
-    idvars = good_ignore_1,
+    ignore_cols = good_ignore_1,
     categorical = good_categorical_1
   )
   res_2 <- TrainFastImputation(
     x = good_df,
     constraints = good_constraints_lower,
-    idvars = good_ignore_2,
+    ignore_cols = good_ignore_2,
     categorical = good_categorical_2
   )
   expect_equal(res_1$FI_constraints[[1]], list())

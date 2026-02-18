@@ -17,9 +17,9 @@ good_constraints <- list(list("X7", list(upper=3)),
 good_ignore <- c("X2", "X1")
 good_categorical <- c("X6")
 
-good_patterns <- TrainFastImputation(good_df, 
+good_patterns <- TrainFastImputation(good_df,
                                      constraints=good_constraints,
-                                     idvars=good_ignore,
+                                     ignore_cols=good_ignore,
                                      categorical=good_categorical)
 
 good_test_set <- data.frame(X1=c("XX", "DD"),

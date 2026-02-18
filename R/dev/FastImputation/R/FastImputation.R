@@ -14,19 +14,27 @@
 #' \url{https://gking.harvard.edu/amelia}
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 #' @examples
-#' data(FI_train)   # provides FItrain dataset
+#' # Small fast example
+#' train_df <- data.frame(x = c(1, 2, NA, 4, 5), y = c(2, NA, 6, 8, 10))
+#' patterns <- TrainFastImputation(train_df)
+#' test_df <- data.frame(x = c(3, NA), y = c(NA, 7))
+#' FastImputation(test_df, patterns, verbose = FALSE)
+#'
+#' \donttest{
+#' # Full example with package datasets
+#' data(FI_train)
 #' patterns <- TrainFastImputation(
 #'   FI_train,
-#'   constraints=list(list("bounded_below_2", list(lower=0)),
-#'                    list("bounded_above_5", list(upper=0)),
-#'                    list("bounded_above_and_below_6", list(lower=0, upper=1))
+#'   constraints=list("bounded_below_2" = list(lower=0),
+#'                    "bounded_above_5" = list(upper=0),
+#'                    "bounded_above_and_below_6" = list(lower=0, upper=1)
 #'                    ),
-#'   idvars="user_id_1",
+#'   ignore_cols="user_id_1",
 #'   categorical="categorical_9")
 #'
 #' data(FI_test)
 #' FI_test          # note there is missing data
-#' imputed_data <- FastImputation(FI_test, patterns)
+#' imputed_data <- FastImputation(FI_test, patterns, verbose = FALSE)
 #' imputed_data    # good guesses for missing values are filled in
 #'
 #' data(FI_true)
@@ -67,6 +75,7 @@
 #' confusionMatrix(data=categorical_rows_imputed_col_mode,
 #'                 reference=FI_true$categorical_9[categorical_rows_imputed])
 #' # less accurate than using FastImputation
+#' }
 #'
 FastImputation <-
   function(
@@ -107,14 +116,14 @@ FastImputation <-
     # Return y
 
     # remove cols to ignore
-    if (length(patterns$FI_cols_to_ignore) > 0) {
-      y <- x[, -patterns$FI_cols_to_ignore]
+    if (length(patterns$FI_ignore_cols) > 0) {
+      y <- x[, -patterns$FI_ignore_cols]
     } else {
       y <- x
     }
 
     # transform constrained columns
-    for (i_col in patterns$FI_cols_bound_to_intervals) {
+    for (i_col in patterns$FI_bound_cols) {
       y[, i_col] <- NormalizeBoundedVariable(
         y[, i_col],
         patterns$FI_constraints[[i_col]]
@@ -122,10 +131,10 @@ FastImputation <-
     }
 
     # set aside categorical variables and one-hot encode them
-    if (length(patterns$FI_cols_categorical) > 0) {
+    if (length(patterns$FI_categorical) > 0) {
       # set aside categorical variables
-      y_categorical <- y[, patterns$FI_cols_categorical, drop = FALSE]
-      z <- y[, -patterns$FI_cols_categorical]
+      y_categorical <- y[, patterns$FI_categorical, drop = FALSE]
+      z <- y[, -patterns$FI_categorical]
       total_not_categorical <- ncol(z)
 
       # encode categorical variables
@@ -136,8 +145,8 @@ FastImputation <-
       )
       current_col_to_fill <- 1
       while (current_col_to_fill < total_one_hot_dummies) {
-        for (i in 1:length(patterns$FI_categories)) {
-          for (j in 1:length(patterns$FI_categories[[i]])) {
+        for (i in seq_along(patterns$FI_categories)) {
+          for (j in seq_along(patterns$FI_categories[[i]])) {
             z[, total_not_categorical + current_col_to_fill] <- ifelse(
               y_categorical[, i] == patterns$FI_categories[[i]][j],
               1,
@@ -187,7 +196,7 @@ FastImputation <-
     }
 
     # Recover categorical variables, save in y
-    if (length(patterns$FI_cols_categorical) > 0) {
+    if (length(patterns$FI_categorical) > 0) {
       for (i_col in 1:ncol(y_categorical)) {
         first_col_of_var_to_parse <- 1
         n_cols_this_var <- length(patterns$FI_categories[[i_col]])
@@ -203,7 +212,7 @@ FastImputation <-
       }
       y <- z[, 1:total_not_categorical]
       for (i in 1:ncol(y_categorical)) {
-        y_col <- patterns$FI_cols_categorical[i]
+        y_col <- patterns$FI_categorical[i]
         y <- as.data.frame(append(
           y,
           list(var = y_categorical[, i, drop = FALSE]),
@@ -214,15 +223,15 @@ FastImputation <-
       y <- z
     }
     # Coerce categorical variables to factors with correct levels
-    for (i in 1:length(patterns$FI_cols_categorical)) {
-      y[[patterns$FI_cols_categorical[i]]] <- factor(
-        y[[patterns$FI_cols_categorical[i]]],
+    for (i in seq_along(patterns$FI_categorical)) {
+      y[[patterns$FI_categorical[i]]] <- factor(
+        y[[patterns$FI_categorical[i]]],
         levels = patterns$FI_categories[[i]]
       )
     }
 
     # Bound normalized variables, keep in y
-    for (i_col in patterns$FI_cols_bound_to_intervals) {
+    for (i_col in patterns$FI_bound_cols) {
       y[, i_col] <- BoundNormalizedVariable(
         y[, i_col],
         patterns$FI_constraints[[i_col]]
@@ -230,8 +239,8 @@ FastImputation <-
     }
 
     # Add ignored columns, keep in y
-    if (length(patterns$FI_cols_to_ignore) > 0) {
-      for (i_col in patterns$FI_cols_to_ignore) {
+    if (length(patterns$FI_ignore_cols) > 0) {
+      for (i_col in patterns$FI_ignore_cols) {
         y <- as.data.frame(append(y, list(var = x[, i_col]), i_col - 1))
       }
     }

@@ -22,19 +22,27 @@ multivariate normal or can be transformed into approximately
 multivariate normal.
 }
 \examples{
-data(FI_train)   # provides FItrain dataset
+# Small fast example
+train_df <- data.frame(x = c(1, 2, NA, 4, 5), y = c(2, NA, 6, 8, 10))
+patterns <- TrainFastImputation(train_df)
+test_df <- data.frame(x = c(3, NA), y = c(NA, 7))
+FastImputation(test_df, patterns, verbose = FALSE)
+
+\donttest{
+# Full example with package datasets
+data(FI_train)
 patterns <- TrainFastImputation(
   FI_train,
-  constraints=list(list("bounded_below_2", list(lower=0)),
-                   list("bounded_above_5", list(upper=0)),
-                   list("bounded_above_and_below_6", list(lower=0, upper=1))
+  constraints=list("bounded_below_2" = list(lower=0),
+                   "bounded_above_5" = list(upper=0),
+                   "bounded_above_and_below_6" = list(lower=0, upper=1)
                    ),
-  idvars="user_id_1",
+  ignore_cols="user_id_1",
   categorical="categorical_9")
 
 data(FI_test)
 FI_test          # note there is missing data
-imputed_data <- FastImputation(FI_test, patterns)
+imputed_data <- FastImputation(FI_test, patterns, verbose = FALSE)
 imputed_data    # good guesses for missing values are filled in
 
 data(FI_true)
@@ -75,6 +83,7 @@ categorical_rows_imputed_col_mode <- rep(stat_mode(FI_test$categorical_9),
 confusionMatrix(data=categorical_rows_imputed_col_mode,
                 reference=FI_true$categorical_9[categorical_rows_imputed])
 # less accurate than using FastImputation
+}
 
 }
 \references{

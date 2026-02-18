@@ -3,8 +3,9 @@ Type: Package
 Title: Learn from Training Data then Quickly Fill in Missing Data
 Version: 3.0
 Date: 2026-02-17
-Author: Stephen R. Haptonstahl
-Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
+Authors@R: person("Stephen R.", "Haptonstahl",
+    email = "srh@haptonstahl.org",
+    role = c("aut", "cre"))
 Description: TrainFastImputation() uses training data to describe a
     multivariate normal distribution that the data approximates or
     can be transformed into approximating and stores this information
@@ -26,7 +27,7 @@ Collate:
     'FI_train.R'
     'FI_test.R'
     'FI_true.R'
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     methods,
     Matrix,

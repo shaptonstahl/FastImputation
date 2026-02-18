@@ -9,7 +9,7 @@ TrainFastImputation(x, constraints, ignore_cols, categorical)
 \arguments{
 \item{x}{Dataframe containing training data. Can have incomplete rows.}
 
-\item{constraints}{A list of constraints.  See the examples below for formatting details.}
+\item{constraints}{A named list of constraints.  See the examples below for formatting details.}
 
 \item{ignore_cols}{A vector of column indices or column names to be ignored in the imputation process.}
 
@@ -25,9 +25,13 @@ multivariate normal or can be transformed into approximately
 multivariate normal.
 }
 \examples{
+# Small fast example
+train_df <- data.frame(x = c(1, 2, NA, 4, 5), y = c(2, NA, 6, 8, 10))
+TrainFastImputation(train_df)
 
-data(FI_train)   # provides FI_train dataset
-
+\donttest{
+# Full example with package dataset
+data(FI_train)
 patterns_with_constraints <- TrainFastImputation(
   FI_train,
   constraints=list("bounded_below_2" = list(lower=0),
@@ -36,6 +40,7 @@ patterns_with_constraints <- TrainFastImputation(
                    ),
   ignore_cols="user_id_1",
   categorical="categorical_9")
+}
 
 }
 \references{
