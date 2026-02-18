@@ -8,12 +8,13 @@
 #'
 #' @param x A vector, matrix, array, or dataframe with value to be
 #'   coerced into a range or set.
-#' @param constraints A list of constraints.  See the examples below
-#'   for formatting details.
+#' @param constraints A named list of constraints with optional \code{lower} and/or
+#'   \code{upper} elements. See the examples below for formatting details.
 #' @param tol Variables will be forced to be at least this far away
 #'   from the boundaries.
 #' @param trim If TRUE values in x < lower and values in x > upper
 #'   will be set to lower and upper, respectively, before normalizing.
+#'   A warning is issued if any values are trimmed.
 #' @return An object of the same class as \code{x} with the values
 #'   transformed so that they spread out over any part of the real
 #'   line.
@@ -29,17 +30,29 @@
 #'   \code{qnorm((x-lower)/(upper - lower))}.
 #' @export
 #' @examples
-#'   constraints=list(lower=5)           # lower bound when constrining to an interval
-#'   constraints=list(upper=10)          # upper bound when constraining to an interval
-#'   constraints=list(lower=5, upper=10) # both lower and upper bounds
+#'   NormalizeBoundedVariable(c(5, 7, 10), constraints = list(lower = 0))
+#'   NormalizeBoundedVariable(c(1, 3, 5), constraints = list(upper = 10))
+#'   NormalizeBoundedVariable(c(5, 7, 9), constraints = list(lower = 0, upper = 10))
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 NormalizeBoundedVariable <-
   function(x, constraints, tol = stats::pnorm(-5), trim = TRUE) {
+    if (!is.list(constraints))
+      stop("`constraints` must be a named list, e.g. list(lower = 0, upper = 1)")
+    if (is.data.frame(x)) {
+      was.data.frame <- TRUE
+      df.names <- names(x)
+      x <- as.matrix(x)
+    } else {
+      was.data.frame <- FALSE
+    }
     if (is.null(constraints$lower)) constraints$lower <- -Inf
     if (is.null(constraints$upper)) constraints$upper <- Inf
     if (constraints$upper < constraints$lower)
       stop("'upper' must be greater than 'lower.'")
     if (trim) {
+      clipped <- x < constraints$lower | x > constraints$upper
+      if (any(clipped, na.rm = TRUE))
+        warning(sum(clipped, na.rm = TRUE), " value(s) were trimmed to the boundary.")
       x <- pmax(x, constraints$lower)
       x <- pmin(x, constraints$upper)
     } else {
@@ -51,12 +64,12 @@ NormalizeBoundedVariable <-
         stop("All values in x must be less than or equal to the upper bound.")
     }
     if (
-      is.finite(constraints$lower) &
-        is.finite(constraints$upper) &
+      is.finite(constraints$lower) &&
+        is.finite(constraints$upper) &&
         tol > (constraints$upper - constraints$lower) / 2
     ) {
       stop(
-        "'tol' must be less than half the distance between upper and lower bounds."
+        "`tol` must be less than half the distance between upper and lower bounds."
       )
     }
 
@@ -66,17 +79,22 @@ NormalizeBoundedVariable <-
 
     if (is.infinite(constraints$lower) && is.infinite(constraints$upper)) {
       # not bounded; degenerate case
-      return(x)
-    } else if (is.infinite(constraints$lower)) {
+      out <- x
+    } else if (is.infinite(constraints$lower) && is.finite(constraints$upper)) {
       # only bounded above
-      return(log(constraints$upper - x))
-    } else if (is.infinite(constraints$upper)) {
+      out <- log(constraints$upper - x)
+    } else if (is.finite(constraints$lower) && is.infinite(constraints$upper)) {
       # only bounded below
-      return(log(x - constraints$lower))
-    } else {
+      out <- log(x - constraints$lower)
+    } else if (is.finite(constraints$lower) && is.finite(constraints$upper)) {
       # bounded above and below
-      return(stats::qnorm(
+      out <- stats::qnorm(
         (x - constraints$lower) / (constraints$upper - constraints$lower)
-      ))
+      )
     }
+    if (was.data.frame) {
+      out <- as.data.frame(out)
+      names(out) <- df.names
+    }
+    return(out)
   }
