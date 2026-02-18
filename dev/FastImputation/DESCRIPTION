@@ -1,8 +1,8 @@
 Package: FastImputation
 Type: Package
 Title: Learn from Training Data then Quickly Fill in Missing Data
-Version: 2.2.1
-Date: 2023-09-25
+Version: 3.0
+Date: 2026-02-17
 Author: Stephen R. Haptonstahl
 Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
 Description: TrainFastImputation() uses training data to describe a
@@ -20,14 +20,13 @@ Depends:
 Collate:
     'FastImputation.R'
     'TrainFastImputation.R'
-    'UnfactorColumns.R'
     'BoundNormalizedVariable.R'
     'NormalizeBoundedVariable.R'
     'CovarianceWithMissing.R'
     'FI_train.R'
     'FI_test.R'
     'FI_true.R'
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports:
     methods,
     Matrix,

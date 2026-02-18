@@ -6,18 +6,24 @@
 #' \code{NormalizeBoundedVariable}; this does not completely reverse the
 #' effect of \code{NormalizeBoundedVariable} because \code{NormalizeBoundedVariable}
 #' first forces values away from the bounds, and this information is lost.
+#' No \code{tol} parameter is needed here because the inverse transformations
+#' (\code{exp}, \code{pnorm}) naturally keep output away from the boundaries
+#' for any finite input.
 #'
 #' @param x A vector, matrix, array, or dataframe with value to be coerced into a range or set.
-#' @param constraints A list of constraints.  See the examples below for formatting details.
+#' @param constraints A named list of constraints with optional \code{lower} and/or
+#'   \code{upper} elements. See the examples below for formatting details.
 #' @return An object of the same class as x with the values transformed into the desired half-line or segment.
 #' @export
 #' @examples
-#'   constraints=list(lower=5)           # lower bound when constrining to an interval
-#'   constraints=list(upper=10)          # upper bound when constraining to an interval
-#'   constraints=list(lower=5, upper=10) # both lower and upper bounds
+#'   BoundNormalizedVariable(c(-2, 0, 2), constraints = list(lower = 0))
+#'   BoundNormalizedVariable(c(-2, 0, 2), constraints = list(upper = 5))
+#'   BoundNormalizedVariable(c(-2, 0, 2), constraints = list(lower = 0, upper = 5))
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 BoundNormalizedVariable <-
   function(x, constraints) {
+    if (!is.list(constraints))
+      stop("`constraints` must be a named list, e.g. list(lower = 0, upper = 1)")
     if (is.data.frame(x)) {
       was.data.frame <- TRUE
       df.names <- names(x)

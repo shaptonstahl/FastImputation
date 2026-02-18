@@ -7,21 +7,21 @@
 NormalizeBoundedVariable(x, constraints, tol = stats::pnorm(-5), trim = TRUE)
 }
 \arguments{
-\item{x}{A vector, matrix, array, or dataframe with value to be 
+\item{x}{A vector, matrix, array, or dataframe with value to be
 coerced into a range or set.}
 
-\item{constraints}{A list of constraints.  See the examples below 
+\item{constraints}{A list of constraints.  See the examples below
 for formatting details.}
 
-\item{tol}{Variables will be forced to be at least this far away 
+\item{tol}{Variables will be forced to be at least this far away
 from the boundaries.}
 
-\item{trim}{If TRUE values in x < lower and values in x > upper 
+\item{trim}{If TRUE values in x < lower and values in x > upper
 will be set to lower and upper, respectively, before normalizing.}
 }
 \value{
-An object of the same class as \code{x} with the values 
-  transformed so that they spread out over any part of the real 
+An object of the same class as \code{x} with the values
+  transformed so that they spread out over any part of the real
   line.
 
 A variable \code{x} that is bounded below by \code{lower} is
@@ -31,14 +31,14 @@ A variable \code{x} that is bounded above by \code{upper} is
   transformed to \code{log(upper - x)}.
 
 A variable \code{x} that is bounded below by \code{lower} and
-  above by \code{upper} is transformed to 
+  above by \code{upper} is transformed to
   \code{qnorm((x-lower)/(upper - lower))}.
 }
 \description{
 This transforms bounded variables so that they are not bounded.
 First variables are coerced away from the boundaries. by a distance of \code{tol}.
 The natural log is used for variables bounded either above or below but not both.
-The inverse of the standard normal cumulative distribution function 
+The inverse of the standard normal cumulative distribution function
   (the quantile function) is used for variables bounded above and below.
 }
 \examples{

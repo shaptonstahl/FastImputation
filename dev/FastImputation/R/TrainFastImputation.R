@@ -67,7 +67,13 @@ TrainFastImputation <-
       x[[col_name]] <- as.factor(x[[col_name]])
     }
 
-    x <- UnfactorColumns(x) # unfactor the columns
+    # Convert factor columns to character or numeric
+    x[] <- lapply(x, function(col) {
+      if (!is.factor(col)) return(col)
+      ch <- as.character(col)
+      suppressWarnings(num <- as.numeric(ch))
+      if (!any(is.na(num)) && length(num) == length(ch)) num else ch
+    })
 
     # tally and remove ignored columns
     if (missing(ignore_cols)) {
