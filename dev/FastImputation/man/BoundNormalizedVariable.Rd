@@ -17,7 +17,7 @@ An object of the same class as x with the values transformed into the desired ha
 \description{
 This takes variables on the real line and constrains them to be on
 a half-line (constrained above or below) or a segment (constrained both
-above and below). This is approximately the inverse of 
+above and below). This is approximately the inverse of
 \code{NormalizeBoundedVariable}; this does not completely reverse the
 effect of \code{NormalizeBoundedVariable} because \code{NormalizeBoundedVariable}
 first forces values away from the bounds, and this information is lost.
