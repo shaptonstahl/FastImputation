@@ -1,16 +1,4 @@
-#' Estimate covariance when data is missing
-#'
-#' Ignoring missing values can lead to biased estimates of the covariance.
-#' Lounici (2012) gives an unbiased estimator when the data has missing values.
-#'
-#' @param x matrix or data.frame, data with each row an observation and each column a variable.
-#' @return matrix, unbiased estimate of the covariance.
-#' @export
-#' @references
-#' High-dimensional covariance matrix estimation with missing observations.
-#' Karim Lounici. 2012.
-#' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
-CovarianceWithMissing <- function(x) {
+covariance_with_missing <- function(x) {
   stopifnot(
     methods::is(x, "matrix") |
       (methods::is(x, "data.frame") && is.numeric(as.matrix(x)))

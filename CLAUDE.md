@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ## Current work
+
+
+
 ## Project Overview
 
 FastImputation is an R package for statistical imputation of missing data using conditional multivariate normal distributions. It is published on CRAN. The package is optimized for fast single-row imputation, making it suitable for use before running machine learning prediction algorithms. A Python implementation also lives in this repo.
@@ -30,31 +34,37 @@ python/
 All commands below are run from an R console with the working directory set to `R/dev/FastImputation/` (or from the project root after opening `R/FastImputation.Rproj` in RStudio).
 
 **Generate documentation and NAMESPACE:**
+
 ```r
 roxygen2::roxygenise()
 ```
 
 **Build the package:**
+
 ```r
 devtools::build()
 ```
 
 **Run all tests:**
+
 ```r
 devtools::test()
 ```
 
 **Run a single test file:**
+
 ```r
 testthat::test_file("tests/testthat/test_TrainFastImputation.R")
 ```
 
 **Check package (CRAN standards):**
+
 ```r
 devtools::check(args = "--as-cran")
 ```
 
 **Install package locally:**
+
 ```r
 devtools::install()
 ```
@@ -101,3 +111,7 @@ Both phases apply transformations before/after the MVN calculation:
 ## Documentation
 
 All R documentation is written as roxygen2 comments in source files. Running `roxygen2::roxygenise()` regenerates the `.Rd` files in `man/` and the `NAMESPACE` file. Never edit `man/*.Rd` or `NAMESPACE` directly.
+
+## Known Issues
+
+- **Python implementation is a stub**: `python/dev/fastimputation/imputation.py` contains a `FastImputer` class with `fit` and `transform` methods that are no-ops. The Python package is not yet implemented.

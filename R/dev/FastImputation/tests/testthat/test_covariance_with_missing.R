@@ -1,4 +1,4 @@
-context("CovarianceWithMissing")
+context("covariance_with_missing")
 
 miss <-
   c(1755L, 1010L, 3612L, 2651L, 2603L, 1824L, 1898L, 154L, 4674L, 
@@ -1525,27 +1525,27 @@ x.full <-
 
 MeanRelativeError <- function(est, base) mean(abs((est-base)/base))
 
-test_that("CovarianceWithMissing catches bad input", {
+test_that("covariance_with_missing catches bad input", {
   bad.df <- data.frame(a=1:3, b=letters[24:26])
   bad.character <- letters
   bad.numeric <- 4:10
   bad.char.matrix <- matrix(letters, nrow=13)
   bad.3d.array <- array(1:27, dim=c(3,3,3))
   
-  expect_error(CovarianceWithMissing(x=bad.df))
-  expect_error(CovarianceWithMissing(x=bad.character))
-  expect_error(CovarianceWithMissing(x=bad.numeric))
-  expect_error(CovarianceWithMissing(x=bad.char.matrix))
-  expect_error(CovarianceWithMissing(x=bad.3d.array))
+  expect_error(covariance_with_missing(x=bad.df))
+  expect_error(covariance_with_missing(x=bad.character))
+  expect_error(covariance_with_missing(x=bad.numeric))
+  expect_error(covariance_with_missing(x=bad.char.matrix))
+  expect_error(covariance_with_missing(x=bad.3d.array))
 })
 
-test_that("CovarianceWithMissing returns correct types", {
+test_that("covariance_with_missing returns correct types", {
   good.full <- x.full
   good.missing <- x.full
   good.missing[miss] <- NA
   
-  out.full <- CovarianceWithMissing(x=good.full)
-  out.missing <- CovarianceWithMissing(x=good.missing)
+  out.full <- covariance_with_missing(x=good.full)
+  out.missing <- covariance_with_missing(x=good.missing)
   
   expect_true( is.matrix(out.full) )
   expect_true( is.numeric(out.full) )
@@ -1556,13 +1556,13 @@ test_that("CovarianceWithMissing returns correct types", {
   expect_true( identical(c(5L, 5L), dim(out.missing)))
 })
 
-test_that("CovarianceWithMissing returns correct values", {
+test_that("covariance_with_missing returns correct values", {
   good.full <- x.full
   good.missing <- x.full
   good.missing[miss] <- NA
   
   cov.full <- var(good.full)
-  out.missing <- CovarianceWithMissing(x=good.missing)
+  out.missing <- covariance_with_missing(x=good.missing)
   out.var <- var(good.missing, na.rm=TRUE)
   
   expect_true( MeanRelativeError(out.missing, cov.full) < MeanRelativeError(out.var, cov.full) )

@@ -1,0 +1,219 @@
+---
+title: "Getting Started with FastImputation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with FastImputation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>"
+)
+library(FastImputation)
+```
+
+## Overview
+
+FastImputation fills in missing values using the conditional multivariate
+normal (MVN) distribution — the same approach used by
+[Amelia](https://gking.harvard.edu/amelia), but optimised for speed when
+imputing a single row at a time. It is well-suited to pre-processing steps
+before running row-wise prediction pipelines.
+
+The package provides three primary interfaces:
+
+1. `train_fast_imputation()` + `fast_imputation()` — standalone two-step API.
+2. `step_fast_imputation()` — drop-in step for
+   [recipes](https://recipes.tidymodels.org) / tidymodels pipelines.
+
+## Basic usage
+
+```{r basic}
+data(FI_train)
+data(FI_test)
+
+# Step 1: learn from training data
+# FI_train has an ID column and a categorical column that must be declared
+patterns <- train_fast_imputation(
+  FI_train,
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+
+# Step 2: impute a data frame with missing values
+imputed <- fast_imputation(FI_test, patterns)
+head(imputed)
+```
+
+The result is a data frame (or tibble) with the same columns as the input,
+but with `NA` values replaced by the conditional MVN estimate.
+
+## Pipe-friendly interface
+
+`fast_imputation()` puts the data as its first argument, so it works naturally
+with the base R pipe:
+
+```{r pipe, eval = FALSE}
+FI_test |> fast_imputation(patterns)
+```
+
+## Bounded variables
+
+Some variables are physically constrained to a range — for example, age
+cannot be negative, or a probability must be between 0 and 1.  Pass a
+`constraints` list to preserve these bounds:
+
+```{r bounded}
+patterns_bounded <- train_fast_imputation(
+  FI_train,
+  constraints = list(
+    bounded_below_2           = list(lower = 0),
+    bounded_above_5           = list(upper = 0),
+    bounded_above_and_below_6 = list(lower = 0, upper = 1)
+  ),
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+imputed_bounded <- fast_imputation(FI_test, patterns_bounded)
+```
+
+* `lower` — the variable is bounded from below (e.g. `lower = 0`).
+* `upper` — the variable is bounded from above.
+* Both `lower` and `upper` — the variable is bounded on an interval.
+
+Internally, bounded variables are transformed to the real line before the
+MVN estimation (log-transform for one-sided bounds; inverse-normal CDF for
+two-sided bounds), and then transformed back after imputation.
+
+## Categorical variables
+
+Categorical columns are one-hot encoded internally so they integrate
+seamlessly with the MVN model.  Use the `categorical` argument with any
+[tidyselect](https://tidyselect.r-lib.org) expression:
+
+```{r categorical}
+patterns_cat <- train_fast_imputation(
+  FI_train,
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+imputed_cat <- fast_imputation(FI_test, patterns_cat)
+head(imputed_cat$categorical_9)
+```
+
+After imputation, the categorical column is returned as a factor with the
+same levels as in the training data.
+
+## Ignoring columns (e.g. IDs)
+
+Pass ID columns or other columns that should be carried through unchanged
+via `ignore_cols`.  Any tidyselect expression is accepted:
+
+```{r ignore}
+patterns_id <- train_fast_imputation(
+  FI_train,
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+```
+
+You can combine all options:
+
+```{r combined}
+patterns <- train_fast_imputation(
+  FI_train,
+  constraints = list(
+    bounded_below_2           = list(lower = 0),
+    bounded_above_and_below_6 = list(lower = 0, upper = 1)
+  ),
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+```
+
+## Inspecting a patterns object
+
+`print()` gives a quick summary:
+
+```{r print}
+patterns
+```
+
+`tidy()` (from the [generics](https://generics.r-lib.org) package) returns
+a tibble with one row per variable:
+
+```{r tidy}
+generics::tidy(patterns)
+```
+
+## tidymodels / recipes integration
+
+`step_fast_imputation()` lets you use FastImputation inside a
+[recipes](https://recipes.tidymodels.org) pre-processing pipeline:
+
+```{r recipes, eval = FALSE}
+library(recipes)
+
+rec <- recipe(~ ., data = FI_train) |>
+  step_fast_imputation(
+    everything(),
+    constraints = list(
+      bounded_below_2           = list(lower = 0),
+      bounded_above_and_below_6 = list(lower = 0, upper = 1)
+    ),
+    ignore_cols = user_id_1,
+    categorical = categorical_9
+  )
+
+trained_rec <- prep(rec, training = FI_train)
+baked       <- bake(trained_rec, new_data = FI_test)
+head(baked)
+```
+
+The step integrates with `tidy()` for inspection:
+
+```{r recipes_tidy, eval = FALSE}
+tidy(trained_rec, number = 1)
+```
+
+## Accuracy comparison
+
+```{r accuracy}
+data(FI_true)
+
+patterns_full <- train_fast_imputation(
+  FI_train,
+  constraints = list(
+    bounded_below_2           = list(lower = 0),
+    bounded_above_5           = list(upper = 0),
+    bounded_above_and_below_6 = list(lower = 0, upper = 1)
+  ),
+  ignore_cols = user_id_1,
+  categorical = categorical_9
+)
+
+imputed_full <- fast_imputation(FI_test, patterns_full)
+
+# Compare continuous imputation accuracy
+continuous_missing <- is.na(FI_test[, 2:8])
+imputed_vals       <- imputed_full[, 2:8][continuous_missing]
+true_vals          <- FI_true[, 2:8][continuous_missing]
+
+rmse <- sqrt(median((imputed_vals - true_vals)^2))
+cat("FastImputation RMSE:", round(rmse, 4), "\n")
+
+# Baseline: column means
+col_mean_imputed <- FI_test[, 2:8]
+for (j in seq_len(ncol(col_mean_imputed))) {
+  col_mean_imputed[is.na(col_mean_imputed[, j]), j] <-
+    mean(col_mean_imputed[, j], na.rm = TRUE)
+}
+rmse_means <- sqrt(median((col_mean_imputed[continuous_missing] - true_vals)^2))
+cat("Column-means RMSE: ", round(rmse_means, 4), "\n")
+```
+
+FastImputation consistently achieves lower error than simple column-mean
+imputation by leveraging correlations between variables.

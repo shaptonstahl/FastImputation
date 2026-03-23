@@ -1,40 +1,4 @@
-#' Take a variable bounded above/below/both and return an unbounded (normalized) variable.
-#'
-#' This transforms bounded variables so that they are not bounded.
-#' First variables are coerced away from the boundaries. by a distance of \code{tol}.
-#' The natural log is used for variables bounded either above or below but not both.
-#' The inverse of the standard normal cumulative distribution function
-#'   (the quantile function) is used for variables bounded above and below.
-#'
-#' @param x A vector, matrix, array, or dataframe with value to be
-#'   coerced into a range or set.
-#' @param constraints A named list of constraints with optional \code{lower} and/or
-#'   \code{upper} elements. See the examples below for formatting details.
-#' @param tol Variables will be forced to be at least this far away
-#'   from the boundaries.
-#' @param trim If TRUE values in x < lower and values in x > upper
-#'   will be set to lower and upper, respectively, before normalizing.
-#'   A warning is issued if any values are trimmed.
-#' @return An object of the same class as \code{x} with the values
-#'   transformed so that they spread out over any part of the real
-#'   line.
-#'
-#' A variable \code{x} that is bounded below by \code{lower} is
-#'   transformed to \code{log(x - lower)}.
-#'
-#' A variable \code{x} that is bounded above by \code{upper} is
-#'   transformed to \code{log(upper - x)}.
-#'
-#' A variable \code{x} that is bounded below by \code{lower} and
-#'   above by \code{upper} is transformed to
-#'   \code{qnorm((x-lower)/(upper - lower))}.
-#' @export
-#' @examples
-#'   NormalizeBoundedVariable(c(5, 7, 10), constraints = list(lower = 0))
-#'   NormalizeBoundedVariable(c(1, 3, 5), constraints = list(upper = 10))
-#'   NormalizeBoundedVariable(c(5, 7, 9), constraints = list(lower = 0, upper = 10))
-#' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
-NormalizeBoundedVariable <-
+normalize_bounded_variable <-
   function(x, constraints, tol = stats::pnorm(-5), trim = TRUE) {
     if (!is.list(constraints))
       stop("`constraints` must be a named list, e.g. list(lower = 0, upper = 1)")
