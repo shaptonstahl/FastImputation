@@ -60,7 +60,9 @@ with the base R pipe:
 FI_test |> fast_imputation(patterns)
 ```
 
-## Bounded variables
+## Advanced options
+
+### Bounded variables
 
 Some variables are physically constrained to a range — for example, age
 cannot be negative, or a probability must be between 0 and 1.  Pass a
@@ -88,39 +90,22 @@ Internally, bounded variables are transformed to the real line before the
 MVN estimation (log-transform for one-sided bounds; inverse-normal CDF for
 two-sided bounds), and then transformed back after imputation.
 
-## Categorical variables
+### Categorical variables
 
-Categorical columns are one-hot encoded internally so they integrate
-seamlessly with the MVN model.  Use the `categorical` argument with any
-[tidyselect](https://tidyselect.r-lib.org) expression:
+Use the `categorical` argument (any
+[tidyselect](https://tidyselect.r-lib.org) expression) to declare columns
+with a finite set of discrete values.  The basic usage example above already
+demonstrates this with `categorical = categorical_9`.  Internally these
+columns are one-hot encoded; after imputation the column is returned as a
+factor with the same levels as in the training data.
 
-```{r categorical}
-patterns_cat <- train_fast_imputation(
-  FI_train,
-  ignore_cols = user_id_1,
-  categorical = categorical_9
-)
-imputed_cat <- fast_imputation(FI_test, patterns_cat)
-head(imputed_cat$categorical_9)
-```
+### Ignoring columns
 
-After imputation, the categorical column is returned as a factor with the
-same levels as in the training data.
+Use `ignore_cols` to carry ID columns or other irrelevant columns through
+unchanged.  The basic usage example above already demonstrates this with
+`ignore_cols = user_id_1`.  Any tidyselect expression is accepted.
 
-## Ignoring columns (e.g. IDs)
-
-Pass ID columns or other columns that should be carried through unchanged
-via `ignore_cols`.  Any tidyselect expression is accepted:
-
-```{r ignore}
-patterns_id <- train_fast_imputation(
-  FI_train,
-  ignore_cols = user_id_1,
-  categorical = categorical_9
-)
-```
-
-You can combine all options:
+### Combining options
 
 ```{r combined}
 patterns <- train_fast_imputation(
@@ -202,7 +187,7 @@ continuous_missing <- is.na(FI_test[, 2:8])
 imputed_vals       <- imputed_full[, 2:8][continuous_missing]
 true_vals          <- FI_true[, 2:8][continuous_missing]
 
-rmse <- sqrt(median((imputed_vals - true_vals)^2))
+rmse <- sqrt(mean((imputed_vals - true_vals)^2))
 cat("FastImputation RMSE:", round(rmse, 4), "\n")
 
 # Baseline: column means
@@ -211,7 +196,7 @@ for (j in seq_len(ncol(col_mean_imputed))) {
   col_mean_imputed[is.na(col_mean_imputed[, j]), j] <-
     mean(col_mean_imputed[, j], na.rm = TRUE)
 }
-rmse_means <- sqrt(median((col_mean_imputed[continuous_missing] - true_vals)^2))
+rmse_means <- sqrt(mean((col_mean_imputed[continuous_missing] - true_vals)^2))
 cat("Column-means RMSE: ", round(rmse_means, 4), "\n")
 ```
 

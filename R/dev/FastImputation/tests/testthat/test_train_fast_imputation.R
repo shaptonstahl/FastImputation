@@ -77,3 +77,40 @@ test_that("train_fast_imputation accepts tibble input", {
   )
   expect_s3_class(res, "fast_imputation_patterns")
 })
+
+test_that("train_fast_imputation stores ignored columns", {
+  df <- data.frame(a = c(1, 2, NA), b = c(4, NA, 6), c = c(7, 8, 9))
+  patterns <- train_fast_imputation(df, ignore_cols = c('c'))
+  expect_equal(length(patterns$cols_to_ignore), 1)
+})
+
+test_that("train_fast_imputation stores categorical columns with all_of selector", {
+  df2 <- data.frame(a = c(1, 2, NA), b = c('x', 'y', 'x'), stringsAsFactors = FALSE)
+  patterns <- train_fast_imputation(df2, categorical = tidyselect::all_of('b'))
+  expect_equal(length(patterns$cols_categorical), 1)
+  expect_equal(patterns$cols_categorical, 2)
+})
+
+test_that("train_fast_imputation stores bounded columns with exact positions", {
+  df <- data.frame(a = c(1, 2, NA), b = c(4, NA, 6), c = c(7, 8, 9))
+  patterns <- train_fast_imputation(
+    df,
+    constraints = list(a = list(lower = 0), b = list(upper = 10))
+  )
+  expect_equal(patterns$cols_bound, c(1, 2))
+})
+
+test_that("train_fast_imputation handles numeric-valued categorical columns", {
+  df <- data.frame(a = c(1, 2, 3), b = c(4L, 5L, 6L))
+  patterns <- train_fast_imputation(df, categorical = b)
+  expect_s3_class(patterns, "fast_imputation_patterns")
+  expect_equal(patterns$cols_categorical, 2L)
+})
+
+test_that("train_fast_imputation errors on non-numeric columns not in categorical", {
+  df <- data.frame(a = c(1, 2, 3), b = c("x", "y", "z"), stringsAsFactors = FALSE)
+  expect_error(
+    train_fast_imputation(df),
+    "non-numeric"
+  )
+})

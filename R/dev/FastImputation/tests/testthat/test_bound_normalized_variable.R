@@ -125,3 +125,41 @@ test_that("bound_normalized_variable returns correct values", {
 
   #expect_true(FALSE)
 })
+
+test_that("bound_normalized_variable errors when x is character", {
+  expect_error(bound_normalized_variable('a', list(lower = 0)), "x must be numeric")
+})
+
+test_that("bound_normalized_variable recovers only-lower-bounded values", {
+  out <- bound_normalized_variable(c(-6, 0, 6), list(lower = 0))
+  expect_equal(out, c(2.478752e-03, 1.000000e+00, 4.034288e+02), tolerance = 1e-4)
+})
+
+test_that("bound_normalized_variable recovers upper-only-bounded values", {
+  out <- bound_normalized_variable(c(-6, 0, 6), list(upper = 5))
+  expect_equal(out, c(4.997521, 4.000000, -398.428793), tolerance = 1e-4)
+})
+
+test_that("bound_normalized_variable recovers only-upper-bound-zero values", {
+  out <- bound_normalized_variable(c(-6, 0, 6), list(upper = 0))
+  expect_equal(out, c(-2.478752e-03, -1.000000e+00, -4.034288e+02), tolerance = 1e-4)
+})
+
+test_that("bound_normalized_variable returns x unchanged when constraints have no lower or upper", {
+  out <- bound_normalized_variable(c(-6, 0, 6), list(set = c(0, 5, 10)))
+  expect_equal(out, c(-6, 0, 6))
+})
+
+test_that("bound_normalized_variable errors when constraints is not a list", {
+  expect_error(
+    bound_normalized_variable(1, "not_a_list"),
+    "constraints.*must be a named list"
+  )
+})
+
+test_that("bound_normalized_variable errors when x is numeric but not vector/matrix/array", {
+  expect_error(
+    bound_normalized_variable(ts(c(-6, 0, 6)), list(lower = 0)),
+    "x must be a vector, matrix, or array"
+  )
+})

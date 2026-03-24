@@ -87,3 +87,29 @@ test_that("fast_imputation fills in missing values", {
   expect_false(is.na(good_imputed_set$X3[1]))
   expect_false(is.na(good_imputed_set$X6[2]))
 })
+
+test_that("fast_imputation works with no ignore_cols and no categorical", {
+  df <- data.frame(a = c(1, 2, 3, 4, 5), b = c(2, 4, 6, 8, 10))
+  pat <- train_fast_imputation(df)
+  result <- fast_imputation(data.frame(a = c(1, NA), b = c(NA, 5)), pat)
+  expect_false(anyNA(result))
+  expect_equal(result$a[1], 1, tolerance = 1e-4)
+  expect_equal(result$b[2], 5, tolerance = 1e-4)
+})
+
+test_that("fast_imputation with verbose=TRUE produces a result", {
+  df <- data.frame(a = c(1, 2, 3, 4, 5), b = c(2, 4, 6, 8, 10))
+  pat <- train_fast_imputation(df)
+  result <- capture.output(
+    out <- fast_imputation(data.frame(a = c(1, NA), b = c(NA, 5)), pat, verbose = TRUE)
+  )
+  expect_false(anyNA(out))
+})
+
+test_that("fast_imputation imputes an all-NA row using means", {
+  df <- data.frame(a = c(1, 2, 3, 4, 5), b = c(2, 4, 6, 8, 10))
+  pat <- train_fast_imputation(df)
+  result <- fast_imputation(data.frame(a = c(NA, 1), b = c(NA, 4)), pat)
+  expect_equal(result$a[1], pat$means[["a"]], tolerance = 1e-4)
+  expect_equal(result$b[1], pat$means[["b"]], tolerance = 1e-4)
+})
