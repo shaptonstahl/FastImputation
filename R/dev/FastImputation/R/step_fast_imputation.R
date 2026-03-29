@@ -42,16 +42,17 @@
 #' bake(trained_rec, new_data = FI_test)
 #' }
 step_fast_imputation <- function(
-    recipe,
-    ...,
-    constraints = list(),
-    ignore_cols = NULL,
-    categorical = NULL,
-    role = NA,
-    trained = FALSE,
-    patterns = NULL,
-    skip = FALSE,
-    id = recipes::rand_id("fast_imputation")) {
+  recipe,
+  ...,
+  constraints = list(),
+  ignore_cols = NULL,
+  categorical = NULL,
+  role = NA,
+  trained = FALSE,
+  patterns = NULL,
+  skip = FALSE,
+  id = recipes::rand_id("fast_imputation")
+) {
   # Resolve tidyselect expressions to character vectors NOW using the
   # recipe's template data, so the step object never stores quosures.
   # recipes iterates over all step fields looking for tune() markers and
@@ -89,8 +90,9 @@ step_fast_imputation <- function(
 }
 
 step_fast_imputation_new <- function(
-    terms, constraints, ignore_cols, categorical,
-    role, trained, patterns, skip, id) {
+  terms, constraints, ignore_cols, categorical,
+  role, trained, patterns, skip, id
+) {
   recipes::step(
     subclass    = "fast_imputation",
     terms       = terms,

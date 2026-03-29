@@ -62,7 +62,24 @@
       "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\); lintr::lint\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\)\" 2>&1)",
       "Bash(Rscript -e \"devtools::build_vignettes\\(\\)\")",
       "Bash(Rscript -e \":*)",
-      "Bash(Rscript -e \"\ndevtools::load_all\\('.'\\)\ndata\\(FI_train\\); data\\(FI_test\\)\npatterns <- train_fast_imputation\\(FI_train, ignore_cols = user_id_1, categorical = categorical_9\\)\ntraceback_result <- tryCatch\\(\n  fast_imputation\\(FI_test, patterns\\),\n  error = function\\(e\\) { print\\(sys.calls\\(\\)\\); cat\\('error:', conditionMessage\\(e\\), '\\\\n'\\) }\n\\)\n\" 2>&1)"
+      "Bash(Rscript -e \"\ndevtools::load_all\\('.'\\)\ndata\\(FI_train\\); data\\(FI_test\\)\npatterns <- train_fast_imputation\\(FI_train, ignore_cols = user_id_1, categorical = categorical_9\\)\ntraceback_result <- tryCatch\\(\n  fast_imputation\\(FI_test, patterns\\),\n  error = function\\(e\\) { print\\(sys.calls\\(\\)\\); cat\\('error:', conditionMessage\\(e\\), '\\\\n'\\) }\n\\)\n\" 2>&1)",
+      "Bash(Rscript -e \"lintr::lint\\('R/step_fast_imputation.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"lintr::lint\\('R/dev/FastImputation/R/step_fast_imputation.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"styler::style_file\\(''R/step_fast_imputation.R''\\)\")",
+      "Bash(Rscript -e \"lintr::lint\\(''R/step_fast_imputation.R''\\)\")",
+      "Bash(Rscript -e \"\ncat\\('Local styler version:', as.character\\(packageVersion\\('styler'\\)\\), '\\\\n'\\)\nstyler::style_file\\('R/step_fast_imputation.R'\\)\n\" 2>&1)",
+      "Bash(find ~/.cache/pre-commit -name *.lock)",
+      "Bash(pre-commit autoupdate:*)",
+      "Bash(~/.local/bin/pre-commit autoupdate:*)",
+      "Bash(.venv/bin/pre-commit autoupdate:*)",
+      "Bash(grep -A3 \"\"styler\"\" ~/.cache/pre-commit/repo*/renv.lock)",
+      "Bash(.venv/bin/pre-commit clean:*)",
+      "Bash(.venv/bin/pre-commit install-hooks:*)",
+      "Bash(Rscript -e \"\nlock <- jsonlite::read_json\\('~/.cache/pre-commit/repogdiq5weq/renv.lock'\\)\ncat\\(jsonlite::toJSON\\(lock\\\\$Packages\\\\$styler, pretty=TRUE, auto_unbox=TRUE\\), '\\\\n'\\)\n\" 2>&1)",
+      "Bash(Rscript --vanilla -e \":*)",
+      "Bash(HOOK_LIB=~/.cache/pre-commit/repogdiq5weq/renv-default/renv/library/R-4.3/x86_64-pc-linux-gnu)",
+      "Bash(.venv/bin/pre-commit run:*)",
+      "Bash(Rscript --vanilla -e \"\nlockpath <- path.expand\\('~/.cache/pre-commit/repogdiq5weq/renv.lock'\\)\nlock <- jsonlite::read_json\\(lockpath\\)\nlock\\\\$Packages\\\\$styler\\\\$Version <- '1.11.0'\nlock\\\\$Packages\\\\$styler\\\\$Repository <- 'CRAN'\nlock\\\\$Packages\\\\$styler\\\\$Hash <- 'ba7f38084bd75766e1e25af9be99276f'\njsonlite::write_json\\(lock, lockpath, pretty=TRUE, auto_unbox=TRUE\\)\ncat\\('lock updated\\\\n'\\)\n\" 2>&1)"
     ]
   }
 }
