@@ -25,7 +25,10 @@ test_that("print.fast_imputation_patterns outputs without error", {
 test_that("tidy.fast_imputation_patterns returns a tibble with correct columns", {
   result <- generics::tidy(patterns)
   expect_s3_class(result, "tbl_df")
-  expect_true(all(c("variable", "mean", "is_categorical", "bound_lower", "bound_upper", "is_ignored") %in% names(result)))
+  expect_true(all(c(
+    "variable", "mean", "is_categorical", "bound_lower",
+    "bound_upper", "is_ignored"
+  ) %in% names(result)))
 })
 
 test_that("tidy.fast_imputation_patterns has one row per original variable", {
@@ -66,7 +69,10 @@ test_that("tidy on trained recipe step returns variable-level tibble", {
   prepped <- recipes::prep(rec)
   result2 <- generics::tidy(prepped, number = 1)
   expect_s3_class(result2, "tbl_df")
-  expect_true(all(c("variable", "mean", "is_categorical", "bound_lower", "bound_upper", "is_ignored") %in% names(result2)))
+  expect_true(all(c(
+    "variable", "mean", "is_categorical", "bound_lower",
+    "bound_upper", "is_ignored"
+  ) %in% names(result2)))
   expect_equal(nrow(result2), 2)
 })
 

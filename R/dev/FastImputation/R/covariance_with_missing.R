@@ -30,5 +30,5 @@ covariance_with_missing <- function(x) {
     out <- ((delta - 1) * diag(diag(sigma_delta_n)) + sigma_delta_n) / (delta^2)
   }
   # prepare and return the output
-  return(out)
+  out
 }

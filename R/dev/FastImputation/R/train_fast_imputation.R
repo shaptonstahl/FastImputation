@@ -156,5 +156,5 @@ train_fast_imputation <-
       categories       = categories
     )
     class(patterns) <- "fast_imputation_patterns"
-    return(patterns)
+    patterns
   }
