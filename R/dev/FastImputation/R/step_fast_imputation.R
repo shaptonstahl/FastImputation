@@ -21,14 +21,16 @@
 #' @param id Unique step identifier.
 #' @return An updated \code{recipe}.
 #' @export
+#' @keywords internal
 #' @importFrom recipes add_step rand_id
+#' @importFrom generics tidy
 #' @examples
 #' \dontrun{
 #' library(recipes)
 #' data(FI_train)
 #' data(FI_test)
 #'
-#' rec <- recipe(~ ., data = FI_train) |>
+#' rec <- recipe(~., data = FI_train) |>
 #'   step_fast_imputation(
 #'     everything(),
 #'     constraints = list(bounded_below_2 = list(lower = 0)),
@@ -40,17 +42,16 @@
 #' bake(trained_rec, new_data = FI_test)
 #' }
 step_fast_imputation <- function(
-  recipe,
-  ...,
-  constraints  = list(),
-  ignore_cols  = NULL,
-  categorical  = NULL,
-  role         = NA,
-  trained      = FALSE,
-  patterns     = NULL,
-  skip         = FALSE,
-  id           = recipes::rand_id("fast_imputation")
-) {
+    recipe,
+    ...,
+    constraints = list(),
+    ignore_cols = NULL,
+    categorical = NULL,
+    role = NA,
+    trained = FALSE,
+    patterns = NULL,
+    skip = FALSE,
+    id = recipes::rand_id("fast_imputation")) {
   # Resolve tidyselect expressions to character vectors NOW using the
   # recipe's template data, so the step object never stores quosures.
   # recipes iterates over all step fields looking for tune() markers and
@@ -88,15 +89,14 @@ step_fast_imputation <- function(
 }
 
 step_fast_imputation_new <- function(
-  terms, constraints, ignore_cols, categorical,
-  role, trained, patterns, skip, id
-) {
+    terms, constraints, ignore_cols, categorical,
+    role, trained, patterns, skip, id) {
   recipes::step(
     subclass    = "fast_imputation",
     terms       = terms,
     constraints = constraints,
-    ignore_cols = ignore_cols,   # character vector
-    categorical = categorical,   # character vector
+    ignore_cols = ignore_cols, # character vector
+    categorical = categorical, # character vector
     role        = role,
     trained     = trained,
     patterns    = patterns,

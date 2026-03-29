@@ -12,7 +12,7 @@ good_df <- data.frame(
 )
 good_constraints_upper <- list("X7" = list(upper = 3))
 good_constraints_lower <- list("X4" = list(lower = 0))
-good_constraints_both  <- list("X5" = list(lower = 0, upper = 1))
+good_constraints_both <- list("X5" = list(lower = 0, upper = 1))
 
 bad_array <- matrix(1:9, nrow = 3)
 
@@ -80,13 +80,13 @@ test_that("train_fast_imputation accepts tibble input", {
 
 test_that("train_fast_imputation stores ignored columns", {
   df <- data.frame(a = c(1, 2, NA), b = c(4, NA, 6), c = c(7, 8, 9))
-  patterns <- train_fast_imputation(df, ignore_cols = c('c'))
+  patterns <- train_fast_imputation(df, ignore_cols = c("c"))
   expect_equal(length(patterns$cols_to_ignore), 1)
 })
 
 test_that("train_fast_imputation stores categorical columns with all_of selector", {
-  df2 <- data.frame(a = c(1, 2, NA), b = c('x', 'y', 'x'), stringsAsFactors = FALSE)
-  patterns <- train_fast_imputation(df2, categorical = tidyselect::all_of('b'))
+  df2 <- data.frame(a = c(1, 2, NA), b = c("x", "y", "x"), stringsAsFactors = FALSE)
+  patterns <- train_fast_imputation(df2, categorical = tidyselect::all_of("b"))
   expect_equal(length(patterns$cols_categorical), 1)
   expect_equal(patterns$cols_categorical, 2)
 })

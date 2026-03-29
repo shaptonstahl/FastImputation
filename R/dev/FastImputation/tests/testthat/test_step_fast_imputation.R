@@ -17,7 +17,7 @@ test_df <- data.frame(
 )
 
 test_that("step_fast_imputation returns a recipe", {
-  rec <- recipes::recipe(~ ., data = train_df) |>
+  rec <- recipes::recipe(~., data = train_df) |>
     step_fast_imputation(
       tidyselect::everything(),
       constraints = list(age = list(lower = 0)),
@@ -28,7 +28,7 @@ test_that("step_fast_imputation returns a recipe", {
 })
 
 test_that("prep trains the step", {
-  rec <- recipes::recipe(~ ., data = train_df) |>
+  rec <- recipes::recipe(~., data = train_df) |>
     step_fast_imputation(
       tidyselect::everything(),
       constraints = list(age = list(lower = 0)),
@@ -36,13 +36,13 @@ test_that("prep trains the step", {
       categorical = cat
     )
   prepped <- recipes::prep(rec, training = train_df)
-  step    <- prepped$steps[[1]]
+  step <- prepped$steps[[1]]
   expect_true(step$trained)
   expect_s3_class(step$patterns, "fast_imputation_patterns")
 })
 
 test_that("bake imputes missing values", {
-  rec <- recipes::recipe(~ ., data = train_df) |>
+  rec <- recipes::recipe(~., data = train_df) |>
     step_fast_imputation(
       tidyselect::everything(),
       constraints = list(age = list(lower = 0)),
@@ -50,13 +50,13 @@ test_that("bake imputes missing values", {
       categorical = cat
     )
   prepped <- recipes::prep(rec, training = train_df)
-  baked   <- recipes::bake(prepped, new_data = test_df)
+  baked <- recipes::bake(prepped, new_data = test_df)
   expect_false(any(is.na(baked$age)))
   expect_false(any(is.na(baked$x)))
 })
 
 test_that("tidy on untrained step returns a tibble", {
-  rec <- recipes::recipe(~ ., data = train_df) |>
+  rec <- recipes::recipe(~., data = train_df) |>
     step_fast_imputation(tidyselect::everything())
   step <- rec$steps[[1]]
   result <- generics::tidy(step)
@@ -64,14 +64,14 @@ test_that("tidy on untrained step returns a tibble", {
 })
 
 test_that("tidy on trained step returns patterns tibble", {
-  rec <- recipes::recipe(~ ., data = train_df) |>
+  rec <- recipes::recipe(~., data = train_df) |>
     step_fast_imputation(
       tidyselect::everything(),
       ignore_cols = id,
       categorical = cat
     )
   prepped <- recipes::prep(rec, training = train_df)
-  result  <- generics::tidy(prepped$steps[[1]])
+  result <- generics::tidy(prepped$steps[[1]])
   expect_s3_class(result, "tbl_df")
   expect_true("variable" %in% names(result))
 })

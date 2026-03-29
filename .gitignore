@@ -36,3 +36,5 @@ Thumbs.db
 *.bak
 *.~*
 .aider*
+
+uv.lock

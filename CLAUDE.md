@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## ## Current work
+## Current work
 
-
+- Branch `claude-achin-for-bacon`: R package refactored to snake_case API (v3.0.0) with tidymodels `step_fast_imputation()` support; Python implementation fully ported from stub to working code; linting/formatting toolchain added (ruff, lintr, styler, pre-commit, GitHub Actions).
 
 ## Project Overview
 
@@ -24,7 +24,7 @@ R/                        — all R development
 python/
   dev/fastimputation/     — Python package source
   dev/tests/              — Python tests
-  dev/pyproject.toml      — Python package config
+pyproject.toml            — Python package config (root-level)
 ```
 
 ## Common Commands
@@ -54,7 +54,7 @@ devtools::test()
 **Run a single test file:**
 
 ```r
-testthat::test_file("tests/testthat/test_TrainFastImputation.R")
+testthat::test_file("tests/testthat/test_train_fast_imputation.R")
 ```
 
 **Check package (CRAN standards):**
@@ -71,11 +71,25 @@ devtools::install()
 
 ### Python
 
-From `python/dev/`:
+From the repo root:
 
 ```bash
 pip install -e .
-pytest tests/
+pytest python/dev/tests/
+```
+
+**Lint and format (Python):**
+
+```bash
+ruff check python/
+ruff format python/
+```
+
+### Pre-commit hooks
+
+```bash
+pre-commit install        # install hooks once
+pre-commit run --all-files  # run manually
 ```
 
 ## Architecture
@@ -84,29 +98,29 @@ pytest tests/
 
 The package implements two phases:
 
-1. **Training (`TrainFastImputation`)**: Takes a data frame and produces a `FastImputationPatterns` object containing means, covariance matrix, variable bounds, and categorical level mappings.
+1. **Training (`train_fast_imputation`)**: Takes a data frame and produces a `fast_imputation_patterns` object containing means, covariance matrix, variable bounds, and categorical level mappings.
 
-2. **Imputation (`FastImputation`)**: Uses the stored patterns with the conditional multivariate normal formula to impute missing values row-by-row:
-   `E[Y|X] = μY + ΣYX * ΣXX⁻¹ * (X - μX)`
-
+2. **Imputation (`fast_imputation`)**: Uses the stored patterns with the conditional multivariate normal formula to impute missing values row-by-row:
+$$E[Y|X] = μY + ΣYX * ΣXX⁻¹ * (X - μX)$$
 ### Variable Transformation Pipeline
 
 Both phases apply transformations before/after the MVN calculation:
 
-- **Bounded variables**: Normalized via `NormalizeBoundedVariable` (log transform for one-sided bounds; inverse normal CDF `qnorm` for two-sided bounds), then recovered via `BoundNormalizedVariable`.
+- **Bounded variables**: Normalized via `normalize_bounded_variable` (log transform for one-sided bounds; inverse normal CDF `qnorm` for two-sided bounds), then recovered via `bound_normalized_variable`.
 - **Categorical variables**: One-hot encoded via `fastDummies::dummy_cols` before training/imputation; after imputation the max-index dummy is selected and mapped back to the original factor levels.
 - **Ignored columns** (e.g., ID columns passed via `ignore_cols`): Removed before processing and restored afterward.
+- **Tidymodels integration**: `step_fast_imputation()` wraps the two-phase algorithm as a `recipes` step, using `tidyselect` column selectors.
 
 ### Key Design Details
 
-- **Covariance with missing data**: `CovarianceWithMissing` uses the Lounici (2012) unbiased estimator rather than imputing before estimating covariance.
+- **Covariance with missing data**: `covariance_with_missing` uses the Lounici (2012) unbiased estimator rather than imputing before estimating covariance.
 - **Singular covariance handling**: One-hot encoding can produce near-singular covariance matrices; `Matrix::nearPD()` regularizes eigenvalues below 0.01.
-- **Factor handling**: Factor columns are converted inline to character or numeric (trying numeric first) using a base R `lapply` in `TrainFastImputation`.
+- **Factor handling**: Factor columns are converted inline to character or numeric (trying numeric first) using a base R `lapply` in `train_fast_imputation`.
 
 ### R Dependencies
 
-- **Imports**: `methods`, `Matrix`, `fastDummies`
-- **Suggests**: `testthat`, `caret`, `e1071`
+- **Imports**: `methods`, `Matrix`, `fastDummies`, `generics`, `dplyr`, `tibble`, `tidyselect`, `rlang`, `recipes`
+- **Suggests**: `testthat`, `caret`, `e1071`, `knitr`, `rmarkdown`
 
 ## Documentation
 
@@ -114,4 +128,4 @@ All R documentation is written as roxygen2 comments in source files. Running `ro
 
 ## Known Issues
 
-- **Python implementation is a stub**: `python/dev/fastimputation/imputation.py` contains a `FastImputer` class with `fit` and `transform` methods that are no-ops. The Python package is not yet implemented.
+None at this time.

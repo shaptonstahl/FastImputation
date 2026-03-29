@@ -142,7 +142,7 @@ generics::tidy(patterns)
 ```{r recipes, eval = FALSE}
 library(recipes)
 
-rec <- recipe(~ ., data = FI_train) |>
+rec <- recipe(~., data = FI_train) |>
   step_fast_imputation(
     everything(),
     constraints = list(
@@ -154,7 +154,7 @@ rec <- recipe(~ ., data = FI_train) |>
   )
 
 trained_rec <- prep(rec, training = FI_train)
-baked       <- bake(trained_rec, new_data = FI_test)
+baked <- bake(trained_rec, new_data = FI_test)
 head(baked)
 ```
 
@@ -184,8 +184,8 @@ imputed_full <- fast_imputation(FI_test, patterns_full)
 
 # Compare continuous imputation accuracy
 continuous_missing <- is.na(FI_test[, 2:8])
-imputed_vals       <- imputed_full[, 2:8][continuous_missing]
-true_vals          <- FI_true[, 2:8][continuous_missing]
+imputed_vals <- imputed_full[, 2:8][continuous_missing]
+true_vals <- FI_true[, 2:8][continuous_missing]
 
 rmse <- sqrt(mean((imputed_vals - true_vals)^2))
 cat("FastImputation RMSE:", round(rmse, 4), "\n")

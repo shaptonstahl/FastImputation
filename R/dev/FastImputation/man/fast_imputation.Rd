@@ -50,3 +50,4 @@ imputed_data <- fast_imputation(FI_test, patterns)
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
+\keyword{internal}

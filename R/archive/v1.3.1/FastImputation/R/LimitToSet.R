@@ -10,16 +10,16 @@
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
 #' @export
 #' @examples
-#' x <- runif(100, min=0, max=10)
-#' y <- LimitToSet(x, set=c(1:10))
+#' x <- runif(100, min = 0, max = 10)
+#' y <- LimitToSet(x, set = c(1:10))
 #' plot(x, y)
 #'
-LimitToSet <- 
-function(x, 
-  set
-) {
-  return( sapply(x, function(this.x) {
-    index.winner <- which.min(abs(this.x - set))
-    return( set[index.winner] )
-  }) )
-}
+LimitToSet <-
+  function(
+      x,
+      set) {
+    return(sapply(x, function(this.x) {
+      index.winner <- which.min(abs(this.x - set))
+      return(set[index.winner])
+    }))
+  }

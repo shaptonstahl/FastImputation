@@ -1,7 +1,8 @@
 bound_normalized_variable <-
   function(x, constraints) {
-    if (!is.list(constraints))
+    if (!is.list(constraints)) {
       stop("`constraints` must be a named list, e.g. list(lower = 0, upper = 1)")
+    }
     if (is.data.frame(x)) {
       was.data.frame <- TRUE
       df.names <- names(x)
@@ -10,12 +11,14 @@ bound_normalized_variable <-
       was.data.frame <- FALSE
     }
     if (!is.numeric(x)) stop("x must be numeric")
-    if (!(is.vector(x) || is.matrix(x) || is.array(x)))
+    if (!(is.vector(x) || is.matrix(x) || is.array(x))) {
       stop("x must be a vector, matrix, or array")
+    }
     if (is.null(constraints$lower)) constraints$lower <- -Inf
     if (is.null(constraints$upper)) constraints$upper <- Inf
-    if (constraints$upper < constraints$lower)
+    if (constraints$upper < constraints$lower) {
       stop("'upper' must be greater than 'lower.'")
+    }
 
     if (is.infinite(constraints$lower) && is.infinite(constraints$upper)) {
       # not bounded; degenerate case
@@ -36,5 +39,5 @@ bound_normalized_variable <-
       out <- as.data.frame(out)
       names(out) <- df.names
     }
-    return(out)
+    out
   }

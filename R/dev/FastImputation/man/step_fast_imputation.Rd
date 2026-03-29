@@ -57,7 +57,7 @@ library(recipes)
 data(FI_train)
 data(FI_test)
 
-rec <- recipe(~ ., data = FI_train) |>
+rec <- recipe(~., data = FI_train) |>
   step_fast_imputation(
     everything(),
     constraints = list(bounded_below_2 = list(lower = 0)),
@@ -69,3 +69,4 @@ trained_rec <- prep(rec, training = FI_train)
 bake(trained_rec, new_data = FI_test)
 }
 }
+\keyword{internal}

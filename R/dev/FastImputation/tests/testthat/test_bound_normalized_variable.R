@@ -122,12 +122,10 @@ test_that("bound_normalized_variable returns correct values", {
       (good.constraints.both$upper - good.constraints.both$lower) +
       good.constraints.both$lower
   )
-
-  #expect_true(FALSE)
 })
 
 test_that("bound_normalized_variable errors when x is character", {
-  expect_error(bound_normalized_variable('a', list(lower = 0)), "x must be numeric")
+  expect_error(bound_normalized_variable("a", list(lower = 0)), "x must be numeric")
 })
 
 test_that("bound_normalized_variable recovers only-lower-bounded values", {

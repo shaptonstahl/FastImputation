@@ -19,6 +19,7 @@
 #'   all information needed to impute missing values with
 #'   \code{\link{fast_imputation}}.
 #' @export
+#' @keywords internal
 #' @seealso \code{\link{fast_imputation}}
 #' @references \url{https://gking.harvard.edu/amelia}
 #' @author Stephen R. Haptonstahl \email{srh@@haptonstahl.org}
@@ -37,17 +38,16 @@
 #' )
 #'
 train_fast_imputation <-
-  function(
-    x,
-    constraints = list(),
-    ignore_cols = NULL,
-    categorical = NULL
-  ) {
-    if (!inherits(x, "data.frame"))
+  function(x,
+           constraints = list(),
+           ignore_cols = NULL,
+           categorical = NULL) {
+    if (!inherits(x, "data.frame")) {
       rlang::abort("'x' must be a data frame.")
+    }
 
     # Resolve tidyselect expressions to integer positions
-    ignore_quo      <- rlang::enquo(ignore_cols)
+    ignore_quo <- rlang::enquo(ignore_cols)
     categorical_quo <- rlang::enquo(categorical)
 
     if (rlang::quo_is_null(ignore_quo)) {
@@ -82,7 +82,9 @@ train_fast_imputation <-
 
     # Convert factor columns to character or numeric
     x[] <- lapply(x, function(col) {
-      if (!is.factor(col)) return(col)
+      if (!is.factor(col)) {
+        return(col)
+      }
       ch <- as.character(col)
       suppressWarnings(num <- as.numeric(ch))
       if (!any(is.na(num)) && length(num) == length(ch)) num else ch

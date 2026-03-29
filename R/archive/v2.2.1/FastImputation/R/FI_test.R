@@ -21,5 +21,5 @@
 #'   second is greatest; "C" if the third is greatest}
 #'   }
 #' @usage data(FI_test)
-#' @keywords datasets 
+#' @keywords datasets
 NA

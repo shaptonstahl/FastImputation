@@ -1,3 +1,4 @@
+#' @keywords internal
 covariance_with_missing <- function(x) {
   stopifnot(
     methods::is(x, "matrix") |
@@ -21,12 +22,12 @@ covariance_with_missing <- function(x) {
     y[is.na(y)] <- 0
 
     # Equation at bottom of page 3
-    SigmaDeltaN <- matrix(0, nrow = p, ncol = p)
-    for (i in 1:n) SigmaDeltaN <- SigmaDeltaN + y[, i] %o% y[, i]
-    SigmaDeltaN <- SigmaDeltaN / n
+    sigma_delta_n <- matrix(0, nrow = p, ncol = p)
+    for (i in 1:n) sigma_delta_n <- sigma_delta_n + y[, i] %o% y[, i]
+    sigma_delta_n <- sigma_delta_n / n
 
     # Equation 1.4
-    out <- ((delta - 1) * diag(diag(SigmaDeltaN)) + SigmaDeltaN) / (delta^2)
+    out <- ((delta - 1) * diag(diag(sigma_delta_n)) + sigma_delta_n) / (delta^2)
   }
   # prepare and return the output
   return(out)

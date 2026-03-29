@@ -36,11 +36,11 @@ tidy.fast_imputation_patterns <- function(x, ...) {
   # Active variable names: original names minus ignored columns
   # (pre one-hot-encoding, so length matches cols_categorical / cols_bound)
   active_indices <- setdiff(seq_along(x$var_names), x$cols_to_ignore)
-  active_names   <- x$var_names[active_indices]
-  n_active       <- length(active_names)
+  active_names <- x$var_names[active_indices]
+  n_active <- length(active_names)
 
   # Non-categorical active variable names (these appear in x$means by name)
-  non_cat_mask  <- !seq_len(n_active) %in% x$cols_categorical
+  non_cat_mask <- !seq_len(n_active) %in% x$cols_categorical
   non_cat_names <- active_names[non_cat_mask]
 
   # Look up means by name (post-encoding means vector is named)

@@ -61,3 +61,4 @@ patterns <- train_fast_imputation(
 \author{
 Stephen R. Haptonstahl \email{srh@haptonstahl.org}
 }
+\keyword{internal}

@@ -1,0 +1,22 @@
+repos:
+  # Ruff: Python linting + formatting (scoped to python/)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^python/
+      - id: ruff-format
+        files: ^python/dev/
+
+  # R: styler for formatting, lintr for linting (scoped to R/)
+  - repo: https://github.com/lorenzwalthert/precommit
+    rev: v0.4.3
+    hooks:
+      - id: style-files
+        args: [--style_pkg=styler, --style_fun=tidyverse_style]
+        files: ^R/dev/
+        exclude: /man/
+      - id: lintr
+        files: ^R/dev/
+        exclude: /man/

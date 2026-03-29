@@ -20,5 +20,5 @@
 #'   second is greatest; "C" if the third is greatest}
 #'   }
 #' @usage data(FI_train)
-#' @keywords datasets 
+#' @keywords datasets
 NA

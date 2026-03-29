@@ -19,7 +19,7 @@ good_constraints <- list(
   X4 = list(lower = 0),
   X5 = list(lower = 0, upper = 1)
 )
-good_ignore     <- c("X2", "X1")
+good_ignore <- c("X2", "X1")
 good_categorical <- c("X6")
 
 good_patterns <- train_fast_imputation(
@@ -45,7 +45,7 @@ good_test_set <- data.frame(
 
 good_imputed_set <- fast_imputation(good_test_set, patterns = good_patterns, verbose = FALSE)
 
-bad_df    <- data.frame(X3 = rnorm(5), X6 = sample(c(TRUE, FALSE), 5, replace = TRUE))
+bad_df <- data.frame(X3 = rnorm(5), X6 = sample(c(TRUE, FALSE), 5, replace = TRUE))
 bad_array <- matrix(1:9, nrow = 3)
 
 test_that("fast_imputation catches bad input", {
@@ -79,7 +79,7 @@ test_that("fast_imputation is pipe-friendly", {
 
 test_that("fast_imputation returns tibble when input is tibble", {
   tbl_test <- tibble::as_tibble(good_test_set)
-  result   <- fast_imputation(tbl_test, patterns = good_patterns, verbose = FALSE)
+  result <- fast_imputation(tbl_test, patterns = good_patterns, verbose = FALSE)
   expect_s3_class(result, "tbl_df")
 })
 

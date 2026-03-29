@@ -54,7 +54,12 @@
       "Bash(Rscript -e \"\ndevtools::load_all\\(quiet=TRUE\\)\nx <- c\\(-1, 6\\)\nconstraints <- list\\(lower = 0, upper = 5\\)\nnormalized <- suppressWarnings\\(normalize_bounded_variable\\(x, constraints\\)\\)\ncat\\('Outside bounds normalized[1]:', normalized[1], '\\\\n'\\)\ncat\\('Outside bounds normalized[2]:', normalized[2], '\\\\n'\\)\n\" 2>&1)",
       "Bash(Rscript -e \"devtools::test\\(filter='bound_normalized|train_fast'\\)\" 2>&1)",
       "Bash(Rscript -e \"devtools::test\\(filter='fast_imputation'\\)\" 2>&1)",
-      "Bash(Rscript -e \"devtools::test\\(\\)\" 2>&1)"
+      "Bash(Rscript -e \"devtools::test\\(\\)\" 2>&1)",
+      "Bash(uv run:*)",
+      "Bash(Rscript -e \"lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"install.packages\\('cyclocomp', repos='https://cloud.r-project.org', quiet=TRUE\\); lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/fast_imputation.R'\\); lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\); lintr::lint\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\)\" 2>&1)"
     ]
   }
 }
