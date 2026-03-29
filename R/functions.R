@@ -17,7 +17,7 @@ TrainFastImputation <- function(
     ) {
   if ("data.frame" != class(x)) stop("Training data must be in a data.frame")
 
-  if (!silent) require("time", character.only = TRUE)
+  if (!silent) message("Training FastImputation patterns...")
 
   # Need to unfactor the columns
 
@@ -96,8 +96,7 @@ FastImputation <- function(
   n.cols <- length(patterns$FImeans)
   n.rows <- nrow(x)
 
-  require("time", character.only = TRUE)
-  n.current.bars <- progressBar()
+  pb <- utils::txtProgressBar(min = 0, max = n.rows, style = 3)
 
   cols.to.constrain <- sapply(constraints, function(this.cons) this.cons[[1]])
 
@@ -128,9 +127,8 @@ FastImputation <- function(
       )
     }
 
-    n.current.bars <- progressBar(i.row / n.rows, prev = n.current.bars)
-    flush.console()
+    utils::setTxtProgressBar(pb, i.row)
   }
-  cat("\n")
+  close(pb)
   return(x)
 }
