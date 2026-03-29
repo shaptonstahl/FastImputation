@@ -1,39 +1,51 @@
 Package: FastImputation
 Type: Package
 Title: Learn from Training Data then Quickly Fill in Missing Data
-Version: 3.0
-Date: 2026-02-17
-Author: Stephen R. Haptonstahl
-Maintainer: Stephen R. Haptonstahl <srh@haptonstahl.org>
-Description: TrainFastImputation() uses training data to describe a
-    multivariate normal distribution that the data approximates or
-    can be transformed into approximating and stores this information
-    as an object of class 'FastImputationPatterns'. FastImputation()
-    function uses this 'FastImputationPatterns' object to impute (make
-    a good guess at) missing data in a single line or a whole data frame
-    of data.  This approximates the process used by 'Amelia'
-    <https://gking.harvard.edu/amelia> but is much faster when
-    filling in values for a single line of data.
+Version: 3.0.0
+Date: 2026-03-22
+Authors@R: person(given = c("Stephen", "R."),
+                  family = "Haptonstahl",
+                  role = c("aut", "cre"),
+                  email = "srh@haptonstahl.org")
+Description: Uses training data to learn a multivariate normal distribution
+    that the variables approximate (or can be transformed to approximate),
+    storing the result as a 'fast_imputation_patterns' object. Missing values
+    are then imputed row-by-row using the conditional multivariate normal
+    formula. Column selection follows 'tidyselect' conventions and the package
+    integrates with 'recipes' via step_fast_imputation(). The approach
+    approximates the method used by 'Amelia' but is optimised for fast
+    single-row imputation.
 License: GPL (>= 2)
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Collate:
-    'FastImputation.R'
-    'TrainFastImputation.R'
-    'BoundNormalizedVariable.R'
-    'NormalizeBoundedVariable.R'
-    'CovarianceWithMissing.R'
+    'fast_imputation.R'
+    'train_fast_imputation.R'
+    'bound_normalized_variable.R'
+    'normalize_bounded_variable.R'
+    'covariance_with_missing.R'
+    'methods.R'
+    'step_fast_imputation.R'
     'FI_train.R'
     'FI_test.R'
     'FI_true.R'
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr
 Imports:
     methods,
     Matrix,
-    fastDummies
+    fastDummies,
+    generics,
+    dplyr,
+    tibble,
+    tidyselect,
+    rlang,
+    recipes
 Suggests:
     testthat,
     caret,
-    e1071
+    e1071,
+    knitr,
+    rmarkdown
 NeedsCompilation: no
 Encoding: UTF-8

@@ -7,22 +7,22 @@ n.obs <- 1e3
 frac.missing <- .5
 
 cov.true <- genPositiveDefMat(n.vars)$Sigma
-x <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)
+x <- rmvnorm(n.obs, mean = 10 * rnorm(n.vars), sigma = cov.true)
 cov.full <- var(x)
 
 x.w.missing <- x
 x.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))] <- NA
-mean(is.na(x.w.missing))  # should be frac.missing
+mean(is.na(x.w.missing)) # should be frac.missing
 
-cov.default <- var(x.w.missing, na.rm=TRUE)
+cov.default <- var(x.w.missing, na.rm = TRUE)
 cov.new <- CovarianceWithMissing(x.w.missing)
 
 cov.full
 cov.default
 cov.new
 
-MeanRelativeError <- function(est, base) mean(abs((est-base)/base))
-MedianRelativeError <- function(est, base) median(abs((est-base)/base))
+MeanRelativeError <- function(est, base) mean(abs((est - base) / base))
+MedianRelativeError <- function(est, base) median(abs((est - base) / base))
 
 MeanRelativeError(cov.default, cov.full)
 MeanRelativeError(cov.new, cov.full)
@@ -35,11 +35,11 @@ n.trials <- 1e2
 
 DoTrial <- function(frac.missing, n.obs, n.vars) {
   cov.true <- genPositiveDefMat(n.vars)$Sigma
-  x <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)
+  x <- rmvnorm(n.obs, mean = 10 * rnorm(n.vars), sigma = cov.true)
   cov.full <- var(x)
   x.w.missing <- x
   x.w.missing[sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))] <- NA
-  mre.default <- MeanRelativeError(var(x.w.missing, na.rm=TRUE), cov.full)
+  mre.default <- MeanRelativeError(var(x.w.missing, na.rm = TRUE), cov.full)
   mre.new <- MeanRelativeError(CovarianceWithMissing(x.w.missing), cov.full)
   out <- c(mre.default, mre.new)
   names(out) <- c("mre.default", "mre.new")
@@ -51,21 +51,22 @@ mres <- laply(frac.missing, function(fm) {
   colMeans(laply(1:n.trials, function(i) DoTrial(fm, n.obs, n.vars)))
 })
 
-plot(frac.missing, mres[,1],
-     xlim=c(0,1), ylim=c(0, 5),
-     lty=2, type="l",
-     main="Relative error for covariance estimates")
-lines(frac.missing, mres[,2])
+plot(frac.missing, mres[, 1],
+  xlim = c(0, 1), ylim = c(0, 5),
+  lty = 2, type = "l",
+  main = "Relative error for covariance estimates"
+)
+lines(frac.missing, mres[, 2])
 
 ##############################################
 ###  Plot distribution of relative errors  ###
 ##############################################
 
 rel.errors <- raply(1e3, DoTrial(.5, n.obs, n.vars))
-plot(density(rel.errors[,1]), xlim=c(0,5), ylim=c(0,3))
-lines(density(rel.errors[,2]))
+plot(density(rel.errors[, 1]), xlim = c(0, 5), ylim = c(0, 3))
+lines(density(rel.errors[, 2]))
 
-new.beats.old <- rel.errors[,1] - rel.errors[,2]
+new.beats.old <- rel.errors[, 1] - rel.errors[, 2]
 plot(density(new.beats.old))
 mean(new.beats.old > 0)
 
@@ -79,5 +80,5 @@ frac.missing <- .5
 miss <- sample(n.vars * n.obs, round(n.vars * n.obs * frac.missing))
 
 cov.true <- genPositiveDefMat(n.vars)$Sigma
-x.full <- rmvnorm(n.obs, mean=10*rnorm(n.vars), sigma=cov.true)
+x.full <- rmvnorm(n.obs, mean = 10 * rnorm(n.vars), sigma = cov.true)
 dump(c("miss", "x.full"))

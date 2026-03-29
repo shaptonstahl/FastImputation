@@ -12,12 +12,12 @@
 # the training data.
 
 TrainFastImputation <- function(
-  x, # dataframe containing training data. Can have incomplete rows.
-  silent = FALSE # When TRUE no status messages are displayed.
-) {
+    x, # dataframe containing training data. Can have incomplete rows.
+    silent = FALSE # When TRUE no status messages are displayed.
+    ) {
   if ("data.frame" != class(x)) stop("Training data must be in a data.frame")
 
-  if (!silent) require("time", character.only = TRUE)
+  if (!silent) message("Training FastImputation patterns...")
 
   # Need to unfactor the columns
 
@@ -35,17 +35,18 @@ TrainFastImputation <- function(
 # TFI.little[1:30,]
 
 ConstrainValues <- function(
-  x,
-  constraints # A list of constraints.  Examples:
-  # constraints=list(lower=5)           # lower bound when constrining to an interval
-  # constraints=list(upper=10)          # upper bound when constraining to an interval
-  # constraints=list(lower=5, upper=10)
-  # constraints=list(set=c(1:7))        # numeric vector containing a fixed set of values
-) {
+    x,
+    constraints # A list of constraints.  Examples:
+    # constraints=list(lower=5)           # lower bound when constrining to an interval
+    # constraints=list(upper=10)          # upper bound when constraining to an interval
+    # constraints=list(lower=5, upper=10)
+    # constraints=list(set=c(1:7))        # numeric vector containing a fixed set of values
+    ) {
   if (is.null(constraints$lower)) constraints$lower <- -Inf
   if (is.null(constraints$upper)) constraints$upper <- Inf
-  if (constraints$upper < constraints$lower)
+  if (constraints$upper < constraints$lower) {
     stop("'upper' must be greater than 'lower.'")
+  }
 
   if (!is.null(constraints$set)) {
     out <- sapply(x, function(this.x) {
@@ -65,16 +66,16 @@ ConstrainValues <- function(
 # plot(cbind(test.values, ConstrainValues(test.values, constraints=list(lower=-1, upper=1))))
 
 FastImputation <- function(
-  x, # Dataframe with rows that need imputation, or a vector corresponding to a single row to impute.
-  patterns, # patterns object passed to itself when imputing more than one row
-  constraints # a list with pairs of column numbers and constraints
-  # formatted for ConstrainValues.  Examples:
-  #  constraints=list(list(1, list(set=-3)),
-  #                   list(3, list(lower=-1)),
-  #                   list(7, list(upper=1)),
-  #                   list(10, list(lower=-1, upper=1)))
-  #  constraints=list(list(1, list(set=-3)), list(3, list(lower=-1)), list(7, list(upper=1)), list(10, list(lower=-1, upper=1)))
-) {
+    x, # Dataframe with rows that need imputation, or a vector corresponding to a single row to impute.
+    patterns, # patterns object passed to itself when imputing more than one row
+    constraints # a list with pairs of column numbers and constraints
+    # formatted for ConstrainValues.  Examples:
+    #  constraints=list(list(1, list(set=-3)),
+    #                   list(3, list(lower=-1)),
+    #                   list(7, list(upper=1)),
+    #                   list(10, list(lower=-1, upper=1)))
+    #  constraints=list(list(1, list(set=-3)), list(3, list(lower=-1)), list(7, list(upper=1)), list(10, list(lower=-1, upper=1)))
+    ) {
   if (missing(patterns)) {
     # Look for existing patterns object
     if (exists(patterns) && class(patterns) == "FastImputationPatterns") {
@@ -84,8 +85,9 @@ FastImputation <- function(
     }
   } else {
     # patterns explicitly passed to function
-    if (class(patterns) != "FastImputationPatterns")
+    if (class(patterns) != "FastImputationPatterns") {
       stop("'patterns' must be of class 'FastImputationPatterns'")
+    }
   }
   if (is.vector(x) && is.numeric(x)) x <- as.data.frame(t(x))
   if (!is.data.frame(x) && is.matrix(x)) x <- as.data.frame(x)
@@ -94,8 +96,7 @@ FastImputation <- function(
   n.cols <- length(patterns$FImeans)
   n.rows <- nrow(x)
 
-  require("time", character.only = TRUE)
-  n.current.bars <- progressBar()
+  pb <- utils::txtProgressBar(min = 0, max = n.rows, style = 3)
 
   cols.to.constrain <- sapply(constraints, function(this.cons) this.cons[[1]])
 
@@ -107,11 +108,11 @@ FastImputation <- function(
     replacement.values <- t(
       patterns$FImeans[cols.to.impute] +
         patterns$FIcovariance[cols.to.impute, known.cols, drop = FALSE] %*%
-          solve(
-            a = patterns$FIcovariance[known.cols, known.cols],
-            b = t(x[i.row, known.cols, drop = FALSE]) -
-              t(t(patterns$FImeans[known.cols]))
-          )
+        solve(
+          a = patterns$FIcovariance[known.cols, known.cols],
+          b = t(x[i.row, known.cols, drop = FALSE]) -
+            t(t(patterns$FImeans[known.cols]))
+        )
     )
     x[i.row, cols.to.impute] <- replacement.values
 
@@ -126,9 +127,8 @@ FastImputation <- function(
       )
     }
 
-    n.current.bars <- progressBar(i.row / n.rows, prev = n.current.bars)
-    flush.console()
+    utils::setTxtProgressBar(pb, i.row)
   }
-  cat("\n")
+  close(pb)
   return(x)
 }

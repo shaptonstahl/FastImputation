@@ -3,7 +3,8 @@
 library(mvtnorm) # provides rmvnorm for multivariate normal draws
 
 # Read in real data (first 10 columns only)
-real_data <- read.table("rf.tsv", header = TRUE, sep = "\t", na.strings = "?")[,
+real_data <- read.table("rf.tsv", header = TRUE, sep = "\t", na.strings = "?")[
+  ,
   1:10
 ]
 

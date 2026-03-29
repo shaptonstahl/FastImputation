@@ -1,0 +1,53 @@
+name: Lint & Format Check
+on: [pull_request]
+
+jobs:
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/ruff-action@v2
+        with:
+          src: "./python"
+          args: "check"
+
+      - uses: astral-sh/ruff-action@v2
+        with:
+          src: "./python"
+          args: "format --check"
+
+  r-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::lintr
+            any::styler
+            any::cyclocomp
+
+      - name: Lint R files
+        run: |
+          errors <- lintr::lint_dir("R/dev")
+          if (length(errors) > 0) {
+            print(errors)
+            quit(status = 1)
+          }
+        shell: Rscript {0}
+
+      - name: Check R formatting
+        run: |
+          changed <- styler::style_dir("R/dev", dry = "on")
+          if (any(changed$changed)) {
+            cat("Files need formatting:\n")
+            print(changed[changed$changed, "file"])
+            quit(status = 1)
+          }
+        shell: Rscript {0}

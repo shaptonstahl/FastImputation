@@ -48,9 +48,15 @@ for (i in 1:n_obs) {
 latent_data <- data.frame(
   latent_data,
   V9 = sapply(1:n_obs, function(i) {
-    if (1 == latent_data$X9[i]) return("A")
-    if (1 == latent_data$X10[i]) return("B")
-    if (1 == latent_data$X11[i]) return("C")
+    if (1 == latent_data$X9[i]) {
+      return("A")
+    }
+    if (1 == latent_data$X10[i]) {
+      return("B")
+    }
+    if (1 == latent_data$X11[i]) {
+      return("C")
+    }
   })
 )
 latent_data <- latent_data[, -c(9:11)]

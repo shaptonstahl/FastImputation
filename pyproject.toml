@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastimputation"
+version = "0.0.1"
+description = "A fast imputation library"
+authors = [
+  { name="Stephen Haptonstahl", email="srh@haptonstahl.org" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.7",
+    "pandas>=1.3",
+    "scikit-learn>=1.0",
+    "pytest>=8.3.5",
+]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/shaptonstahl/FastImputation"
+
+[tool.setuptools.packages.find]
+where = ["python/dev"]
+include = ["fastimputation*"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"  # adjust to your floor
+extend-exclude = ["R/"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "N",    # pep8-naming
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
