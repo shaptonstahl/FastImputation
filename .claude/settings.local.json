@@ -59,7 +59,10 @@
       "Bash(Rscript -e \"lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
       "Bash(Rscript -e \"install.packages\\('cyclocomp', repos='https://cloud.r-project.org', quiet=TRUE\\); lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
       "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/fast_imputation.R'\\); lintr::lint\\('R/dev/FastImputation/R/fast_imputation.R'\\)\" 2>&1)",
-      "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\); lintr::lint\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\)\" 2>&1)"
+      "Bash(Rscript -e \"styler::style_file\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\); lintr::lint\\('R/dev/FastImputation/R/normalize_bounded_variable.R'\\)\" 2>&1)",
+      "Bash(Rscript -e \"devtools::build_vignettes\\(\\)\")",
+      "Bash(Rscript -e \":*)",
+      "Bash(Rscript -e \"\ndevtools::load_all\\('.'\\)\ndata\\(FI_train\\); data\\(FI_test\\)\npatterns <- train_fast_imputation\\(FI_train, ignore_cols = user_id_1, categorical = categorical_9\\)\ntraceback_result <- tryCatch\\(\n  fast_imputation\\(FI_test, patterns\\),\n  error = function\\(e\\) { print\\(sys.calls\\(\\)\\); cat\\('error:', conditionMessage\\(e\\), '\\\\n'\\) }\n\\)\n\" 2>&1)"
     ]
   }
 }

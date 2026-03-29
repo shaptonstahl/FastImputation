@@ -153,10 +153,10 @@ fast_imputation <-
     return(means)
   }
   known_cols <- setdiff(seq_along(row), cols_to_impute)
-  known_diff <- t(row[known_cols]) - t(t(means[known_cols]))
+  known_diff <- row[known_cols] - means[known_cols]
   adjustment <- covariance[cols_to_impute, known_cols, drop = FALSE] %*%
     solve(a = covariance[known_cols, known_cols], b = known_diff)
-  as.numeric(t(t(means[cols_to_impute])) + adjustment)
+  as.numeric(means[cols_to_impute] + adjustment)
 }
 
 # Run the row-by-row conditional MVN imputation loop.

@@ -15,8 +15,8 @@ repos:
     hooks:
       - id: style-files
         args: [--style_pkg=styler, --style_fun=tidyverse_style]
-        files: ^R/dev/
+        files: ^R/dev/.*\.(R|Rmd|Rnw|qmd)$
         exclude: /man/
       - id: lintr
-        files: ^R/dev/
+        files: ^R/dev/.*\.(R|Rmd)$
         exclude: /man/

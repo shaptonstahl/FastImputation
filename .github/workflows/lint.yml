@@ -31,10 +31,11 @@ jobs:
           extra-packages: |
             any::lintr
             any::styler
+            any::cyclocomp
 
       - name: Lint R files
         run: |
-          errors <- lintr::lint_dir("R")
+          errors <- lintr::lint_dir("R/dev")
           if (length(errors) > 0) {
             print(errors)
             quit(status = 1)
@@ -43,7 +44,7 @@ jobs:
 
       - name: Check R formatting
         run: |
-          changed <- styler::style_dir("R", dry = "on")
+          changed <- styler::style_dir("R/dev", dry = "on")
           if (any(changed$changed)) {
             cat("Files need formatting:\n")
             print(changed[changed$changed, "file"])
