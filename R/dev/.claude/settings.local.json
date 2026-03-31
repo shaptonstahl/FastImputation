@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Rscript -e \"devtools::test\\(\\)\")",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files//**)",
+      "Bash(find /c /d 2)",
+      "Bash(/dev/null -name Rscript.exe)",
+      "Bash(cmd.exe /c \"where Rscript\")",
+      "Bash(cmd.exe /c \"where R\")",
+      "Bash(cmd.exe /c \"dir C:\\\\Program Files\\\\R /b\")",
+      "Bash(cmd.exe /c \"dir C:\\\\Users\\\\steve\\\\AppData\\\\Local\\\\Programs /b\")",
+      "Bash(findstr /i \"^r\")",
+      "Bash(\"/c/Program Files/R/R-4.5.3/bin/Rscript.exe\" -e \"devtools::test\\(\\)\")",
+      "Bash(\"/c/Program Files/R/R-4.5.3/bin/Rscript.exe\" -e \"install.packages\\(''devtools'', repos=''https://cran.rstudio.com/''\\)\")",
+      "Bash(mv FastImputation.R fast_imputation.R)",
+      "Bash(mv TrainFastImputation.R train_fast_imputation.R)",
+      "Bash(mv BoundNormalizedVariable.R bound_normalized_variable.R)",
+      "Bash(mv NormalizeBoundedVariable.R normalize_bounded_variable.R)",
+      "Bash(mv CovarianceWithMissing.R covariance_with_missing.R)",
+      "Bash(mv test_BoundNormalizedVariable.R test_bound_normalized_variable.R)",
+      "Bash(mv test_CovarianceWithMissing.R test_covariance_with_missing.R)",
+      "Bash(mv test_FastImputation.R test_fast_imputation.R)",
+      "Bash(mv test_NormalizeBoundedVariable.R test_normalize_bounded_variable.R)",
+      "Bash(mv test_TrainFastImputation.R test_train_fast_imputation.R)"
+    ]
+  }
+}
